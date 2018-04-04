@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D2BE0F58220917DD7FCC85B /* Pods_tesiLaureaEmoticron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D0AC382A4191BF74591A9 /* Pods_tesiLaureaEmoticron.framework */; };
+		7A8B7CD30657F5FC6D294FF5 /* Pods_tesiLaureaEmoticronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B53D794346889F736A1F35 /* Pods_tesiLaureaEmoticronTests.framework */; };
 		89860FD32074F29900491448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD22074F29900491448 /* AppDelegate.swift */; };
 		89860FD52074F29900491448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD42074F29900491448 /* ViewController.swift */; };
 		89860FD82074F29900491448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FD62074F29900491448 /* Main.storyboard */; };
@@ -14,6 +16,7 @@
 		89860FDD2074F29900491448 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FDB2074F29900491448 /* LaunchScreen.storyboard */; };
 		89860FE82074F29A00491448 /* tesiLaureaEmoticronTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FE72074F29A00491448 /* tesiLaureaEmoticronTests.swift */; };
 		89860FF32074F29A00491448 /* tesiLaureaEmoticronUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FF22074F29A00491448 /* tesiLaureaEmoticronUITests.swift */; };
+		F6CC34A6A3C4C7F72E573F12 /* Pods_tesiLaureaEmoticronUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4060F3D868F508332331821 /* Pods_tesiLaureaEmoticronUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11B53D794346889F736A1F35 /* Pods_tesiLaureaEmoticronTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tesiLaureaEmoticronTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		28E9D4814A8B049700076B3F /* Pods-tesiLaureaEmoticronTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticronTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests.debug.xcconfig"; sourceTree = "<group>"; };
+		55385725BCAA0352992AD624 /* Pods-tesiLaureaEmoticronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticronUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		65169701865FD79AEF9375C5 /* Pods-tesiLaureaEmoticron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticron.release.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron.release.xcconfig"; sourceTree = "<group>"; };
 		89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tesiLaureaEmoticron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89860FD22074F29900491448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89860FD42074F29900491448 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +54,11 @@
 		89860FEE2074F29A00491448 /* tesiLaureaEmoticronUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tesiLaureaEmoticronUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		89860FF22074F29A00491448 /* tesiLaureaEmoticronUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tesiLaureaEmoticronUITests.swift; sourceTree = "<group>"; };
 		89860FF42074F29A00491448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D38146FA99AD7459EABE6014 /* Pods-tesiLaureaEmoticronTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticronTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests.release.xcconfig"; sourceTree = "<group>"; };
+		D4060F3D868F508332331821 /* Pods_tesiLaureaEmoticronUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tesiLaureaEmoticronUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB52DAABB7517DF2F0D78DFE /* Pods-tesiLaureaEmoticronUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticronUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E10D0AC382A4191BF74591A9 /* Pods_tesiLaureaEmoticron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_tesiLaureaEmoticron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA3DFA691544CE1B60F00A49 /* Pods-tesiLaureaEmoticron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticron.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D2BE0F58220917DD7FCC85B /* Pods_tesiLaureaEmoticron.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A8B7CD30657F5FC6D294FF5 /* Pods_tesiLaureaEmoticronTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,12 +82,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F6CC34A6A3C4C7F72E573F12 /* Pods_tesiLaureaEmoticronUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		139DF260664F30A32F9046F2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E10D0AC382A4191BF74591A9 /* Pods_tesiLaureaEmoticron.framework */,
+				11B53D794346889F736A1F35 /* Pods_tesiLaureaEmoticronTests.framework */,
+				D4060F3D868F508332331821 /* Pods_tesiLaureaEmoticronUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7775DB48D2022B223473FB00 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FA3DFA691544CE1B60F00A49 /* Pods-tesiLaureaEmoticron.debug.xcconfig */,
+				65169701865FD79AEF9375C5 /* Pods-tesiLaureaEmoticron.release.xcconfig */,
+				28E9D4814A8B049700076B3F /* Pods-tesiLaureaEmoticronTests.debug.xcconfig */,
+				D38146FA99AD7459EABE6014 /* Pods-tesiLaureaEmoticronTests.release.xcconfig */,
+				55385725BCAA0352992AD624 /* Pods-tesiLaureaEmoticronUITests.debug.xcconfig */,
+				DB52DAABB7517DF2F0D78DFE /* Pods-tesiLaureaEmoticronUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		89860FC62074F29900491448 = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +119,8 @@
 				89860FE62074F29A00491448 /* tesiLaureaEmoticronTests */,
 				89860FF12074F29A00491448 /* tesiLaureaEmoticronUITests */,
 				89860FD02074F29900491448 /* Products */,
+				7775DB48D2022B223473FB00 /* Pods */,
+				139DF260664F30A32F9046F2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -132,9 +172,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89860FF72074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticron" */;
 			buildPhases = (
+				83C705C932D9577666151AA8 /* [CP] Check Pods Manifest.lock */,
 				89860FCB2074F29900491448 /* Sources */,
 				89860FCC2074F29900491448 /* Frameworks */,
 				89860FCD2074F29900491448 /* Resources */,
+				30E456CDC4A3100203F9C9ED /* [CP] Embed Pods Frameworks */,
+				36D198512424D0CDD0AE535D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89860FFA2074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticronTests" */;
 			buildPhases = (
+				221831ED8267B46EC8B1E9D8 /* [CP] Check Pods Manifest.lock */,
 				89860FDF2074F29A00491448 /* Sources */,
 				89860FE02074F29A00491448 /* Frameworks */,
 				89860FE12074F29A00491448 /* Resources */,
+				C118458949AC9F17097C959C /* [CP] Embed Pods Frameworks */,
+				F8CA365E3783B0BF7BFB8E9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +213,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89860FFD2074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticronUITests" */;
 			buildPhases = (
+				D61B0C4CD176CD9FDA11E099 /* [CP] Check Pods Manifest.lock */,
 				89860FEA2074F29A00491448 /* Sources */,
 				89860FEB2074F29A00491448 /* Frameworks */,
 				89860FEC2074F29A00491448 /* Resources */,
+				8F0B86EC60C40E114C61B9CF /* [CP] Embed Pods Frameworks */,
+				BBE7B75AC8D91B9BA4DED68D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +299,166 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		221831ED8267B46EC8B1E9D8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tesiLaureaEmoticronTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		30E456CDC4A3100203F9C9ED /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		36D198512424D0CDD0AE535D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron-resources.sh",
+				"${PODS_ROOT}/GoogleMobileVision/FaceDetector/Resources/BCLjoy_100.emd",
+				"${PODS_ROOT}/GoogleMobileVision/FaceDetector/Resources/BCLlefteyeclosed_200.emd",
+				"${PODS_ROOT}/GoogleMobileVision/FaceDetector/Resources/BCLrighteyeclosed_200.emd",
+				"${PODS_ROOT}/GoogleMobileVision/FaceDetector/Resources/LMprec_600.emd",
+				"${PODS_ROOT}/GoogleMobileVision/FaceDetector/Resources/MFTprec_202.emd",
+				"${PODS_ROOT}/GoogleMobileVision/FaceDetector/Resources/PFFprec_702.emd",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCLjoy_100.emd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCLlefteyeclosed_200.emd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/BCLrighteyeclosed_200.emd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/LMprec_600.emd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MFTprec_202.emd",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/PFFprec_702.emd",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		83C705C932D9577666151AA8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tesiLaureaEmoticron-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F0B86EC60C40E114C61B9CF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BBE7B75AC8D91B9BA4DED68D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C118458949AC9F17097C959C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D61B0C4CD176CD9FDA11E099 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-tesiLaureaEmoticronUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8CA365E3783B0BF7BFB8E9D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		89860FCB2074F29900491448 /* Sources */ = {
@@ -428,15 +637,13 @@
 		};
 		89860FF82074F29A00491448 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FA3DFA691544CE1B60F00A49 /* Pods-tesiLaureaEmoticron.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -446,15 +653,13 @@
 		};
 		89860FF92074F29A00491448 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65169701865FD79AEF9375C5 /* Pods-tesiLaureaEmoticron.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -464,17 +669,14 @@
 		};
 		89860FFB2074F29A00491448 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28E9D4814A8B049700076B3F /* Pods-tesiLaureaEmoticronTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -485,17 +687,14 @@
 		};
 		89860FFC2074F29A00491448 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D38146FA99AD7459EABE6014 /* Pods-tesiLaureaEmoticronTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -506,16 +705,13 @@
 		};
 		89860FFE2074F29A00491448 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 55385725BCAA0352992AD624 /* Pods-tesiLaureaEmoticronUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -526,16 +722,13 @@
 		};
 		89860FFF2074F29A00491448 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB52DAABB7517DF2F0D78DFE /* Pods-tesiLaureaEmoticronUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
