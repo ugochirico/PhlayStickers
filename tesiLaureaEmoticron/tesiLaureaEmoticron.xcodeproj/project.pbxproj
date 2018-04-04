@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		89860FD32074F29900491448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD22074F29900491448 /* AppDelegate.swift */; };
+		89860FD52074F29900491448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD42074F29900491448 /* ViewController.swift */; };
+		89860FD82074F29900491448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FD62074F29900491448 /* Main.storyboard */; };
+		89860FDA2074F29900491448 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89860FD92074F29900491448 /* Assets.xcassets */; };
+		89860FDD2074F29900491448 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FDB2074F29900491448 /* LaunchScreen.storyboard */; };
+		89860FE82074F29A00491448 /* tesiLaureaEmoticronTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FE72074F29A00491448 /* tesiLaureaEmoticronTests.swift */; };
+		89860FF32074F29A00491448 /* tesiLaureaEmoticronUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FF22074F29A00491448 /* tesiLaureaEmoticronUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89860FE42074F29A00491448 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89860FC72074F29900491448 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89860FCE2074F29900491448;
+			remoteInfo = tesiLaureaEmoticron;
+		};
+		89860FEF2074F29A00491448 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89860FC72074F29900491448 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89860FCE2074F29900491448;
+			remoteInfo = tesiLaureaEmoticron;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tesiLaureaEmoticron.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89860FD22074F29900491448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		89860FD42074F29900491448 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		89860FD72074F29900491448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		89860FD92074F29900491448 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		89860FDC2074F29900491448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		89860FDE2074F29900491448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89860FE32074F29A00491448 /* tesiLaureaEmoticronTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tesiLaureaEmoticronTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89860FE72074F29A00491448 /* tesiLaureaEmoticronTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tesiLaureaEmoticronTests.swift; sourceTree = "<group>"; };
+		89860FE92074F29A00491448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		89860FEE2074F29A00491448 /* tesiLaureaEmoticronUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = tesiLaureaEmoticronUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89860FF22074F29A00491448 /* tesiLaureaEmoticronUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tesiLaureaEmoticronUITests.swift; sourceTree = "<group>"; };
+		89860FF42074F29A00491448 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89860FCC2074F29900491448 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89860FE02074F29A00491448 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89860FEB2074F29A00491448 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		89860FC62074F29900491448 = {
+			isa = PBXGroup;
+			children = (
+				89860FD12074F29900491448 /* tesiLaureaEmoticron */,
+				89860FE62074F29A00491448 /* tesiLaureaEmoticronTests */,
+				89860FF12074F29A00491448 /* tesiLaureaEmoticronUITests */,
+				89860FD02074F29900491448 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		89860FD02074F29900491448 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */,
+				89860FE32074F29A00491448 /* tesiLaureaEmoticronTests.xctest */,
+				89860FEE2074F29A00491448 /* tesiLaureaEmoticronUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89860FD12074F29900491448 /* tesiLaureaEmoticron */ = {
+			isa = PBXGroup;
+			children = (
+				89860FD22074F29900491448 /* AppDelegate.swift */,
+				89860FD42074F29900491448 /* ViewController.swift */,
+				89860FD62074F29900491448 /* Main.storyboard */,
+				89860FD92074F29900491448 /* Assets.xcassets */,
+				89860FDB2074F29900491448 /* LaunchScreen.storyboard */,
+				89860FDE2074F29900491448 /* Info.plist */,
+			);
+			path = tesiLaureaEmoticron;
+			sourceTree = "<group>";
+		};
+		89860FE62074F29A00491448 /* tesiLaureaEmoticronTests */ = {
+			isa = PBXGroup;
+			children = (
+				89860FE72074F29A00491448 /* tesiLaureaEmoticronTests.swift */,
+				89860FE92074F29A00491448 /* Info.plist */,
+			);
+			path = tesiLaureaEmoticronTests;
+			sourceTree = "<group>";
+		};
+		89860FF12074F29A00491448 /* tesiLaureaEmoticronUITests */ = {
+			isa = PBXGroup;
+			children = (
+				89860FF22074F29A00491448 /* tesiLaureaEmoticronUITests.swift */,
+				89860FF42074F29A00491448 /* Info.plist */,
+			);
+			path = tesiLaureaEmoticronUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89860FCE2074F29900491448 /* tesiLaureaEmoticron */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89860FF72074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticron" */;
+			buildPhases = (
+				89860FCB2074F29900491448 /* Sources */,
+				89860FCC2074F29900491448 /* Frameworks */,
+				89860FCD2074F29900491448 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = tesiLaureaEmoticron;
+			productName = tesiLaureaEmoticron;
+			productReference = 89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */;
+			productType = "com.apple.product-type.application";
+		};
+		89860FE22074F29A00491448 /* tesiLaureaEmoticronTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89860FFA2074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticronTests" */;
+			buildPhases = (
+				89860FDF2074F29A00491448 /* Sources */,
+				89860FE02074F29A00491448 /* Frameworks */,
+				89860FE12074F29A00491448 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89860FE52074F29A00491448 /* PBXTargetDependency */,
+			);
+			name = tesiLaureaEmoticronTests;
+			productName = tesiLaureaEmoticronTests;
+			productReference = 89860FE32074F29A00491448 /* tesiLaureaEmoticronTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		89860FED2074F29A00491448 /* tesiLaureaEmoticronUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89860FFD2074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticronUITests" */;
+			buildPhases = (
+				89860FEA2074F29A00491448 /* Sources */,
+				89860FEB2074F29A00491448 /* Frameworks */,
+				89860FEC2074F29A00491448 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89860FF02074F29A00491448 /* PBXTargetDependency */,
+			);
+			name = tesiLaureaEmoticronUITests;
+			productName = tesiLaureaEmoticronUITests;
+			productReference = 89860FEE2074F29A00491448 /* tesiLaureaEmoticronUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89860FC72074F29900491448 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Alessandro Marotta";
+				TargetAttributes = {
+					89860FCE2074F29900491448 = {
+						CreatedOnToolsVersion = 9.3;
+					};
+					89860FE22074F29A00491448 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 89860FCE2074F29900491448;
+					};
+					89860FED2074F29A00491448 = {
+						CreatedOnToolsVersion = 9.3;
+						TestTargetID = 89860FCE2074F29900491448;
+					};
+				};
+			};
+			buildConfigurationList = 89860FCA2074F29900491448 /* Build configuration list for PBXProject "tesiLaureaEmoticron" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89860FC62074F29900491448;
+			productRefGroup = 89860FD02074F29900491448 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89860FCE2074F29900491448 /* tesiLaureaEmoticron */,
+				89860FE22074F29A00491448 /* tesiLaureaEmoticronTests */,
+				89860FED2074F29A00491448 /* tesiLaureaEmoticronUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89860FCD2074F29900491448 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89860FDD2074F29900491448 /* LaunchScreen.storyboard in Resources */,
+				89860FDA2074F29900491448 /* Assets.xcassets in Resources */,
+				89860FD82074F29900491448 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89860FE12074F29A00491448 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89860FEC2074F29A00491448 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89860FCB2074F29900491448 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89860FD52074F29900491448 /* ViewController.swift in Sources */,
+				89860FD32074F29900491448 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89860FDF2074F29A00491448 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89860FE82074F29A00491448 /* tesiLaureaEmoticronTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89860FEA2074F29A00491448 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89860FF32074F29A00491448 /* tesiLaureaEmoticronUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89860FE52074F29A00491448 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89860FCE2074F29900491448 /* tesiLaureaEmoticron */;
+			targetProxy = 89860FE42074F29A00491448 /* PBXContainerItemProxy */;
+		};
+		89860FF02074F29A00491448 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89860FCE2074F29900491448 /* tesiLaureaEmoticron */;
+			targetProxy = 89860FEF2074F29A00491448 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		89860FD62074F29900491448 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89860FD72074F29900491448 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		89860FDB2074F29900491448 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89860FDC2074F29900491448 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		89860FF52074F29A00491448 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		89860FF62074F29A00491448 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		89860FF82074F29A00491448 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5D957X72Q;
+				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		89860FF92074F29A00491448 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5D957X72Q;
+				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		89860FFB2074F29A00491448 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5D957X72Q;
+				INFOPLIST_FILE = tesiLaureaEmoticronTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tesiLaureaEmoticron.app/tesiLaureaEmoticron";
+			};
+			name = Debug;
+		};
+		89860FFC2074F29A00491448 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5D957X72Q;
+				INFOPLIST_FILE = tesiLaureaEmoticronTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/tesiLaureaEmoticron.app/tesiLaureaEmoticron";
+			};
+			name = Release;
+		};
+		89860FFE2074F29A00491448 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5D957X72Q;
+				INFOPLIST_FILE = tesiLaureaEmoticronUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = tesiLaureaEmoticron;
+			};
+			name = Debug;
+		};
+		89860FFF2074F29A00491448 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = B5D957X72Q;
+				INFOPLIST_FILE = tesiLaureaEmoticronUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = tesiLaureaEmoticron;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89860FCA2074F29900491448 /* Build configuration list for PBXProject "tesiLaureaEmoticron" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89860FF52074F29A00491448 /* Debug */,
+				89860FF62074F29A00491448 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89860FF72074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticron" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89860FF82074F29A00491448 /* Debug */,
+				89860FF92074F29A00491448 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89860FFA2074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticronTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89860FFB2074F29A00491448 /* Debug */,
+				89860FFC2074F29A00491448 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89860FFD2074F29A00491448 /* Build configuration list for PBXNativeTarget "tesiLaureaEmoticronUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89860FFE2074F29A00491448 /* Debug */,
+				89860FFF2074F29A00491448 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89860FC72074F29900491448 /* Project object */;
+}
