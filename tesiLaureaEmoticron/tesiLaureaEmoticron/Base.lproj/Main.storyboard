@@ -18,22 +18,32 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mTk-fS-Oiy">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ivg-dg-U2v">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OnZ-NS-peg">
+                                <rect key="frame" x="135" y="510" width="105" height="62"/>
+                                <color key="backgroundColor" red="0.10357219504545352" green="0.12958164405186812" blue="0.99892729922279788" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <connections>
+                                    <action selector="captureButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="6B4-LJ-BaU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mTk-fS-Oiy" secondAttribute="bottom" id="FAm-xl-xPP"/>
-                            <constraint firstItem="mTk-fS-Oiy" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MVK-Jg-zmV"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mTk-fS-Oiy" secondAttribute="trailing" id="g9m-PP-Xfn"/>
-                            <constraint firstItem="mTk-fS-Oiy" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="zaw-5T-LT0"/>
+                            <constraint firstItem="ivg-dg-U2v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Jux-Tm-9bT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ivg-dg-U2v" secondAttribute="bottom" id="NNc-RG-gwB"/>
+                            <constraint firstItem="ivg-dg-U2v" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QDq-H4-1qf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ivg-dg-U2v" secondAttribute="trailing" id="Rsd-zW-0KX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="OnZ-NS-peg" secondAttribute="bottom" constant="95" id="V5h-vX-I0W"/>
+                            <constraint firstItem="OnZ-NS-peg" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="135" id="Xt1-Hy-UXD"/>
+                            <constraint firstItem="OnZ-NS-peg" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="490" id="dWF-t5-LLp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="OnZ-NS-peg" secondAttribute="trailing" constant="135" id="tw6-j5-96F"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="previewView" destination="mTk-fS-Oiy" id="HbS-Ng-dVv"/>
+                        <outlet property="previewView" destination="ivg-dg-U2v" id="gqg-Kc-Jk2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

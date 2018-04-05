@@ -14,15 +14,26 @@ import GoogleMobileVision
 class ViewController: UIViewController {
     
     
-    @IBOutlet weak var previewView: UIView!
+    @IBOutlet weak var previewView: UIImageView!
     
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var faceDetector: GMVDetector?
+    var faces: [GMVFaceFeature]?
+    var options: [AnyHashable : Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let captureDevice = AVCaptureDevice.default(for: .video)
+        options = [
+            GMVDetectorFaceMinSize : 0.3,
+            GMVDetectorFaceTrackingEnabled: true,
+            GMVDetectorFaceLandmarkType : GMVDetectorFaceLandmark.all
+            ] 
+
+        
+        faceDetector = GMVDetector(ofType: GMVDetectorTypeFace, options: options)
         
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice!)
@@ -45,6 +56,11 @@ class ViewController: UIViewController {
     }
     
     
+    @IBAction func captureButton(_ sender: Any) {
+    
+        faces = faceDetector?.features(in: previewView.image, options: options) as? [GMVFaceFeature]
+    
+    }
     
     
 }
