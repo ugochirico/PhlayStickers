@@ -16,9 +16,13 @@
  */
 
 @import UIKit;
+@import GoogleMobileVision;
 
 // View controller demonstraing how to use the face detector with the AVFoundation video pipeline.
 @interface CameraViewController : UIViewController
+
+@property NSArray *stickers;
+
 
 @end
 

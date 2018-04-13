@@ -23,7 +23,7 @@
 #import "DrawingUtility.h"
 
 @interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
-// UI elements.
+// UI elemen(nonatomic) (nonatomic) ts.
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
 @property(nonatomic, weak) IBOutlet UIView *overlayView;
 @property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
@@ -35,8 +35,13 @@
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property(nonatomic, assign) UIDeviceOrientation lastKnownDeviceOrientation;
 
+
+
+
 // Detector.
 @property(nonatomic, strong) GMVDetector *faceDetector;
+
+
 
 @end
 
@@ -54,6 +59,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    _stickers = [[NSArray alloc] initWithObjects: [UIImage imageNamed:@"moustache.png"], nil];
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;

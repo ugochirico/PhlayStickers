@@ -12,6 +12,8 @@
 		891F9F5A2080DACC0024265E /* CameraViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F592080DACB0024265E /* CameraViewControllerSwift.swift */; };
 		891F9F6A2080F7C50024265E /* DrawingUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F692080F7C50024265E /* DrawingUtility.m */; };
 		891F9F6D2080F8930024265E /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F6B2080F8930024265E /* CameraViewController.m */; };
+		891F9F702080FC620024265E /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F6F2080FC620024265E /* StickerCell.swift */; };
+		891F9F742080FDFC0024265E /* CameraViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */; };
 		89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */; };
 		89860FD32074F29900491448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD22074F29900491448 /* AppDelegate.swift */; };
 		89860FD82074F29900491448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FD62074F29900491448 /* Main.storyboard */; };
@@ -50,6 +52,8 @@
 		891F9F692080F7C50024265E /* DrawingUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingUtility.m; sourceTree = "<group>"; };
 		891F9F6B2080F8930024265E /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 		891F9F6C2080F8930024265E /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		891F9F6F2080FC620024265E /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
+		891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerExtension.swift; sourceTree = "<group>"; };
 		89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 		89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tesiLaureaEmoticron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89860FD22074F29900491448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -166,6 +170,8 @@
 				89860FDB2074F29900491448 /* LaunchScreen.storyboard */,
 				89860FDE2074F29900491448 /* Info.plist */,
 				891F9F672080F7C30024265E /* tesiLaureaEmoticron-Bridging-Header.h */,
+				891F9F6F2080FC620024265E /* StickerCell.swift */,
+				891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */,
 			);
 			path = tesiLaureaEmoticron;
 			sourceTree = "<group>";
@@ -489,11 +495,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				891F9F742080FDFC0024265E /* CameraViewControllerExtension.swift in Sources */,
 				891F9F6A2080F7C50024265E /* DrawingUtility.m in Sources */,
 				89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */,
 				891F9F6D2080F8930024265E /* CameraViewController.m in Sources */,
 				89860FD32074F29900491448 /* AppDelegate.swift in Sources */,
 				891F9F5A2080DACC0024265E /* CameraViewControllerSwift.swift in Sources */,
+				891F9F702080FC620024265E /* StickerCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
