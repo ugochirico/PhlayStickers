@@ -1,43 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="uBd-xC-erX">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Camera View Controller-->
+        <scene sceneID="CBt-Gf-lYY">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="tesiLaureaEmoticron" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController id="uBd-xC-erX" customClass="CameraViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VQN-q0-yMg"/>
+                        <viewControllerLayoutGuide type="bottom" id="10Y-J4-KKA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="R1J-lO-uSO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ivg-dg-U2v">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="21d-RI-s9N" userLabel="placeholder">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="phC-qo-BrZ" userLabel="overlay">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpp-SR-r9c" userLabel="camera">
+                                <rect key="frame" x="526" y="20" width="51" height="31"/>
+                                <color key="onTintColor" red="0.66666668650000005" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="cameraDeviceChanged:" destination="uBd-xC-erX" eventType="valueChanged" id="OzT-Sk-PNE"/>
+                                </connections>
+                            </switch>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ivg-dg-U2v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Jux-Tm-9bT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ivg-dg-U2v" secondAttribute="bottom" id="NNc-RG-gwB"/>
-                            <constraint firstItem="ivg-dg-U2v" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="QDq-H4-1qf"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ivg-dg-U2v" secondAttribute="trailing" id="Rsd-zW-0KX"/>
+                            <constraint firstItem="xpp-SR-r9c" firstAttribute="top" secondItem="R1J-lO-uSO" secondAttribute="topMargin" id="57L-qA-KnF"/>
+                            <constraint firstAttribute="bottom" secondItem="21d-RI-s9N" secondAttribute="bottom" id="Anw-BM-ykM"/>
+                            <constraint firstItem="21d-RI-s9N" firstAttribute="top" secondItem="R1J-lO-uSO" secondAttribute="top" id="D9x-2g-zYp"/>
+                            <constraint firstAttribute="trailing" secondItem="21d-RI-s9N" secondAttribute="trailing" id="IQC-lp-Acl"/>
+                            <constraint firstAttribute="trailing" secondItem="phC-qo-BrZ" secondAttribute="trailing" id="Wnt-Bb-MeX"/>
+                            <constraint firstItem="phC-qo-BrZ" firstAttribute="top" secondItem="R1J-lO-uSO" secondAttribute="top" id="X11-Tu-MaA"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xpp-SR-r9c" secondAttribute="trailing" constant="-216" id="aMV-U6-Rdc"/>
+                            <constraint firstItem="phC-qo-BrZ" firstAttribute="leading" secondItem="R1J-lO-uSO" secondAttribute="leading" id="aUJ-o7-dOL"/>
+                            <constraint firstAttribute="bottom" secondItem="phC-qo-BrZ" secondAttribute="bottom" id="fMv-Fd-o4N"/>
+                            <constraint firstItem="21d-RI-s9N" firstAttribute="leading" secondItem="R1J-lO-uSO" secondAttribute="leading" id="qwZ-5I-gVL"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="9VX-ue-fmO"/>
                     </view>
                     <connections>
-                        <outlet property="previewView" destination="ivg-dg-U2v" id="gqg-Kc-Jk2"/>
+                        <outlet property="cameraSwitch" destination="xpp-SR-r9c" id="hXs-TF-K8c"/>
+                        <outlet property="overlayView" destination="phC-qo-BrZ" id="hpe-KH-XZI"/>
+                        <outlet property="placeHolder" destination="21d-RI-s9N" id="eIs-kw-5MC"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Y7C-cs-FWe" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="101.59999999999999" y="132.68365817091455"/>
+            <point key="canvasLocation" x="-233" y="112"/>
         </scene>
     </scenes>
 </document>

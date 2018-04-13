@@ -35,6 +35,10 @@ class FrameExtractor: NSObject {
         }
     }
     
+    public func getSessionQueue()->DispatchQueue{
+        return sessionQueue
+    }
+    
     
     private func checkPermission(){
         switch AVCaptureDevice.authorizationStatus(for: AVMediaType.video) {
