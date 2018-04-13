@@ -7,61 +7,112 @@
 //
 
 import UIKit
-import AVFoundation
-import GoogleMVDataOutput
 import GoogleMobileVision
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     
-    
+
     @IBOutlet weak var previewView: UIImageView!
     
-    var captureSession: AVCaptureSession?
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var faceDetector: GMVDetector?
     var faces: [GMVFaceFeature]?
     var options: [AnyHashable : Any]?
+    var frameExtractor: FrameExtractor?
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
-        let captureDevice = AVCaptureDevice.default(for: .video)
-        options = [
-            GMVDetectorFaceMinSize : 0.3,
-            GMVDetectorFaceTrackingEnabled: true,
-            GMVDetectorFaceLandmarkType : GMVDetectorFaceLandmark.all
-            ] 
+        super.viewDidLoad()
+        frameExtractor = FrameExtractor()
+        frameExtractor?.delegate = self
+        
+        
+        let options =
+            [GMVDetectorFaceLandmarkType: GMVDetectorFaceLandmark.all.rawValue,
+             GMVDetectorFaceClassificationType: GMVDetectorFaceClassification.all.rawValue,
+             GMVDetectorFaceMode: GMVDetectorFaceModeOption.fastMode.rawValue,
+             GMVDetectorFaceTrackingEnabled: true,
+             GMVDetectorFaceMinSize: 0.3] as [AnyHashable : Any]
 
         
         faceDetector = GMVDetector(ofType: GMVDetectorTypeFace, options: options)
         
-        do {
-            let input = try AVCaptureDeviceInput(device: captureDevice!)
+        
+    }
+    
+    
+    
+    
+    func drawFaceLandmarks(){
+        
+        for face in faces! {
+            // Face
+            previewView.drawRectangle(with: face.bounds)
             
-            captureSession = AVCaptureSession()
-            captureSession?.addInput(input)
             
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-            videoPreviewLayer?.frame = view.layer.bounds
-            
-            previewView.layer.addSublayer(videoPreviewLayer!)
-            
-            captureSession?.startRunning()
-        } catch {
-            print(error)
+            // Mouth
+            if face.hasMouthPosition {
+                let leftMouthPosition = face.leftMouthPosition
+                let rightMouthPosition = face.rightMouthPosition
+                let bottomMouthPosition = face.bottomMouthPosition
+                let mouthPosition = face.mouthPosition
+                print("Mouth \(face.mouthPosition.x) \(face.mouthPosition.y)")
+                
+                previewView.drawCircle(at: leftMouthPosition)
+                
+            }
+            // Smiling
+            if face.hasSmilingProbability {
+                print("Smiling probability \(face.smilingProbability)")
+            }
         }
         
+    }
+}
+
+extension UIImageView{
+    
+    func drawRectangle(with rect: CGRect){
+        
+        let rectangleView = UIView(frame: rect)
+        rectangleView.layer.cornerRadius = 10
+        rectangleView.layer.borderColor = UIColor.red.cgColor
+        rectangleView.layer.borderWidth = 2
+        addSubview(rectangleView)
         
     }
     
-    
-    @IBAction func captureButton(_ sender: Any) {
-    
-        faces = faceDetector?.features(in: previewView.image, options: options) as? [GMVFaceFeature]
-    
+    func drawCircle(at point: CGPoint) {
+        
+        //        let width: CGFloat = image!.size.width / 2
+        //
+        //        let circle = CGRect(x: point.x - width / 2, y: point.y - width / 2, width: width, height: width)
+        //        let circleView = UIView(frame: circle)
+        //
+        //        circleView.center = point
+        //        circleView.layer.cornerRadius = width / 2
+        //        circleView.clipsToBounds = true
+        //        circleView.layer.borderColor = UIColor.green.cgColor
+        //        circleView.layer.borderWidth = 2
+        //        circleView.draw(circle)
+        //        addSubview(circleView)
+        
+        let width: CGFloat = 5
+        
+        let circle = CGRect(x: point.x - width / 2, y: point.y - width / 2, width: width, height: width)
+        let circleView = UIView(frame: circle)
+        circleView.center = point
+        circleView.layer.cornerRadius = width / 2
+        circleView.layer.borderWidth = 2
+        circleView.layer.borderColor = UIColor.red.cgColor
+        addSubview(circleView)
     }
-    
-    
+        
+        
+}
+
+extension ViewController: FrameExtractorDelegate{
+    func captured(image: UIImage) {
+        previewView.image = image
+    }
 }
 

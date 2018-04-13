@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6D2BE0F58220917DD7FCC85B /* Pods_tesiLaureaEmoticron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D0AC382A4191BF74591A9 /* Pods_tesiLaureaEmoticron.framework */; };
 		7A8B7CD30657F5FC6D294FF5 /* Pods_tesiLaureaEmoticronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B53D794346889F736A1F35 /* Pods_tesiLaureaEmoticronTests.framework */; };
+		89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */; };
 		89860FD32074F29900491448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD22074F29900491448 /* AppDelegate.swift */; };
 		89860FD52074F29900491448 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD42074F29900491448 /* ViewController.swift */; };
 		89860FD82074F29900491448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FD62074F29900491448 /* Main.storyboard */; };
@@ -41,6 +42,7 @@
 		28E9D4814A8B049700076B3F /* Pods-tesiLaureaEmoticronTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticronTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests.debug.xcconfig"; sourceTree = "<group>"; };
 		55385725BCAA0352992AD624 /* Pods-tesiLaureaEmoticronUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticronUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		65169701865FD79AEF9375C5 /* Pods-tesiLaureaEmoticron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticron.release.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron.release.xcconfig"; sourceTree = "<group>"; };
+		89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 		89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tesiLaureaEmoticron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89860FD22074F29900491448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89860FD42074F29900491448 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				89860FD92074F29900491448 /* Assets.xcassets */,
 				89860FDB2074F29900491448 /* LaunchScreen.storyboard */,
 				89860FDE2074F29900491448 /* Info.plist */,
+				89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */,
 			);
 			path = tesiLaureaEmoticron;
 			sourceTree = "<group>";
@@ -465,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */,
 				89860FD52074F29900491448 /* ViewController.swift in Sources */,
 				89860FD32074F29900491448 /* AppDelegate.swift in Sources */,
 			);
@@ -643,7 +647,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -659,7 +666,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -676,7 +686,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -694,7 +708,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -711,7 +729,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -728,7 +750,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
 				INFOPLIST_FILE = tesiLaureaEmoticronUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticronUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
