@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSource{
+extension CameraViewControllerSwift: UICollectionViewDelegate, UICollectionViewDataSource{
     
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -29,8 +29,8 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-//        let sticker = stickers[indexPath.row]
-//
+        //        let sticker = stickers[indexPath.row]
+        //
         
         
     }

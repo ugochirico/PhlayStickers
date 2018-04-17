@@ -14,72 +14,75 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
     var videoDataOutputQueue: DispatchQueue?
     var previewLayer: AVCaptureVideoPreviewLayer?
     var lastKnownDeviceOrientation: UIDeviceOrientation?
+    
     // Detector.
     var faceDetector: GMVDetector?
+    
+    let stickers: [UIImage] = [#imageLiteral(resourceName: "moustache")]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Set up default camera settings.
         videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
-        session = AVCaptureSession()
-        session?.sessionPreset = .medium
-        cameraSwitch.isOn = true
-        updateCameraSelection()
+        self.session = AVCaptureSession()
+        self.session?.sessionPreset = .medium
+        self.cameraSwitch.isOn = true
+        self.updateCameraSelection()
         // Setup video processing pipeline.
-        setupVideoProcessing()
+        self.setupVideoProcessing()
         // Setup camera preview.
-        setupCameraPreview()
+        self.setupCameraPreview()
         // Initialize the face detector.
         let options = [GMVDetectorFaceMinSize: 0.3, GMVDetectorFaceTrackingEnabled: true, GMVDetectorFaceLandmarkType: GMVDetectorFaceLandmark.all.rawValue] as [AnyHashable: Any]
-        faceDetector = GMVDetector(ofType: GMVDetectorTypeFace, options: options)
+        self.faceDetector = GMVDetector(ofType: GMVDetectorTypeFace, options: options)
     }
     
-
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        previewLayer?.frame = view.layer.bounds
-        previewLayer?.position = CGPoint(x: (previewLayer?.frame.midX)!, y: (previewLayer?.frame.midY)!)
+        self.previewLayer?.frame = view.layer.bounds
+        self.previewLayer?.position = CGPoint(x: (self.previewLayer?.frame.midX)!, y: (self.previewLayer?.frame.midY)!)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        cleanupCaptureSession()
+        self.cleanupCaptureSession()
     }
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        session?.startRunning()
+        self.session?.startRunning()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        session?.stopRunning()
+        self.session?.stopRunning()
     }
     
-
+    
     override func willAnimateRotation(to toInterfaceOrientation: UIInterfaceOrientation, duration: TimeInterval) {
         // Camera rotation needs to be manually set when rotation changes.
-        if (previewLayer != nil) {
+        if (self.previewLayer != nil) {
             if toInterfaceOrientation == .portrait {
-                previewLayer?.connection?.videoOrientation = .portrait
+                self.previewLayer?.connection?.videoOrientation = .portrait
             } else if toInterfaceOrientation == .portraitUpsideDown {
-                previewLayer?.connection?.videoOrientation = .portraitUpsideDown
+                self.previewLayer?.connection?.videoOrientation = .portraitUpsideDown
             } else if toInterfaceOrientation == .landscapeLeft {
-                previewLayer?.connection?.videoOrientation = .landscapeLeft
+                self.previewLayer?.connection?.videoOrientation = .landscapeLeft
             } else if toInterfaceOrientation == .landscapeRight {
-                previewLayer?.connection?.videoOrientation = .landscapeRight
+                self.previewLayer?.connection?.videoOrientation = .landscapeRight
             }
         }
     }
     
-    func scaledRect(_ rect: CGRect, xScale xscale: CGFloat, yScale yscale: CGFloat, offset: CGPoint) -> CGRect {
+    func scaledRect(_ rect: CGRect, xscale: CGFloat, yscale: CGFloat, offset: CGPoint) -> CGRect {
         var resultRect = CGRect(x: rect.origin.x * xscale, y: rect.origin.y * yscale, width: rect.size.width * xscale, height: rect.size.height * yscale)
         resultRect = resultRect.offsetBy(dx: offset.x, dy: offset.y)
         return resultRect
     }
     
-    func scaledPoint(_ point: CGPoint, xScale xscale: CGFloat, yScale yscale: CGFloat, offset: CGPoint) -> CGPoint {
+    func scaledPoint(_ point: CGPoint, xscale: CGFloat, yscale: CGFloat, offset: CGPoint) -> CGPoint {
         let resultPoint = CGPoint(x: point.x * xscale + offset.x, y: point.y * yscale + offset.y)
         return resultPoint
     }
@@ -90,76 +93,74 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
         }
     }
     
-
+    
     // MARK: - AVCaptureVideoDataOutputSampleBufferDelegate
     
     
     func cleanupVideoProcessing() {
-        if (videoDataOutput != nil) {
-            session?.removeOutput(videoDataOutput!)
+        if (self.videoDataOutput != nil) {
+            self.session?.removeOutput(self.videoDataOutput!)
         }
-        videoDataOutput = nil
+        self.videoDataOutput = nil
     }
     
     func cleanupCaptureSession() {
-        session?.stopRunning()
-        cleanupVideoProcessing()
-        session = nil
-        previewLayer?.removeFromSuperlayer()
+        self.session?.stopRunning()
+        self.cleanupVideoProcessing()
+        self.session = nil
+        self.previewLayer?.removeFromSuperlayer()
     }
     
     
     
     func updateCameraSelection() {
         
-        session?.beginConfiguration()
+        self.session?.beginConfiguration()
         // Remove old inputs
-        let oldInputs = session?.inputs
-        for oldInput: AVCaptureInput? in oldInputs! {
-            if let anInput = oldInput {
-                session?.removeInput(anInput)
-            }
+        let oldInputs = self.session?.inputs
+        
+        for oldInput in oldInputs!
+        {
+            self.session?.removeInput(oldInput)
         }
-        let desiredPosition: AVCaptureDevice.Position = cameraSwitch.isOn ? .front : .back
-        let input: AVCaptureDeviceInput? = cameraForPosition(desiredPosition: desiredPosition)
+        
+        let desiredPosition: AVCaptureDevice.Position = self.cameraSwitch.isOn ? .front : .back
+        let input: AVCaptureDeviceInput? = self.cameraForPosition(desiredPosition: desiredPosition)
         if input == nil {
             // Failed, restore old inputs
-            for oldInput: AVCaptureInput? in oldInputs! {
-                if let anInput = oldInput {
-                    session?.addInput(anInput)
-                }
+            for oldInput in oldInputs! {
+                self.session?.addInput(oldInput)
             }
         } else {
             // Succeeded, set input and update connection states
-            if let anInput = input {
-                session?.addInput(anInput)
-            }
+            self.session?.addInput(input!)
+            
         }
-        session?.commitConfiguration()
+        self.session?.commitConfiguration()
     }
     
     func setupVideoProcessing() {
-        videoDataOutput = AVCaptureVideoDataOutput()
+        self.videoDataOutput = AVCaptureVideoDataOutput()
         let rgbOutputSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
-        videoDataOutput?.videoSettings = rgbOutputSettings
-        if !session!.canAddOutput(videoDataOutput!) {
-            cleanupVideoProcessing()
+        self.videoDataOutput?.videoSettings = rgbOutputSettings
+        if !self.session!.canAddOutput(self.videoDataOutput!) {
+            self.cleanupVideoProcessing()
             print("Failed to setup video output")
             return
         }
-        videoDataOutput?.alwaysDiscardsLateVideoFrames = true
-        videoDataOutput?.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-        session?.addOutput(videoDataOutput!)
+        self.videoDataOutput?.alwaysDiscardsLateVideoFrames = true
+        self.videoDataOutput?.setSampleBufferDelegate(self, queue: self.videoDataOutputQueue)
+        self.session?.addOutput(self.videoDataOutput!)
     }
     
     func setupCameraPreview() {
-        previewLayer = AVCaptureVideoPreviewLayer(session: session!)
-        previewLayer?.backgroundColor = UIColor.white.cgColor
-        previewLayer?.videoGravity = .resizeAspect
-        let rootLayer: CALayer? = placeHolder.layer
+        self.previewLayer = AVCaptureVideoPreviewLayer(session: self.session!)
+        self.previewLayer?.backgroundColor = UIColor.white.cgColor
+        self.previewLayer?.videoGravity = .resizeAspect
+        let rootLayer: CALayer? = self.placeHolder.layer
         rootLayer?.masksToBounds = true
-        previewLayer?.frame = (rootLayer?.bounds)!
-        rootLayer?.addSublayer(previewLayer!)
+        self.previewLayer?.frame = (rootLayer?.bounds)!
+        rootLayer?.addSublayer(self.previewLayer!)
     }
     
     
@@ -167,21 +168,20 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
     
     
     func cameraForPosition(desiredPosition: AVCaptureDevice.Position) -> AVCaptureDeviceInput? {
-        for device: AVCaptureDevice? in
-            AVCaptureDevice.devices(for: .video) {
-            if device?.position == desiredPosition {
-                var error: Error? = nil
-                var input: AVCaptureDeviceInput? = nil
-                if let aDevice = device {
-                    input = try? AVCaptureDeviceInput(device: aDevice)
-                }
-                if let anInput = input {
-                    if (session?.canAddInput(anInput))! {
-                        return input
+        
+        let discoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera,.builtInDualCamera,.builtInTelephotoCamera,.builtInTrueDepthCamera], mediaType: .video, position: desiredPosition)
+        
+        for device in discoverySession.devices {
+            if device.position == desiredPosition {
+                    var error: Error? = nil
+                    var input: AVCaptureDeviceInput? = nil
+                        input = try? AVCaptureDeviceInput(device: device)
+                    if let anInput = input {
+                        if (session?.canAddInput(anInput))! {
+                            return input
+                        }
                     }
                 }
-                return nil
-            }
         }
         return nil
     }
@@ -194,6 +194,7 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
         var devicePosition: AVCaptureDevice.Position = cameraSwitch.isOn ? .front : .back
         // Establish the image orientation.
         var deviceOrientation: UIDeviceOrientation = UIDevice.current.orientation
+        
         var orientation: GMVImageOrientation = GMVUtility.imageOrientation(from: deviceOrientation, with: devicePosition, defaultDeviceOrientation: lastKnownDeviceOrientation!)
         
         var options = [GMVDetectorImageOrientation: orientation]
@@ -240,75 +241,75 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
             
             for face in faces!{
                 
-                var faceRect: CGRect = scaledRect(face.bounds, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                var faceRect: CGRect = scaledRect(face.bounds, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                 
                 DrawingUtility.addRectangle(faceRect, to: overlayView, with: UIColor.red)
                 
                 if face.hasBottomMouthPosition {
-                    var point: CGPoint = scaledPoint(face.bottomMouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.bottomMouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 5)
                 }
                 
                 if face.hasMouthPosition {
-                    var point: CGPoint = scaledPoint(face.mouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.mouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 10)
                 }
                 
                 if face.hasRightMouthPosition {
-                    var point: CGPoint = scaledPoint(face.rightMouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.rightMouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 5)
                 }
                 
                 if face.hasLeftMouthPosition {
-                    var point: CGPoint = scaledPoint(face.leftMouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.leftMouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 5)
                 }
                 
                 // Nose
                 
                 if face.hasNoseBasePosition {
-                    var point: CGPoint = scaledPoint(face.noseBasePosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.noseBasePosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.darkGray, withRadius: 10)
                 }
                 
                 //Eyes
                 
                 if face.hasLeftEyePosition {
-                    var point: CGPoint = scaledPoint(face.leftEyePosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.leftEyePosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.blue, withRadius: 10)
                 }
                 
                 if face.hasRightEyePosition {
-                    var point: CGPoint = scaledPoint(face.rightEyePosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.rightEyePosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.blue, withRadius: 10)
                 }
                 
                 //Ears
                 
                 if face.hasLeftEarPosition {
-                    var point: CGPoint = scaledPoint(face.leftEarPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.leftEarPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.purple, withRadius: 10)
                 }
                 
                 if face.hasRightEarPosition {
-                    var point: CGPoint = scaledPoint(face.rightEarPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.rightEarPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.purple, withRadius: 10)
                 }
                 
                 // Cheeks
                 
                 if face.hasLeftCheekPosition {
-                    var point: CGPoint = scaledPoint(face.leftCheekPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.leftCheekPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.magenta, withRadius: 10)
                 }
                 
                 if face.hasRightCheekPosition {
-                    var point: CGPoint = scaledPoint(face.rightCheekPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.rightCheekPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.magenta, withRadius: 10)
                 }
                 
                 if face.hasTrackingID {
-                    var point: CGPoint = scaledPoint(face.bounds.origin, xScale: xScale, yScale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = scaledPoint(face.bounds.origin, xscale: xScale, yscale: yScale, offset: videoBox.origin)
                     var label = UILabel(frame: CGRect(x: point.x, y: point.y, width: 100, height: 20))
                     label.text = "id: \(UInt(face.trackingID))"
                     overlayView.addSubview(label)
@@ -322,7 +323,7 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
         
         
     }
-    
+
     
     
     @IBAction func cameraDeviceChanged(_ sender: Any) {

@@ -60,8 +60,8 @@
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
-                                    <outlet property="dataSource" destination="uBd-xC-erX" id="xHq-Zs-ckY"/>
-                                    <outlet property="delegate" destination="uBd-xC-erX" id="xyD-NE-Pk2"/>
+                                    <outlet property="dataSource" destination="uBd-xC-erX" id="0LB-K5-yIP"/>
+                                    <outlet property="delegate" destination="uBd-xC-erX" id="i0M-c8-zsk"/>
                                 </connections>
                             </collectionView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xpp-SR-r9c" userLabel="camera">
