@@ -33,4 +33,17 @@
               toView:(UIView *)view
            withColor:(UIColor *)color;
 
++ (CGRect)scaledRect:(CGRect)rect
+              xScale:(CGFloat)xscale
+              yScale:(CGFloat)yscale
+              offset:(CGPoint)offset;
+
++ (CGPoint)scaledPoint:(CGPoint)point
+                xScale:(CGFloat)xscale
+                yScale:(CGFloat)yscale
+                offset:(CGPoint)offset;
+
++(UIImage*)scaleImageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width;
+
+
 @end

@@ -33,7 +33,7 @@
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hCu-WY-V54">
                                 <rect key="frame" x="16" y="535" width="343" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q0c-xe-hBo">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q0c-xe-hBo">
                                     <size key="itemSize" width="118" height="118"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -41,7 +41,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stickerCell" id="oZF-4o-Ovr" customClass="StickerCell" customModule="tesiLaureaEmoticron" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="118" height="118"/>
+                                        <rect key="frame" x="0.0" y="5" width="118" height="118"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="118" height="118"/>
@@ -68,7 +68,7 @@
                                 <rect key="frame" x="300" y="30" width="51" height="31"/>
                                 <color key="onTintColor" red="0.66666668650000005" green="0.66666668650000005" blue="0.66666668650000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
-                                    <action selector="cameraDeviceChanged:" destination="uBd-xC-erX" eventType="valueChanged" id="OzT-Sk-PNE"/>
+                                    <action selector="cameraDeviceChanged:" destination="uBd-xC-erX" eventType="valueChanged" id="j2s-TT-vUU"/>
                                 </connections>
                             </switch>
                         </subviews>
@@ -94,7 +94,7 @@
                         <viewLayoutGuide key="safeArea" id="9VX-ue-fmO"/>
                     </view>
                     <connections>
-                        <outlet property="cameraSwitch" destination="xpp-SR-r9c" id="hXs-TF-K8c"/>
+                        <outlet property="cameraSwitch" destination="xpp-SR-r9c" id="B0G-I2-aZt"/>
                         <outlet property="overlayView" destination="phC-qo-BrZ" id="hpe-KH-XZI"/>
                         <outlet property="placeHolder" destination="21d-RI-s9N" id="eIs-kw-5MC"/>
                     </connections>

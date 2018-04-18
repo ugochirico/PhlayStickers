@@ -51,4 +51,39 @@
     [view addSubview:label];
 }
 
++ (CGRect)scaledRect:(CGRect)rect
+              xScale:(CGFloat)xscale
+              yScale:(CGFloat)yscale
+              offset:(CGPoint)offset {
+    CGRect resultRect = CGRectMake(rect.origin.x * xscale,
+                                   rect.origin.y * yscale,
+                                   rect.size.width * xscale,
+                                   rect.size.height * yscale);
+    resultRect = CGRectOffset(resultRect, offset.x, offset.y);
+    return resultRect;
+}
+
++ (CGPoint)scaledPoint:(CGPoint)point
+                xScale:(CGFloat)xscale
+                yScale:(CGFloat)yscale
+                offset:(CGPoint)offset {
+    CGPoint resultPoint = CGPointMake(point.x * xscale + offset.x, point.y * yscale + offset.y);
+    return resultPoint;
+}
+
++(UIImage*)scaleImageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width
+{
+    float oldWidth = sourceImage.size.width;
+    float scaleFactor = i_width / oldWidth;
+    
+    float newHeight = sourceImage.size.height * scaleFactor;
+    float newWidth = oldWidth * scaleFactor;
+    
+    UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
+    [sourceImage drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
+}
+
 @end

@@ -20,11 +20,16 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
     
     let stickers: [UIImage] = [#imageLiteral(resourceName: "moustache")]
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setLastKnownDeviceOrientation(UIDevice.current.orientation)
         // Set up default camera settings.
-        videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
         self.session = AVCaptureSession()
         self.session?.sessionPreset = .medium
         self.cameraSwitch.isOn = true
@@ -76,16 +81,16 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
         }
     }
     
-    func scaledRect(_ rect: CGRect, xscale: CGFloat, yscale: CGFloat, offset: CGPoint) -> CGRect {
-        var resultRect = CGRect(x: rect.origin.x * xscale, y: rect.origin.y * yscale, width: rect.size.width * xscale, height: rect.size.height * yscale)
-        resultRect = resultRect.offsetBy(dx: offset.x, dy: offset.y)
-        return resultRect
-    }
-    
-    func scaledPoint(_ point: CGPoint, xscale: CGFloat, yscale: CGFloat, offset: CGPoint) -> CGPoint {
-        let resultPoint = CGPoint(x: point.x * xscale + offset.x, y: point.y * yscale + offset.y)
-        return resultPoint
-    }
+//    func scaledRect(_ rect: CGRect, xscale: CGFloat, yscale: CGFloat, offset: CGPoint) -> CGRect {
+//        var resultRect = CGRect(x: rect.origin.x * xscale, y: rect.origin.y * yscale, width: rect.size.width * xscale, height: rect.size.height * yscale)
+//        resultRect = resultRect.offsetBy(dx: offset.x, dy: offset.y)
+//        return resultRect
+//    }
+//    
+//    func scaledPoint(_ point: CGPoint, xscale: CGFloat, yscale: CGFloat, offset: CGPoint) -> CGPoint {
+//        let resultPoint = CGPoint(x: point.x * xscale + offset.x, y: point.y * yscale + offset.y)
+//        return resultPoint
+//    }
     
     func setLastKnownDeviceOrientation(_ orientation: UIDeviceOrientation) {
         if orientation != .unknown && orientation != .faceUp && orientation != .faceDown {
@@ -190,6 +195,9 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
+        
+        lastKnownDeviceOrientation = UIDevice.current.orientation
+        
         var image: UIImage? = GMVUtility.sampleBufferTo32RGBA(sampleBuffer)
         var devicePosition: AVCaptureDevice.Position = cameraSwitch.isOn ? .front : .back
         // Establish the image orientation.
@@ -241,75 +249,75 @@ class CameraViewControllerSwift: UIViewController, AVCaptureVideoDataOutputSampl
             
             for face in faces!{
                 
-                var faceRect: CGRect = scaledRect(face.bounds, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                var faceRect: CGRect = DrawingUtility.scaledRect(face.bounds, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                 
                 DrawingUtility.addRectangle(faceRect, to: overlayView, with: UIColor.red)
                 
                 if face.hasBottomMouthPosition {
-                    var point: CGPoint = scaledPoint(face.bottomMouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.bottomMouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 5)
                 }
                 
                 if face.hasMouthPosition {
-                    var point: CGPoint = scaledPoint(face.mouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.mouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 10)
                 }
                 
                 if face.hasRightMouthPosition {
-                    var point: CGPoint = scaledPoint(face.rightMouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.rightMouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 5)
                 }
                 
                 if face.hasLeftMouthPosition {
-                    var point: CGPoint = scaledPoint(face.leftMouthPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.leftMouthPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.green, withRadius: 5)
                 }
                 
                 // Nose
                 
                 if face.hasNoseBasePosition {
-                    var point: CGPoint = scaledPoint(face.noseBasePosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.noseBasePosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.darkGray, withRadius: 10)
                 }
                 
                 //Eyes
                 
                 if face.hasLeftEyePosition {
-                    var point: CGPoint = scaledPoint(face.leftEyePosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.leftEyePosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.blue, withRadius: 10)
                 }
                 
                 if face.hasRightEyePosition {
-                    var point: CGPoint = scaledPoint(face.rightEyePosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.rightEyePosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.blue, withRadius: 10)
                 }
                 
                 //Ears
                 
                 if face.hasLeftEarPosition {
-                    var point: CGPoint = scaledPoint(face.leftEarPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.leftEarPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.purple, withRadius: 10)
                 }
                 
                 if face.hasRightEarPosition {
-                    var point: CGPoint = scaledPoint(face.rightEarPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.rightEarPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.purple, withRadius: 10)
                 }
                 
                 // Cheeks
                 
                 if face.hasLeftCheekPosition {
-                    var point: CGPoint = scaledPoint(face.leftCheekPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.leftCheekPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.magenta, withRadius: 10)
                 }
                 
                 if face.hasRightCheekPosition {
-                    var point: CGPoint = scaledPoint(face.rightCheekPosition, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.rightCheekPosition, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     DrawingUtility.addCircle(at: point, to: overlayView, with: UIColor.magenta, withRadius: 10)
                 }
                 
                 if face.hasTrackingID {
-                    var point: CGPoint = scaledPoint(face.bounds.origin, xscale: xScale, yscale: yScale, offset: videoBox.origin)
+                    var point: CGPoint = DrawingUtility.scaledPoint(face.bounds.origin, xScale: xScale, yScale: yScale, offset: videoBox.origin)
                     var label = UILabel(frame: CGRect(x: point.x, y: point.y, width: 100, height: 20))
                     label.text = "id: \(UInt(face.trackingID))"
                     overlayView.addSubview(label)

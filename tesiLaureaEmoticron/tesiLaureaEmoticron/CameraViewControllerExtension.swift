@@ -20,8 +20,8 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stickerCell", for: indexPath) as! StickerCell
-        
-        cell.stickerImageView.image = stickers[indexPath.row] as? UIImage
+        let sticker = UIImage(named: stickers[indexPath.row])
+        cell.stickerImageView.image = sticker
         
         return cell
         
@@ -29,11 +29,33 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-//        let sticker = stickers[indexPath.row]
+        if !faces.isEmpty{
+//            let face = self.faces[indexPath.row]
+//            let stickerName = stickers[indexPath.row]
+//            let stickerImage = UIImage(named: stickerName)
+//            let stickerView = UIImageView(image: stickerImage)
 //
-        
+//            stickerView.contentMode = .scaleAspectFit
+//            stickerView.layer.position = face.mouthPosition
+//
+//            DispatchQueue.main.async {
+//                if face.hasMouthPosition{
+//                    if stickerName == "moustache.png"{
+//                        self.overlayView.addSubview(stickerView)
+//                    }
+//
+//                }
+//            }
+            stickerToPlace = self.stickers[indexPath.row];
+            
+        }
         
     }
+    
+    
+
+    
+
     
     
     

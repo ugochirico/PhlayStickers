@@ -15,7 +15,7 @@
  limitations under the License.
  */
 
-
+@import UIKit;
 @import AVFoundation;
 @import GoogleMobileVision;
 
@@ -24,24 +24,6 @@
 
 @interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 // UI elemen(nonatomic) (nonatomic) ts.
-@property(nonatomic, weak) IBOutlet UIView *placeHolder;
-@property(nonatomic, weak) IBOutlet UIView *overlayView;
-@property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
-
-// Video objects.
-@property(nonatomic, strong) AVCaptureSession *session;
-@property(nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
-@property(nonatomic, strong) dispatch_queue_t videoDataOutputQueue;
-@property(nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
-@property(nonatomic, assign) UIDeviceOrientation lastKnownDeviceOrientation;
-
-
-
-
-// Detector.
-@property(nonatomic, strong) GMVDetector *faceDetector;
-
-
 
 @end
 
@@ -59,7 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _stickers = [[NSArray alloc] initWithObjects: [UIImage imageNamed:@"moustache.png"], nil];
+    _stickers = [[NSArray alloc] initWithObjects:  @"moustache.png", nil];
+    _stickerToPlace = @"";
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -120,27 +103,6 @@
     }
 }
 
-#pragma mark - AVCaptureVideoPreviewLayer Helper method
-
-- (CGRect)scaledRect:(CGRect)rect
-              xScale:(CGFloat)xscale
-              yScale:(CGFloat)yscale
-              offset:(CGPoint)offset {
-    CGRect resultRect = CGRectMake(rect.origin.x * xscale,
-                                   rect.origin.y * yscale,
-                                   rect.size.width * xscale,
-                                   rect.size.height * yscale);
-    resultRect = CGRectOffset(resultRect, offset.x, offset.y);
-    return resultRect;
-}
-
-- (CGPoint)scaledPoint:(CGPoint)point
-                xScale:(CGFloat)xscale
-                yScale:(CGFloat)yscale
-                offset:(CGPoint)offset {
-    CGPoint resultPoint = CGPointMake(point.x * xscale + offset.x, point.y * yscale + offset.y);
-    return resultPoint;
-}
 
 - (void)setLastKnownDeviceOrientation:(UIDeviceOrientation)orientation {
     if (orientation != UIDeviceOrientationUnknown &&
@@ -170,8 +132,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                               GMVDetectorImageOrientation : @(orientation)
                               };
     // Detect features using GMVDetector.
-    NSArray<GMVFaceFeature *> *faces = [self.faceDetector featuresInImage:image options:options];
-    NSLog(@"Detected %lu face(s).", (unsigned long)[faces count]);
+    _faces = [self.faceDetector featuresInImage:image options:options];
+    NSLog(@"Detected %lu face(s).", (unsigned long)[_faces count]);
     
     // The video frames captured by the camera are a different size than the video preview.
     // Calculates the scale factors and offset to properly display the features.
@@ -210,51 +172,67 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }
         
         // Display detected features in overlay.
-        for (GMVFaceFeature *face in faces) {
-            CGRect faceRect = [self scaledRect:face.bounds
-                                        xScale:xScale
-                                        yScale:yScale
-                                        offset:videoBox.origin];
+        for (GMVFaceFeature *face in self.faces) {
+            CGRect faceRect = [DrawingUtility scaledRect:face.bounds
+                                                  xScale:xScale
+                                                  yScale:yScale
+                                                  offset:videoBox.origin];
             [DrawingUtility addRectangle:faceRect
                                   toView:self.overlayView
                                withColor:[UIColor redColor]];
             
             // Mouth
             if (face.hasBottomMouthPosition) {
-                CGPoint point = [self scaledPoint:face.bottomMouthPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.bottomMouthPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor greenColor]
                                       withRadius:5];
             }
             if (face.hasMouthPosition) {
-                CGPoint point = [self scaledPoint:face.mouthPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.mouthPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor greenColor]
                                       withRadius:10];
+                UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace];
+                
+                stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth: self->_overlayView.frame.size.width];
+                
+                UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
+                
+                
+                stickerView.contentMode = UIViewContentModeScaleAspectFit;
+                stickerView.layer.position = point;
+                
+                
+                if ([self->_stickerToPlace  isEqual: @"moustache.png"]){
+                    [self->_overlayView addSubview:stickerView];
+                    
+                    
+                }
             }
             if (face.hasRightMouthPosition) {
-                CGPoint point = [self scaledPoint:face.rightMouthPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.rightMouthPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor greenColor]
                                       withRadius:5];
             }
             if (face.hasLeftMouthPosition) {
-                CGPoint point = [self scaledPoint:face.leftMouthPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.leftMouthPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor greenColor]
@@ -263,10 +241,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             // Nose
             if (face.hasNoseBasePosition) {
-                CGPoint point = [self scaledPoint:face.noseBasePosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.noseBasePosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor darkGrayColor]
@@ -275,20 +253,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             // Eyes
             if (face.hasLeftEyePosition) {
-                CGPoint point = [self scaledPoint:face.leftEyePosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.leftEyePosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor blueColor]
                                       withRadius:10];
             }
             if (face.hasRightEyePosition) {
-                CGPoint point = [self scaledPoint:face.rightEyePosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.rightEyePosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor blueColor]
@@ -297,20 +275,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             // Ears
             if (face.hasLeftEarPosition) {
-                CGPoint point = [self scaledPoint:face.leftEarPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.leftEarPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor purpleColor]
                                       withRadius:10];
             }
             if (face.hasRightEarPosition) {
-                CGPoint point = [self scaledPoint:face.rightEarPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.rightEarPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor purpleColor]
@@ -319,20 +297,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             // Cheeks
             if (face.hasLeftCheekPosition) {
-                CGPoint point = [self scaledPoint:face.leftCheekPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.leftCheekPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor magentaColor]
                                       withRadius:10];
             }
             if (face.hasRightCheekPosition) {
-                CGPoint point = [self scaledPoint:face.rightCheekPosition
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.rightCheekPosition
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 [DrawingUtility addCircleAtPoint:point
                                           toView:self.overlayView
                                        withColor:[UIColor magentaColor]
@@ -341,10 +319,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             // Tracking Id.
             if (face.hasTrackingID) {
-                CGPoint point = [self scaledPoint:face.bounds.origin
-                                           xScale:xScale
-                                           yScale:yScale
-                                           offset:videoBox.origin];
+                CGPoint point = [DrawingUtility scaledPoint:face.bounds.origin
+                                                     xScale:xScale
+                                                     yScale:yScale
+                                                     offset:videoBox.origin];
                 UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y, 100, 20)];
                 label.text = [NSString stringWithFormat:@"id: %lu", (unsigned long)face.trackingID];
                 [self.overlayView addSubview:label];
