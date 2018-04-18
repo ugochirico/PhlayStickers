@@ -4,3 +4,4 @@
 
 #import "DrawingUtility.h"
 #import "CameraViewController.h"
+#import "Sticker.h"

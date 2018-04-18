@@ -17,13 +17,15 @@
 
 @import UIKit;
 @import GoogleMobileVision;
+@class Sticker;
 
 // View controller demonstraing how to use the face detector with the AVFoundation video pipeline.
 @interface CameraViewController : UIViewController
 
-@property NSArray<NSString *> *stickers;
 @property NSArray<GMVFaceFeature *> *faces;
-@property NSString *stickerToPlace;
+@property NSMutableArray<Sticker *> *stickers;
+@property Sticker *stickerToPlace;
+
 
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
 @property(nonatomic, weak) IBOutlet UIView *overlayView;

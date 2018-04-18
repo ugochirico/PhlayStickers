@@ -19,8 +19,10 @@
 @import AVFoundation;
 @import GoogleMobileVision;
 
+
 #import "CameraViewController.h"
 #import "DrawingUtility.h"
+#import "Sticker.h"
 
 @interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
 // UI elemen(nonatomic) (nonatomic) ts.
@@ -28,6 +30,7 @@
 @end
 
 @implementation CameraViewController
+
 
 - (id)initWithCoder:(NSCoder *)aDecoder {
     self = [super initWithCoder:aDecoder];
@@ -41,8 +44,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _stickers = [[NSArray alloc] initWithObjects:  @"moustache.png", nil];
-    _stickerToPlace = @"";
+    _stickers = [NSMutableArray new];
+    _stickers[0] = [[Sticker alloc] initWithName: @"moustache.png" withType: moustache];
+    _stickers[1] = [[Sticker alloc] initWithName: @"carnival.png" withType: glasses];
+
+    //    _stickers[2] = [[Sticker alloc] initWithName: @"mask.png" withType: mask];
+    
+    
+    
+//    [_stickers addObject: [[Sticker alloc] initWithName: @"moustache.png" withType: moustache]];
+//    [_stickers addObject: [[Sticker alloc] initWithName: @"carnival.png" withType: glasses]];
+//    [_stickers addObject: [[Sticker alloc] initWithName: @"mask.png" withType: mask]];
+//
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -173,37 +186,37 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
-            CGRect faceRect = [DrawingUtility scaledRect:face.bounds
-                                                  xScale:xScale
-                                                  yScale:yScale
-                                                  offset:videoBox.origin];
-            [DrawingUtility addRectangle:faceRect
-                                  toView:self.overlayView
-                               withColor:[UIColor redColor]];
+//            CGRect faceRect = [DrawingUtility scaledRect:face.bounds
+//                                                  xScale:xScale
+//                                                  yScale:yScale
+//                                                  offset:videoBox.origin];
+//            [DrawingUtility addRectangle:faceRect
+//                                  toView:self.overlayView
+//                               withColor:[UIColor redColor]];
             
             // Mouth
-            if (face.hasBottomMouthPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.bottomMouthPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor greenColor]
-                                      withRadius:5];
-            }
-            if (face.hasMouthPosition) {
+//            if (face.hasBottomMouthPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.bottomMouthPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor greenColor]
+//                                      withRadius:5];
+//            }
+            if (face.hasMouthPosition && [self->_stickerToPlace equalType:moustache]) {
                 CGPoint point = [DrawingUtility scaledPoint:face.mouthPosition
                                                      xScale:xScale
                                                      yScale:yScale
                                                      offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor greenColor]
-                                      withRadius:10];
-                UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor greenColor]
+//                                      withRadius:10];
+                UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
                 
-                stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth: self->_overlayView.frame.size.width];
+                stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth: self->_overlayView.frame.size.width / 2];
                 
                 UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
                 
@@ -212,121 +225,120 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 stickerView.layer.position = point;
                 
                 
-                if ([self->_stickerToPlace  isEqual: @"moustache.png"]){
+                if ([self->_stickerToPlace equalType: moustache]){
                     [self->_overlayView addSubview:stickerView];
-                    
-                    
                 }
             }
-            if (face.hasRightMouthPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.rightMouthPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor greenColor]
-                                      withRadius:5];
-            }
-            if (face.hasLeftMouthPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.leftMouthPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor greenColor]
-                                      withRadius:5];
-            }
             
-            // Nose
-            if (face.hasNoseBasePosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.noseBasePosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor darkGrayColor]
-                                      withRadius:10];
-            }
+//            if (face.hasRightMouthPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.rightMouthPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor greenColor]
+//                                      withRadius:5];
+//            }
+//            if (face.hasLeftMouthPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.leftMouthPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor greenColor]
+//                                      withRadius:5];
+//            }
             
-            // Eyes
-            if (face.hasLeftEyePosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.leftEyePosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor blueColor]
-                                      withRadius:10];
-            }
-            if (face.hasRightEyePosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.rightEyePosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor blueColor]
-                                      withRadius:10];
-            }
+//            // Nose
+//            if (face.hasNoseBasePosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.noseBasePosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor darkGrayColor]
+//                                      withRadius:10];
+//            }
             
-            // Ears
-            if (face.hasLeftEarPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.leftEarPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor purpleColor]
-                                      withRadius:10];
-            }
-            if (face.hasRightEarPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.rightEarPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor purpleColor]
-                                      withRadius:10];
-            }
+//            // Eyes
+//            if (face.hasLeftEyePosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.leftEyePosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor blueColor]
+//                                      withRadius:10];
+//            }
+//            if (face.hasRightEyePosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.rightEyePosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor blueColor]
+//                                      withRadius:10];
+//            }
             
-            // Cheeks
-            if (face.hasLeftCheekPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.leftCheekPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor magentaColor]
-                                      withRadius:10];
-            }
-            if (face.hasRightCheekPosition) {
-                CGPoint point = [DrawingUtility scaledPoint:face.rightCheekPosition
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                [DrawingUtility addCircleAtPoint:point
-                                          toView:self.overlayView
-                                       withColor:[UIColor magentaColor]
-                                      withRadius:10];
-            }
-            
-            // Tracking Id.
-            if (face.hasTrackingID) {
-                CGPoint point = [DrawingUtility scaledPoint:face.bounds.origin
-                                                     xScale:xScale
-                                                     yScale:yScale
-                                                     offset:videoBox.origin];
-                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y, 100, 20)];
-                label.text = [NSString stringWithFormat:@"id: %lu", (unsigned long)face.trackingID];
-                [self.overlayView addSubview:label];
-            }
+//            // Ears
+//            if (face.hasLeftEarPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.leftEarPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor purpleColor]
+//                                      withRadius:10];
+//            }
+//            if (face.hasRightEarPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.rightEarPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor purpleColor]
+//                                      withRadius:10];
+//            }
+//
+//            // Cheeks
+//            if (face.hasLeftCheekPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.leftCheekPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor magentaColor]
+//                                      withRadius:10];
+//            }
+//            if (face.hasRightCheekPosition) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.rightCheekPosition
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                [DrawingUtility addCircleAtPoint:point
+//                                          toView:self.overlayView
+//                                       withColor:[UIColor magentaColor]
+//                                      withRadius:10];
+//            }
+//
+//            // Tracking Id.
+//            if (face.hasTrackingID) {
+//                CGPoint point = [DrawingUtility scaledPoint:face.bounds.origin
+//                                                     xScale:xScale
+//                                                     yScale:yScale
+//                                                     offset:videoBox.origin];
+//                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(point.x, point.y, 100, 20)];
+//                label.text = [NSString stringWithFormat:@"id: %lu", (unsigned long)face.trackingID];
+//                [self.overlayView addSubview:label];
+//            }
         }
     });
 }
