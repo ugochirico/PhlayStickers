@@ -23,6 +23,8 @@
 @interface CameraViewController : UIViewController
 
 @property NSArray<GMVFaceFeature *> *faces;
+@property NSArray<GMVFaceFeature *> *oldFaces;
+
 @property NSMutableArray<Sticker *> *stickers;
 @property Sticker *stickerToPlace;
 
