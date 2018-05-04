@@ -51,6 +51,7 @@
     _stickers = [NSMutableArray new];
     _stickers[0] = [[Sticker alloc] initWithName: @"moustache.png" withType: moustache];
     _stickers[1] = [[Sticker alloc] initWithName: @"carnival.png" withType: glasses];
+    _stickers[2] = [[Sticker alloc] initWithName: @"wig.png" withType: wig];
     
     //    _stickers[2] = [[Sticker alloc] initWithName: @"mask.png" withType: mask];
     
@@ -198,15 +199,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             if(face.hasLeftEyePosition && face.hasRightEyePosition){
                 CGPoint leftEye = face.leftEyePosition;
                 CGPoint rightEye = face.rightEyePosition;
-                
+
                 self->_eyesDistance = sqrt(pow(rightEye.x - leftEye.x,2) + pow(rightEye.y - leftEye.y,2));
                 NSLog(@"******DISTANZA OCCHI = %f*******", self->_eyesDistance);
             }
             
+            
+            
+            
             if (face.hasMouthPosition && face.hasNoseBasePosition){
                 
                 //STICKER DI TIPO "BAFFI"
-                if([self->_stickerToPlace equalType:moustache]){
+                if(self->_stickerToPlace.type == moustache){
                     
                     CGPoint moustachePosition = CGPointMake(face.mouthPosition.x, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10);
                     
@@ -239,24 +243,33 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             if(face.hasLeftEyePosition && face.hasRightEyePosition){
                 
-                if([self->_stickerToPlace equalType: glasses]){
+                CGFloat midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
+                CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
+                
+                if(self->_stickerToPlace.type == glasses){
                     
-                    CGFloat midPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
-                    CGFloat midPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
                     
-                    CGPoint point = CGPointMake(midPointX, midPointY);
                     
-                    point = [DrawingUtility scaledPoint:point
+                    CGPoint midEyespoint = CGPointMake(midEyesPointX, midEyesPointY);
+                    
+                    midEyespoint = [DrawingUtility scaledPoint:midEyespoint
                                                  xScale:xScale
                                                  yScale:yScale
                                                  offset:videoBox.origin];
                     
-                    [self placeSticker:point onFace:face];
+                    [self placeSticker:midEyespoint onFace:face];
                     
-                    //                    if(face.hasHeadEulerAngleY){
-                    //
-                    //                        CGAffineTransformRotate(stickerView.transform, face.headEulerAngleY);
-                    //                    }
+                    
+                }else if(self->_stickerToPlace.type == wig){
+                    
+                    CGPoint forehead = CGPointMake(midEyesPointX, midEyesPointY - self->_eyesDistance);
+                    
+                    forehead = [DrawingUtility scaledPoint:forehead
+                                                    xScale:xScale
+                                                    yScale:yScale
+                                                    offset:videoBox.origin];
+                    
+                    [self placeSticker: forehead onFace:face];
                     
                 }
                 
@@ -356,7 +369,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 -(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face{
     
     UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
-    CGFloat scaleMultiplier = 0.0;
+    CGFloat scaleMultiplier = 100.0;
     
     switch(_stickerToPlace.type){
         case mask:
@@ -366,6 +379,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             break;
         case glasses:
             scaleMultiplier = 40.0;
+            break;
+        case wig:
+            scaleMultiplier = 75.0;
             break;
             
         case undefined:
@@ -385,19 +401,22 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CATransform3D t1, t2;
     
-//    if(face.hasHeadEulerAngleY){
-//        t1 = CATransform3DMakeRotation(- face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
-//        NSLog(@"Rotazione Y: %f",face.headEulerAngleY);
-//    }
+
     if(face.hasHeadEulerAngleY){
         
-        CATransform3D rotationWithPerspective = CATransform3DIdentity;
-        rotationWithPerspective.m34 = -1.0/500.0/2/2;
+//        CATransform3D rotationWithPerspective = CATransform3DIdentity;
+//        rotationWithPerspective.m34 = -1.0/500.0/2/2;
 //        if(face.headEulerAngleY < 0)
 //            rotationWithPerspective.m34 = 1.0/500.0/2/2;
 //        else if(face.headEulerAngleY > 0)
 //            rotationWithPerspective.m34 = -1.0/500.0/2/2;
-        stickerView.layer.transform = CATransform3DRotate(rotationWithPerspective, face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
+        
+        CGFloat perspective = -1000.0; //This relates to the m34 perspective matrix.
+        CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+        rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
+     
+        stickerView.layer.transform = rotationAndPerspectiveTransform;
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
 
     }

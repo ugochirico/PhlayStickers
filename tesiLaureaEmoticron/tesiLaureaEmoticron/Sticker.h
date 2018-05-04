@@ -15,6 +15,13 @@ typedef enum{
     mask,
     moustache,
     glasses,
+    mouth,
+    head,
+    crown,
+    eyes,
+    nose,
+    wig,
+    hat,
     undefined
 }StickerType;
 
