@@ -383,6 +383,34 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     stickerView.contentMode = UIViewContentModeScaleAspectFit;
     stickerView.layer.position = position;
     
+    CATransform3D t1, t2;
+    
+//    if(face.hasHeadEulerAngleY){
+//        t1 = CATransform3DMakeRotation(- face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
+//        NSLog(@"Rotazione Y: %f",face.headEulerAngleY);
+//    }
+    if(face.hasHeadEulerAngleY){
+        
+        CATransform3D rotationWithPerspective = CATransform3DIdentity;
+        rotationWithPerspective.m34 = -1.0/500.0/2/2;
+//        if(face.headEulerAngleY < 0)
+//            rotationWithPerspective.m34 = 1.0/500.0/2/2;
+//        else if(face.headEulerAngleY > 0)
+//            rotationWithPerspective.m34 = -1.0/500.0/2/2;
+        stickerView.layer.transform = CATransform3DRotate(rotationWithPerspective, face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
+        NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
+
+    }
+
+    if(face.hasHeadEulerAngleZ){
+        stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, - face.headEulerAngleZ / 180.0 * (CGFloat)M_PI, 0, 0, 1);
+        NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
+    }
+    
+    
+    
+    
+    
     [self->_overlayView addSubview:stickerView];
 }
 
