@@ -183,6 +183,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         yScale = videoBox.size.height / clap.size.width;
     }
     
+    
+    
     dispatch_sync(dispatch_get_main_queue(), ^{
         // Remove previously added feature views.
         for (UIView *featureView in self.overlayView.subviews) {
@@ -221,25 +223,59 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     stickerView.contentMode = UIViewContentModeScaleAspectFit;
                     stickerView.layer.position = point;
                     
-                    
-                    
                     [self->_overlayView addSubview:stickerView];
                     
-                    if(self->_oldFaces.count != 0){
-                        
-                        CGFloat deltaAngle = face.headEulerAngleY - self->_oldFaces.firstObject.headEulerAngleY;
-                        
-                        if(deltaAngle > 5){
-                            
-                            CGFloat radius = face.bounds.size.width / 2;
-                            CATransform3D rotation = CATransform3DMakeRotation(- deltaAngle, 0, radius, 0);
-//                            CATransform3D translation = CATransform3DMakeTranslation(0, face.headEulerAngleY, 0);
-                            
-                            
-                            stickerView.layer.transform = rotation;
-                        }
-                    }
+                    //ROTAZIONE
+                    //                    if(self->_oldFaces.count != 0){
+                    //
+                    //                        CGFloat deltaAngle = face.headEulerAngleY - self->_oldFaces.firstObject.headEulerAngleY;
+                    //
+                    //                        if(deltaAngle > 5){
+                    //
+                    //                            CGFloat radius = face.bounds.size.width / 2;
+                    //                            CATransform3D rotation = CATransform3DMakeRotation(- deltaAngle, 0, radius, 0);
+                    //                            CATransform3D translation = CATransform3DMakeTranslation(0, face.headEulerAngleY, 0);
+                    //
+                    //
+                    //                            stickerView.layer.transform = rotation;
+                    //                        }
+                    //                    }
                     
+                }
+                
+            }
+            
+            if(face.hasLeftEyePosition && face.hasRightEyePosition){
+                
+                if([self->_stickerToPlace equalType: glasses]){
+                    
+                    CGFloat midPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
+                    CGFloat midPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
+                    
+                    CGPoint point = CGPointMake(midPointX, midPointY);
+                    
+                    point = [DrawingUtility scaledPoint:point
+                                                    xScale:xScale
+                                                    yScale:yScale
+                                                    offset:videoBox.origin];
+                    
+                    UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
+                    
+                    stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth: self->_overlayView.frame.size.width / 2];
+                    
+                    
+                    
+                    UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
+                    
+                    //                    if(face.hasHeadEulerAngleY){
+                    //
+                    //                        CGAffineTransformRotate(stickerView.transform, face.headEulerAngleY);
+                    //                    }
+                    
+                    stickerView.contentMode = UIViewContentModeScaleAspectFit;
+                    stickerView.layer.position = point;
+                    
+                    [self->_overlayView addSubview:stickerView];
                 }
                 
             }
