@@ -45,5 +45,6 @@
 
 +(UIImage*)scaleImageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width;
 
++ (UIImage *)scaleImageToSize: (UIImage*) image withNewSize: (CGSize)newSize;
 
 @end

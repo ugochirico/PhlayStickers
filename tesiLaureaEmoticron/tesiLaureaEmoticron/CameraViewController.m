@@ -195,6 +195,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         for (GMVFaceFeature *face in self.faces) {
             
             
+            if(face.hasLeftEyePosition && face.hasRightEyePosition){
+                CGPoint leftEye = face.leftEyePosition;
+                CGPoint rightEye = face.rightEyePosition;
+                
+                self->_eyesDistance = sqrt(pow(rightEye.x - leftEye.x,2) + pow(rightEye.y - leftEye.y,2));
+                NSLog(@"******DISTANZA OCCHI = %f*******", self->_eyesDistance);
+            }
+            
             if (face.hasMouthPosition && face.hasNoseBasePosition){
                 
                 //STICKER DI TIPO "BAFFI"
@@ -207,23 +215,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                                          yScale:yScale
                                                          offset:videoBox.origin];
                     
-                    UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
-                    
-                    stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth: self->_overlayView.frame.size.width / 2];
-                    
-                    
-                    
-                    UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
-                    
-                    //                    if(face.hasHeadEulerAngleY){
-                    //
-                    //                        CGAffineTransformRotate(stickerView.transform, face.headEulerAngleY);
-                    //                    }
-                    
-                    stickerView.contentMode = UIViewContentModeScaleAspectFit;
-                    stickerView.layer.position = point;
-                    
-                    [self->_overlayView addSubview:stickerView];
+                    [self placeSticker:point onFace:face];
                     
                     //ROTAZIONE
                     //                    if(self->_oldFaces.count != 0){
@@ -255,27 +247,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     CGPoint point = CGPointMake(midPointX, midPointY);
                     
                     point = [DrawingUtility scaledPoint:point
-                                                    xScale:xScale
-                                                    yScale:yScale
-                                                    offset:videoBox.origin];
+                                                 xScale:xScale
+                                                 yScale:yScale
+                                                 offset:videoBox.origin];
                     
-                    UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
-                    
-                    stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth: self->_overlayView.frame.size.width / 2];
-                    
-                    
-                    
-                    UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
+                    [self placeSticker:point onFace:face];
                     
                     //                    if(face.hasHeadEulerAngleY){
                     //
                     //                        CGAffineTransformRotate(stickerView.transform, face.headEulerAngleY);
                     //                    }
                     
-                    stickerView.contentMode = UIViewContentModeScaleAspectFit;
-                    stickerView.layer.position = point;
-                    
-                    [self->_overlayView addSubview:stickerView];
                 }
                 
             }
@@ -369,6 +351,39 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (IBAction)cameraDeviceChanged:(id)sender {
     [self updateCameraSelection];
+}
+
+-(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face{
+    
+    UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
+    CGFloat scaleMultiplier = 0.0;
+    
+    switch(_stickerToPlace.type){
+        case mask:
+            break;
+        case moustache:
+            scaleMultiplier = 60.0;
+            break;
+        case glasses:
+            scaleMultiplier = 40.0;
+            break;
+            
+        case undefined:
+            break;
+    }
+    CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * scaleMultiplier*(face.bounds.size.height / 100);
+    //                    CGFloat newHeight = (stickerImage.size.height / stickerImage.size.width) * face.bounds.size.width;
+    
+    stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth:newWidth];
+    
+    
+    UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
+    
+    
+    stickerView.contentMode = UIViewContentModeScaleAspectFit;
+    stickerView.layer.position = position;
+    
+    [self->_overlayView addSubview:stickerView];
 }
 
 @end
