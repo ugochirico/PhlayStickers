@@ -289,8 +289,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 //STICKER DI TIPO "BAFFI"
                 if(self->_stickerToPlace.type == mouth){
                     
-                    self->_stickerToPlace.offsetX = 100;
-                    self->_stickerToPlace.offsetY = 50;
+//                    self->_stickerToPlace.offsetX = 100;
+//                    self->_stickerToPlace.offsetY = 50;
                     
                     CGPoint mouthPosition = CGPointMake(face.mouthPosition.x + self->_stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10 + self->_stickerToPlace.offsetY);
                     
@@ -300,22 +300,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                                         offset:self->_videoBox.origin];
                     
                     [self placeSticker:point onFace:face];
-                    
-                    //ROTAZIONE
-                    //                    if(self->_oldFaces.count != 0){
-                    //
-                    //                        CGFloat deltaAngle = face.headEulerAngleY - self->_oldFaces.firstObject.headEulerAngleY;
-                    //
-                    //                        if(deltaAngle > 5){
-                    //
-                    //                            CGFloat radius = face.bounds.size.width / 2;
-                    //                            CATransform3D rotation = CATransform3DMakeRotation(- deltaAngle, 0, radius, 0);
-                    //                            CATransform3D translation = CATransform3DMakeTranslation(0, face.headEulerAngleY, 0);
-                    //
-                    //
-                    //                            stickerView.layer.transform = rotation;
-                    //                        }
-                    //                    }
                     
                 }
                 
