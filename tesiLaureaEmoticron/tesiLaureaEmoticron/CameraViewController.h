@@ -17,7 +17,9 @@
 
 @import UIKit;
 @import GoogleMobileVision;
+@import AVFoundation;
 @class Sticker;
+
 
 // View controller demonstraing how to use the face detector with the AVFoundation video pipeline.
 @interface CameraViewController : UIViewController
@@ -30,16 +32,24 @@
 @property Sticker *stickerToPlace;
 
 
+
+
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
 @property(nonatomic, weak) IBOutlet UIView *overlayView;
 @property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
 
 // Video objects.
 @property(nonatomic, strong) AVCaptureSession *session;
+@property(nonatomic, strong) AVCaptureDevice *captureDevice;
 @property(nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
 @property(nonatomic, strong) dispatch_queue_t videoDataOutputQueue;
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property(nonatomic, assign) UIDeviceOrientation lastKnownDeviceOrientation;
+@property(nonatomic, assign) CMSampleBufferRef globalSampleBuffer;
+
+@property(nonatomic, assign) CGRect videoBox;
+@property(nonatomic, assign) CGFloat xScale;
+@property(nonatomic, assign) CGFloat yScale;
 
 //Detector
 @property(nonatomic, strong) GMVDetector *faceDetector;

@@ -23,12 +23,13 @@
 #import "CameraViewController.h"
 #import "DrawingUtility.h"
 #import "Sticker.h"
-
+#import <ImageIO/CGImageProperties.h>
 #include <math.h>
+
 #define radians(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
 #define degrees(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
 
-@interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate>
+@interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate>
 // UI elemen(nonatomic) (nonatomic) ts.
 
 @end
@@ -48,19 +49,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
+    
     _stickers = [NSMutableArray new];
-    _stickers[0] = [[Sticker alloc] initWithName: @"moustache.png" withType: moustache];
-    _stickers[1] = [[Sticker alloc] initWithName: @"carnival.png" withType: glasses];
-    _stickers[2] = [[Sticker alloc] initWithName: @"wig.png" withType: wig];
-    
-    //    _stickers[2] = [[Sticker alloc] initWithName: @"mask.png" withType: mask];
+    _stickers[0] = [[Sticker alloc] initWithName: @"moustache.png" withType: mouth];
+    _stickers[1] = [[Sticker alloc] initWithName: @"carnival.png" withType: eye];
+    _stickers[2] = [[Sticker alloc] initWithName: @"hat.png" withType: head];
     
     
-    
-    //    [_stickers addObject: [[Sticker alloc] initWithName: @"moustache.png" withType: moustache]];
-    //    [_stickers addObject: [[Sticker alloc] initWithName: @"carnival.png" withType: glasses]];
-    //    [_stickers addObject: [[Sticker alloc] initWithName: @"mask.png" withType: mask]];
-    //
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -130,13 +126,94 @@
     }
 }
 
+- (void)setWhiteBalanceMode:(AVCaptureWhiteBalanceMode)whiteBalanceMode
+{
+    
+    if ([self.captureDevice isWhiteBalanceModeSupported:whiteBalanceMode]) {
+        NSError *error;
+        if ([self.captureDevice lockForConfiguration:&error]) {
+            [self.captureDevice setWhiteBalanceMode:whiteBalanceMode];
+            [self.captureDevice unlockForConfiguration];
+        }
+    }
+}
+
+
+- (IBAction)takePhoto:(id)sender {
+    
+    
+    //    AVCaptureStillImageOutput *stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    //    NSDictionary *stillSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecTypeJPEG, AVVideoCodecKey, nil];
+    //    [stillImageOutput setOutputSettings:stillSettings];
+    //    [self.session addOutput: stillImageOutput];
+    //
+    //
+    //
+    //    AVCaptureConnection *videoConnection = nil;
+    //
+    //
+    //    for (AVCaptureConnection *connection in stillImageOutput.connections)
+    //    {
+    //        for (AVCaptureInputPort *port in [connection inputPorts])
+    //        {
+    //            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
+    //            {
+    //                videoConnection = connection;
+    //                break;
+    //            }
+    //        }
+    //        if (videoConnection)
+    //        {
+    //            break;
+    //        }
+    //    }
+    //
+    //    NSLog(@"about to request a capture from: %@", stillImageOutput);
+    //    if(videoConnection.isEnabled){
+    //        [stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
+    //         {
+    //             CFDictionaryRef exifAttachments = CMGetAttachment( imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+    //             if (exifAttachments)
+    //             {
+    //                 // Do something with the attachments.
+    //                 NSLog(@"attachements: %@", exifAttachments);
+    //             } else {
+    //                 NSLog(@"no attachments");
+    //             }
+    //
+    //
+    //             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+    //             UIImage *image = [[UIImage alloc] initWithData:imageData];
+    
+    UIImage *frameFromPreview = [GMVUtility sampleBufferTo32RGBA:_globalSampleBuffer];;
+    UIImageView *wholeScreen = [[UIImageView alloc] initWithImage:frameFromPreview];
+    [wholeScreen addSubview:_overlayView];
+    // define the size and grab a UIImage from it
+    UIGraphicsBeginImageContextWithOptions(wholeScreen.bounds.size, wholeScreen.opaque, 0.0);
+    [wholeScreen.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *screengrab = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    UIImageWriteToSavedPhotosAlbum(screengrab, nil, nil, nil);
+    
+    
+    
+    
+    
+    
+}
+
+
+
+
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
 
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
     
-    UIImage *image = [GMVUtility sampleBufferTo32RGBA:sampleBuffer];
+    _globalSampleBuffer = sampleBuffer;
+    UIImage *image = [GMVUtility sampleBufferTo32RGBA:_globalSampleBuffer];
     AVCaptureDevicePosition devicePosition = self.cameraSwitch.isOn ? AVCaptureDevicePositionFront :
     AVCaptureDevicePositionBack;
     
@@ -163,25 +240,25 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     // Assume AVLayerVideoGravityResizeAspect
     CGFloat cameraRatio = clap.size.height / clap.size.width;
     CGFloat viewRatio = parentFrameSize.width / parentFrameSize.height;
-    CGFloat xScale = 1;
-    CGFloat yScale = 1;
-    CGRect videoBox = CGRectZero;
+    _xScale = 1;
+    _yScale = 1;
+    _videoBox = CGRectZero;
     if (viewRatio > cameraRatio) {
-        videoBox.size.width = parentFrameSize.height * clap.size.width / clap.size.height;
-        videoBox.size.height = parentFrameSize.height;
-        videoBox.origin.x = (parentFrameSize.width - videoBox.size.width) / 2;
-        videoBox.origin.y = (videoBox.size.height - parentFrameSize.height) / 2;
+        _videoBox.size.width = parentFrameSize.height * clap.size.width / clap.size.height;
+        _videoBox.size.height = parentFrameSize.height;
+        _videoBox.origin.x = (parentFrameSize.width - _videoBox.size.width) / 2;
+        _videoBox.origin.y = (_videoBox.size.height - parentFrameSize.height) / 2;
         
-        xScale = videoBox.size.width / clap.size.width;
-        yScale = videoBox.size.height / clap.size.height;
+        _xScale = _videoBox.size.width / clap.size.width;
+        _yScale = _videoBox.size.height / clap.size.height;
     } else {
-        videoBox.size.width = parentFrameSize.width;
-        videoBox.size.height = clap.size.width * (parentFrameSize.width / clap.size.height);
-        videoBox.origin.x = (videoBox.size.width - parentFrameSize.width) / 2;
-        videoBox.origin.y = (parentFrameSize.height - videoBox.size.height) / 2;
+        _videoBox.size.width = parentFrameSize.width;
+        _videoBox.size.height = clap.size.width * (parentFrameSize.width / clap.size.height);
+        _videoBox.origin.x = (_videoBox.size.width - parentFrameSize.width) / 2;
+        _videoBox.origin.y = (parentFrameSize.height - _videoBox.size.height) / 2;
         
-        xScale = videoBox.size.width / clap.size.height;
-        yScale = videoBox.size.height / clap.size.width;
+        _xScale = _videoBox.size.width / clap.size.height;
+        _yScale = _videoBox.size.height / clap.size.width;
     }
     
     
@@ -199,7 +276,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             if(face.hasLeftEyePosition && face.hasRightEyePosition){
                 CGPoint leftEye = face.leftEyePosition;
                 CGPoint rightEye = face.rightEyePosition;
-
+                
                 self->_eyesDistance = sqrt(pow(rightEye.x - leftEye.x,2) + pow(rightEye.y - leftEye.y,2));
                 NSLog(@"******DISTANZA OCCHI = %f*******", self->_eyesDistance);
             }
@@ -210,14 +287,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             if (face.hasMouthPosition && face.hasNoseBasePosition){
                 
                 //STICKER DI TIPO "BAFFI"
-                if(self->_stickerToPlace.type == moustache){
+                if(self->_stickerToPlace.type == mouth){
                     
-                    CGPoint moustachePosition = CGPointMake(face.mouthPosition.x, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10);
+                    CGPoint mouthPosition = CGPointMake(face.mouthPosition.x, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10);
                     
-                    CGPoint point = [DrawingUtility scaledPoint:moustachePosition
-                                                         xScale:xScale
-                                                         yScale:yScale
-                                                         offset:videoBox.origin];
+                    CGPoint point = [DrawingUtility scaledPoint:mouthPosition
+                                                        xScale:self->_xScale
+                                                        yScale:self->_yScale
+                                                        offset:self->_videoBox.origin];
                     
                     [self placeSticker:point onFace:face];
                     
@@ -246,32 +323,31 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 CGFloat midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
                 CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
                 
-                if(self->_stickerToPlace.type == glasses){
+                if(self->_stickerToPlace.type == eye){
                     
                     
                     
                     CGPoint midEyespoint = CGPointMake(midEyesPointX, midEyesPointY);
                     
-                    midEyespoint = [DrawingUtility scaledPoint:midEyespoint
-                                                 xScale:xScale
-                                                 yScale:yScale
-                                                 offset:videoBox.origin];
+                    midEyespoint = [DrawingUtility scaledPoint:midEyespoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+                    
                     
                     [self placeSticker:midEyespoint onFace:face];
                     
                     
-                }else if(self->_stickerToPlace.type == wig){
+                }else if(self->_stickerToPlace.type == head){
                     
-                    CGPoint forehead = CGPointMake(midEyesPointX, midEyesPointY - self->_eyesDistance);
+                    CGPoint forehead = CGPointMake(midEyesPointX,midEyesPointY - self->_eyesDistance);
                     
                     forehead = [DrawingUtility scaledPoint:forehead
-                                                    xScale:xScale
-                                                    yScale:yScale
-                                                    offset:videoBox.origin];
+                                xScale:self->_xScale
+                                yScale:self->_yScale
+                                offset:self->_videoBox.origin];
                     
                     [self placeSticker: forehead onFace:face];
                     
                 }
+                
                 
             }
             
@@ -366,25 +442,33 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [self updateCameraSelection];
 }
 
+
+
+
 -(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face{
     
     UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
     CGFloat scaleMultiplier = 100.0;
     
     switch(_stickerToPlace.type){
-        case mask:
-            break;
-        case moustache:
+            
+        case mouth:
             scaleMultiplier = 60.0;
             break;
-        case glasses:
+        case eye:
             scaleMultiplier = 40.0;
             break;
-        case wig:
+        case head:
             scaleMultiplier = 75.0;
             break;
             
         case undefined:
+            break;
+        case ear:
+            
+            break;
+        case nose:
+            
             break;
     }
     CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * scaleMultiplier*(face.bounds.size.height / 100);
@@ -397,30 +481,41 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     stickerView.contentMode = UIViewContentModeScaleAspectFit;
-    stickerView.layer.position = position;
+    stickerView.center = position;
     
-    CATransform3D t1, t2;
+    CGPoint chinPivot = stickerView.layer.anchorPoint;
+    if(face.hasNoseBasePosition){
+        chinPivot = CGPointMake(face.noseBasePosition.x, face.noseBasePosition.y - face.bounds.size.height / 3);
+    }
+    chinPivot = [DrawingUtility scaledPoint:chinPivot
+                         xScale:self->_xScale
+                         yScale:self->_yScale
+                         offset:self->_videoBox.origin];
+//    [DrawingUtility setAnchorPoint:chinPivot forView:stickerView];
     
-
+    NSLog(@"****POSIZIONE PIVOT: X = %f, Y = %f\n",chinPivot.x, chinPivot.y);
+    
+    
+    
     if(face.hasHeadEulerAngleY){
         
-//        CATransform3D rotationWithPerspective = CATransform3DIdentity;
-//        rotationWithPerspective.m34 = -1.0/500.0/2/2;
-//        if(face.headEulerAngleY < 0)
-//            rotationWithPerspective.m34 = 1.0/500.0/2/2;
-//        else if(face.headEulerAngleY > 0)
-//            rotationWithPerspective.m34 = -1.0/500.0/2/2;
+        //        CATransform3D rotationWithPerspective = CATransform3DIdentity;
+        //        rotationWithPerspective.m34 = -1.0/500.0/2/2;
+        //        if(face.headEulerAngleY < 0)
+        //            rotationWithPerspective.m34 = 1.0/500.0/2/2;
+        //        else if(face.headEulerAngleY > 0)
+        //            rotationWithPerspective.m34 = -1.0/500.0/2/2;
         
         CGFloat perspective = -1000.0; //This relates to the m34 perspective matrix.
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
-     
+        
         stickerView.layer.transform = rotationAndPerspectiveTransform;
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
-
+        
     }
-
+    
     if(face.hasHeadEulerAngleZ){
         stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, - face.headEulerAngleZ / 180.0 * (CGFloat)M_PI, 0, 0, 1);
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);

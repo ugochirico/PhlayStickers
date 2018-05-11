@@ -47,4 +47,7 @@
 
 + (UIImage *)scaleImageToSize: (UIImage*) image withNewSize: (CGSize)newSize;
 
++(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view;
+
+
 @end

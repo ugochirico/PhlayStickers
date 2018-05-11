@@ -7,21 +7,18 @@
 //
 
 @import Foundation;
+@import UIKit;
 
 #ifndef StickerType_h
 #define StickerType_h
 
 typedef enum{
-    mask,
-    moustache,
-    glasses,
-    mouth,
     head,
-    crown,
-    eyes,
+    ear,
+    eye,
+    mouth,
     nose,
-    wig,
-    hat,
+    cheekbones,
     undefined
 }StickerType;
 
@@ -31,10 +28,11 @@ typedef enum{
 
 @property NSString *name;
 @property StickerType type;
+@property CGFloat offset;
 
 
 - (id)initWithName: (NSString *)name withType:(StickerType )type;
-- (BOOL)equalType: (StickerType) type;
+
 
 
 @end

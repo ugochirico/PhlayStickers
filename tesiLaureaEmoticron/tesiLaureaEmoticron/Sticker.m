@@ -22,13 +22,7 @@
 }
 
 
-- (BOOL)equalType: (StickerType) type{
-    if(self.type == type){
-        return YES;
-    }else{
-        return NO;
-    }
-}
+
 
 
 
