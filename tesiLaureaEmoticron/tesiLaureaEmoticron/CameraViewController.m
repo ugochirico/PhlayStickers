@@ -289,7 +289,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 //STICKER DI TIPO "BAFFI"
                 if(self->_stickerToPlace.type == mouth){
                     
-                    CGPoint mouthPosition = CGPointMake(face.mouthPosition.x, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10);
+                    self->_stickerToPlace.offsetX = 100;
+                    self->_stickerToPlace.offsetY = 50;
+                    
+                    CGPoint mouthPosition = CGPointMake(face.mouthPosition.x + self->_stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10 + self->_stickerToPlace.offsetY);
                     
                     CGPoint point = [DrawingUtility scaledPoint:mouthPosition
                                                         xScale:self->_xScale
@@ -337,7 +340,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     
                 }else if(self->_stickerToPlace.type == head){
                     
-                    CGPoint forehead = CGPointMake(midEyesPointX,midEyesPointY - self->_eyesDistance);
+                    self->_stickerToPlace.offsetY = -50;
+                    
+                    CGPoint forehead = CGPointMake(midEyesPointX,midEyesPointY - self->_eyesDistance + self->_stickerToPlace.offsetY);
                     
                     forehead = [DrawingUtility scaledPoint:forehead
                                 xScale:self->_xScale
@@ -488,7 +493,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                          xScale:self->_xScale
                          yScale:self->_yScale
                          offset:self->_videoBox.origin];
-    stickerView.layer.anchorPoint = chinPivot;
+//    [DrawingUtility setAnchorPoint:chinPivot forView:stickerView];
     NSLog(@"****POSIZIONE PIVOT: X = %f, Y = %f\n",chinPivot.x, chinPivot.y);
     
     

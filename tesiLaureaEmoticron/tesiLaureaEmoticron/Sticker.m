@@ -18,6 +18,8 @@
 - (id)initWithName: (NSString *)name withType:(StickerType)type{
     self.name = name;
     self.type = type;
+    self.offsetX = 0.0;
+    self.offsetY = 0.0;
     return self;
 }
 
