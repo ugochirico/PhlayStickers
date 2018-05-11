@@ -481,30 +481,20 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     stickerView.contentMode = UIViewContentModeScaleAspectFit;
-    stickerView.center = position;
+    stickerView.layer.position = position;
     
-    CGPoint chinPivot = stickerView.layer.anchorPoint;
-    if(face.hasNoseBasePosition){
-        chinPivot = CGPointMake(face.noseBasePosition.x, face.noseBasePosition.y - face.bounds.size.height / 3);
-    }
+    CGPoint chinPivot = CGPointMake(face.noseBasePosition.x, face.noseBasePosition.y - face.bounds.size.height / 3);
     chinPivot = [DrawingUtility scaledPoint:chinPivot
                          xScale:self->_xScale
                          yScale:self->_yScale
                          offset:self->_videoBox.origin];
-//    [DrawingUtility setAnchorPoint:chinPivot forView:stickerView];
-    
+    stickerView.layer.anchorPoint = chinPivot;
     NSLog(@"****POSIZIONE PIVOT: X = %f, Y = %f\n",chinPivot.x, chinPivot.y);
     
     
     
     if(face.hasHeadEulerAngleY){
         
-        //        CATransform3D rotationWithPerspective = CATransform3DIdentity;
-        //        rotationWithPerspective.m34 = -1.0/500.0/2/2;
-        //        if(face.headEulerAngleY < 0)
-        //            rotationWithPerspective.m34 = 1.0/500.0/2/2;
-        //        else if(face.headEulerAngleY > 0)
-        //            rotationWithPerspective.m34 = -1.0/500.0/2/2;
         
         CGFloat perspective = -1000.0; //This relates to the m34 perspective matrix.
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
@@ -520,8 +510,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, - face.headEulerAngleZ / 180.0 * (CGFloat)M_PI, 0, 0, 1);
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
     }
-    
-    
     
     
     
