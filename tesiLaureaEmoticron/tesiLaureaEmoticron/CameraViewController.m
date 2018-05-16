@@ -320,7 +320,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 }else if(self->_stickerToPlace.type == head){
                     
                     
-                    CGPoint forehead = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY - self->_eyesDistance + self->_stickerToPlace.offsetY);
+                    CGPoint forehead = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY - self->_eyesDistance - self->_stickerToPlace.offsetY);
                     
                     forehead = [DrawingUtility scaledPoint:forehead
                                 xScale:self->_xScale
@@ -331,6 +331,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     
                 }
                 
+                
+            }
+            
+            
+            if(face.hasNoseBasePosition){
+                
+                if(self->_stickerToPlace.type == nose){
+                    
+                    CGPoint nosePosition = CGPointMake(face.noseBasePosition.x + self->_stickerToPlace.offsetX, face.noseBasePosition.y + self->_stickerToPlace.offsetY);
+                
+                    nosePosition = [DrawingUtility scaledPoint:nosePosition
+                                     xScale:self->_xScale
+                                     yScale:self->_yScale
+                                     offset:self->_videoBox.origin];
+                
+                    [self placeSticker:nosePosition onFace:face];
+                }
                 
             }
             
@@ -460,7 +477,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             scaleMultiplier = 40.0;
             break;
         case head:
-            scaleMultiplier = 75.0;
+            scaleMultiplier = 70.0;
             break;
             
         case undefined:
@@ -470,6 +487,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             break;
             
         case nose:
+            scaleMultiplier = 22.0;
             break;
             
         case cheek:
