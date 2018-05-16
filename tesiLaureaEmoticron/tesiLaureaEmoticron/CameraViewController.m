@@ -336,7 +336,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             if(face.hasLeftCheekPosition && face.hasRightCheekPosition){
      
-                if(self->_stickerToPlace.type == cheekbones){
+                if(self->_stickerToPlace.type == cheek){
                     
                     CGPoint leftCheek = CGPointMake(face.leftCheekPosition.x + self->_stickerToPlace.offsetX, face.leftCheekPosition.y + self->_stickerToPlace.offsetY);
                     CGPoint rightCheek = CGPointMake(face.rightCheekPosition.x + self->_stickerToPlace.offsetX, face.rightCheekPosition.y + self->_stickerToPlace.offsetY);
@@ -472,7 +472,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         case nose:
             break;
             
-        case cheekbones:
+        case cheek:
             scaleMultiplier = 20.0;
             break;
     }

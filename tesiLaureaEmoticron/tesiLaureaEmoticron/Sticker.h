@@ -18,7 +18,7 @@ typedef enum{
     eye,
     mouth,
     nose,
-    cheekbones,
+    cheek,
     undefined
 }StickerType;
 

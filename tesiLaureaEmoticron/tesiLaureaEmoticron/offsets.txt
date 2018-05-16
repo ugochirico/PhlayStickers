@@ -2,4 +2,4 @@ moustache;0;10;mouth
 carnival;0;0;eye
 hat;0;50;head
 wig;10;10;head
-cheek;0;0;cheekbones
+cheek;0;0;cheek
