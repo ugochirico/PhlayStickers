@@ -11,8 +11,7 @@
 
 @implementation Sticker
 
-@synthesize type;
-@synthesize name;
+
 
 
 - (id)initWithName: (NSString *)name withType:(NSString*)type{

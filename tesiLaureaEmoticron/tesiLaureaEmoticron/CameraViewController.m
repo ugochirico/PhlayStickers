@@ -493,7 +493,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         CGFloat perspective = -1000.0; //This relates to the m34 perspective matrix.
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
-        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, face.headEulerAngleY / 180.0 * (CGFloat)M_PI, 0, 1, 0);
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, radians(face.headEulerAngleY), 0, 1, 0);
         
         stickerView.layer.transform = rotationAndPerspectiveTransform;
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
@@ -501,7 +501,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     if(face.hasHeadEulerAngleZ){
-        stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, - face.headEulerAngleZ / 180.0 * (CGFloat)M_PI, 0, 0, 1);
+        stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, - radians(face.headEulerAngleZ), 0, 0, 1);
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
     }
     
