@@ -288,7 +288,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 if(self->_stickerToPlace.type == mouth){
                     
                     
-                    CGPoint mouthPosition = CGPointMake(face.mouthPosition.x + self->_stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10 + self->_stickerToPlace.offsetY);
+                    CGPoint mouthPosition = CGPointMake(face.mouthPosition.x + self->_stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + self->_stickerToPlace.offsetY);
                     
                     CGPoint point = [DrawingUtility scaledPoint:mouthPosition
                                                         xScale:self->_xScale
@@ -310,7 +310,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     
                     
                     
-                    CGPoint midEyespoint = CGPointMake(midEyesPointX, midEyesPointY);
+                    CGPoint midEyespoint = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY + self->_stickerToPlace.offsetY);
                     
                     midEyespoint = [DrawingUtility scaledPoint:midEyespoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
                     
@@ -320,9 +320,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                     
                 }else if(self->_stickerToPlace.type == head){
                     
-                    self->_stickerToPlace.offsetY = -50;
                     
-                    CGPoint forehead = CGPointMake(midEyesPointX,midEyesPointY - self->_eyesDistance + self->_stickerToPlace.offsetY);
+                    CGPoint forehead = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY - self->_eyesDistance + self->_stickerToPlace.offsetY);
                     
                     forehead = [DrawingUtility scaledPoint:forehead
                                 xScale:self->_xScale
