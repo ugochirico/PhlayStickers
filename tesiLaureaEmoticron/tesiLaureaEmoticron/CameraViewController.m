@@ -21,7 +21,6 @@
 
 #import "CameraViewController.h"
 #import "DrawingUtility.h"
-#import "OffsetsReader.h"
 #import "Sticker.h"
 #import <ImageIO/CGImageProperties.h>
 #include <math.h>
@@ -52,19 +51,8 @@
     
     _stickers = [NSMutableArray new];
    
-    _offsetsStrings = [OffsetsReader getOffsetStringsFromFile];
-    NSMutableArray *stickerStrings = [[NSMutableArray alloc] initWithCapacity:_offsetsStrings.count];
-
-    
-    for(int i=0; i<_offsetsStrings.count;i++)
-        [stickerStrings insertObject:[_offsetsStrings[i] componentsSeparatedByString:@";"] atIndex: i];
- 
-    
-    for(int i=0;i<stickerStrings.count;i++){
-        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
-        _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
-        _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
-    }
+    _offsetsStrings = [self getOffsetStringsFromFile];
+    [self getStickers];
     
     
     // Set up default camera settings.
@@ -511,6 +499,42 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     [self->_overlayView addSubview:stickerView];
+}
+
+
+
+
+- (NSMutableArray <NSString *> *)getOffsetStringsFromFile{
+    
+    NSMutableArray <NSString *> *offsetsStrings;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"offsets"
+                                                     ofType:@"txt"];
+    
+    NSString *content = [NSString stringWithContentsOfFile:path
+                                                  encoding:NSUTF8StringEncoding
+                                                     error:NULL];
+    
+    offsetsStrings = (NSMutableArray <NSString *> *)[content componentsSeparatedByString:@"\n"];
+    
+    [offsetsStrings removeLastObject];
+    
+    return offsetsStrings;
+}
+
+-(void) getStickers{
+    
+    NSMutableArray *stickerStrings = [[NSMutableArray alloc] initWithCapacity:_offsetsStrings.count];
+    
+    
+    for(int i=0; i<_offsetsStrings.count;i++)
+        [stickerStrings insertObject:[_offsetsStrings[i] componentsSeparatedByString:@";"] atIndex: i];
+    
+    
+    for(int i=0;i<stickerStrings.count;i++){
+        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
+        _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
+        _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
+    }
 }
 
 @end

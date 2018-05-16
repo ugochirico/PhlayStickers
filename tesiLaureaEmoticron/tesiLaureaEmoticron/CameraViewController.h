@@ -56,7 +56,8 @@
 @property(nonatomic, strong) GMVDetector *faceDetector;
 
 -(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face;
-
+-(void) getStickersFromFile;
+-(void) getStickers;
 
 @end
 

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Sticker.h"
-#import "OffsetsReader.h"
 
 @implementation Sticker
 
