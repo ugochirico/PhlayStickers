@@ -30,6 +30,7 @@ typedef enum{
 @property StickerType type;
 @property CGFloat offsetX;
 @property CGFloat offsetY;
+@property CGFloat scaleFactor;
 
 
 - (id)initWithName: (NSString *)name withType: (NSString *) type;

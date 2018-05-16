@@ -16,9 +16,11 @@
 
 
 - (id)initWithName: (NSString *)name withType:(NSString*)type{
+    
     self.name = name;
     self.offsetX = 0.0;
     self.offsetY = 0.0;
+    self.scaleFactor = 0.0;
     
     if([type  isEqual: @"head"])
         self.type = head;

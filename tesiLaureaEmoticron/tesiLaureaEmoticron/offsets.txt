@@ -1,6 +1,7 @@
-moustache;0;10;mouth
-carnival;0;0;eye
-hat;0;30;head
-wig;10;10;head
-cheek;0;0;cheek
-nose;0;0;nose
+moustache;0;10;mouth;60
+carnival;0;0;eye;40
+hat;0;30;head;70
+wig;10;10;head;75
+cheek;0;0;cheek;20
+nose;0;0;nose;22
+shades;0;0;eye;25

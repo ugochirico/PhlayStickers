@@ -466,36 +466,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 -(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face{
     
     UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
-    CGFloat scaleMultiplier = 100.0;
+
     
-    switch(_stickerToPlace.type){
-            
-        case mouth:
-            scaleMultiplier = 60.0;
-            break;
-        case eye:
-            scaleMultiplier = 40.0;
-            break;
-        case head:
-            scaleMultiplier = 70.0;
-            break;
-            
-        case undefined:
-            break;
-            
-        case ear:
-            break;
-            
-        case nose:
-            scaleMultiplier = 22.0;
-            break;
-            
-        case cheek:
-            scaleMultiplier = 20.0;
-            break;
-    }
-    
-    CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * scaleMultiplier*(face.bounds.size.height / 100);
+    CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * self->_stickerToPlace.scaleFactor *(face.bounds.size.height / 100);
     
     stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth:newWidth];
     
@@ -570,6 +543,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
         _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
         _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
+        _stickers[i].scaleFactor = [stickerStrings[i][4] floatValue];
     }
 }
 
