@@ -32,7 +32,7 @@
 @property Sticker *stickerToPlace;
 
 
-@property NSMutableArray <NSString *> *offsetsStrings;
+@property NSMutableArray <NSString *> *stickersDetails;
 
 
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
@@ -56,7 +56,6 @@
 @property(nonatomic, strong) GMVDetector *faceDetector;
 
 -(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face;
--(void) getStickersFromFile;
 -(void) getStickers;
 
 @end

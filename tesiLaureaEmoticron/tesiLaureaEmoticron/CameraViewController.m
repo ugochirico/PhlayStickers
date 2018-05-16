@@ -51,7 +51,6 @@
     
     _stickers = [NSMutableArray new];
    
-    _offsetsStrings = [self getOffsetStringsFromFile];
     [self getStickers];
     
     
@@ -508,14 +507,14 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     [self->_overlayView addSubview:stickerView];
+    
 }
 
 
 
 
-- (NSMutableArray <NSString *> *)getOffsetStringsFromFile{
+-(void) getStickers{
     
-    NSMutableArray <NSString *> *offsetsStrings;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"offsets"
                                                      ofType:@"txt"];
     
@@ -523,20 +522,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                                   encoding:NSUTF8StringEncoding
                                                      error:NULL];
     
-    offsetsStrings = (NSMutableArray <NSString *> *)[content componentsSeparatedByString:@"\n"];
+    _stickersDetails = (NSMutableArray <NSString *> *)[content componentsSeparatedByString:@"\n"];
     
-    [offsetsStrings removeLastObject];
-    
-    return offsetsStrings;
-}
-
--(void) getStickers{
-    
-    NSMutableArray *stickerStrings = [[NSMutableArray alloc] initWithCapacity:_offsetsStrings.count];
+    [_stickersDetails removeLastObject];
     
     
-    for(int i=0; i<_offsetsStrings.count;i++)
-        [stickerStrings insertObject:[_offsetsStrings[i] componentsSeparatedByString:@";"] atIndex: i];
+    NSMutableArray *stickerStrings = [[NSMutableArray alloc] initWithCapacity:_stickersDetails.count];
+    
+    
+    for(int i=0; i<_stickersDetails.count;i++)
+        [stickerStrings insertObject:[_stickersDetails[i] componentsSeparatedByString:@";"] atIndex: i];
     
     
     for(int i=0;i<stickerStrings.count;i++){
