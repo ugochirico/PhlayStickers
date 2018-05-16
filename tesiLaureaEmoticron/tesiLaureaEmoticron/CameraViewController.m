@@ -19,9 +19,9 @@
 @import AVFoundation;
 @import GoogleMobileVision;
 
-
 #import "CameraViewController.h"
 #import "DrawingUtility.h"
+#import "OffsetsReader.h"
 #import "Sticker.h"
 #import <ImageIO/CGImageProperties.h>
 #include <math.h>
@@ -48,13 +48,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     [self setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
     
     _stickers = [NSMutableArray new];
-    _stickers[0] = [[Sticker alloc] initWithName: @"moustache.png" withType: mouth];
-    _stickers[1] = [[Sticker alloc] initWithName: @"carnival.png" withType: eye];
-    _stickers[2] = [[Sticker alloc] initWithName: @"hat.png" withType: head];
+   
+    _offsetsStrings = [OffsetsReader getOffsetStringsFromFile];
+    NSMutableArray *stickerStrings = [[NSMutableArray alloc] initWithCapacity:_offsetsStrings.count];
+
+    
+    for(int i=0; i<_offsetsStrings.count;i++)
+        [stickerStrings insertObject:[_offsetsStrings[i] componentsSeparatedByString:@";"] atIndex: i];
+ 
+    
+    for(int i=0;i<stickerStrings.count;i++){
+        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
+        _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
+        _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
+    }
     
     
     // Set up default camera settings.
@@ -289,8 +299,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 //STICKER DI TIPO "BAFFI"
                 if(self->_stickerToPlace.type == mouth){
                     
-//                    self->_stickerToPlace.offsetX = 100;
-//                    self->_stickerToPlace.offsetY = 50;
                     
                     CGPoint mouthPosition = CGPointMake(face.mouthPosition.x + self->_stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + 10 + self->_stickerToPlace.offsetY);
                     

@@ -32,8 +32,7 @@ typedef enum{
 @property CGFloat offsetY;
 
 
-- (id)initWithName: (NSString *)name withType:(StickerType )type;
-
+- (id)initWithName: (NSString *)name withType: (NSString *) type;
 
 
 @end

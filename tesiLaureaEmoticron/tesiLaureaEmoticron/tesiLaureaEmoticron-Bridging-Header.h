@@ -3,5 +3,6 @@
 //
 
 #import "DrawingUtility.h"
+#import "OffsetsReader.h"
 #import "CameraViewController.h"
 #import "Sticker.h"

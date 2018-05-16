@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Sticker.h"
+#import "OffsetsReader.h"
 
 @implementation Sticker
 
@@ -15,13 +16,30 @@
 @synthesize name;
 
 
-- (id)initWithName: (NSString *)name withType:(StickerType)type{
+- (id)initWithName: (NSString *)name withType:(NSString*)type{
     self.name = name;
-    self.type = type;
     self.offsetX = 0.0;
     self.offsetY = 0.0;
+    
+    if([type  isEqual: @"head"])
+        self.type = head;
+    else if([type  isEqual: @"ear"])
+        self.type = ear;
+    else if([type  isEqual: @"eye"])
+        self.type = eye;
+    else if([type  isEqual: @"mouth"])
+        self.type = mouth;
+    else if([type  isEqual: @"nose"])
+        self.type = nose;
+    else if([type  isEqual: @"cheekbones"])
+        self.type = cheekbones;
+    else if([type  isEqual: @"undefined"])
+        self.type = undefined;
+
+    
     return self;
 }
+
 
 
 

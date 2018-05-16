@@ -1,0 +1,4 @@
+moustache;0;0;mouth
+carnival;10;10;eye
+hat;0;50;head
+wig;10;10;head

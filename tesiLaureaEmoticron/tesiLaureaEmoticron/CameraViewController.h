@@ -32,6 +32,7 @@
 @property Sticker *stickerToPlace;
 
 
+@property NSMutableArray <NSString *> *offsetsStrings;
 
 
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
