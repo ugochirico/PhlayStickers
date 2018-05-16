@@ -16,7 +16,7 @@
 		891F9F742080FDFC0024265E /* CameraViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */; };
 		892C2B9D2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */; };
 		89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */; };
-		897D4BA520AC207F00E5872F /* offsets.txt in Resources */ = {isa = PBXBuildFile; fileRef = 897D4BA420AC207F00E5872F /* offsets.txt */; };
+		897D4BA520AC207F00E5872F /* stickersDetails.txt in Resources */ = {isa = PBXBuildFile; fileRef = 897D4BA420AC207F00E5872F /* stickersDetails.txt */; };
 		89860FD32074F29900491448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD22074F29900491448 /* AppDelegate.swift */; };
 		89860FD82074F29900491448 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FD62074F29900491448 /* Main.storyboard */; };
 		89860FDD2074F29900491448 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89860FDB2074F29900491448 /* LaunchScreen.storyboard */; };
@@ -59,7 +59,7 @@
 		891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerExtension.swift; sourceTree = "<group>"; };
 		892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerSwiftExtension.swift; sourceTree = "<group>"; };
 		89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
-		897D4BA420AC207F00E5872F /* offsets.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = offsets.txt; sourceTree = "<group>"; };
+		897D4BA420AC207F00E5872F /* stickersDetails.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = stickersDetails.txt; sourceTree = "<group>"; };
 		89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tesiLaureaEmoticron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89860FD22074F29900491448 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89860FD72074F29900491448 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -182,7 +182,7 @@
 				891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */,
 				89D646BA20878922008BBAC5 /* Sticker.m */,
 				89D646BC2087894D008BBAC5 /* Sticker.h */,
-				897D4BA420AC207F00E5872F /* offsets.txt */,
+				897D4BA420AC207F00E5872F /* stickersDetails.txt */,
 			);
 			path = tesiLaureaEmoticron;
 			sourceTree = "<group>";
@@ -322,7 +322,7 @@
 				89860FDD2074F29900491448 /* LaunchScreen.storyboard in Resources */,
 				89D646BE2087C644008BBAC5 /* Assets.xcassets in Resources */,
 				89860FD82074F29900491448 /* Main.storyboard in Resources */,
-				897D4BA520AC207F00E5872F /* offsets.txt in Resources */,
+				897D4BA520AC207F00E5872F /* stickersDetails.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

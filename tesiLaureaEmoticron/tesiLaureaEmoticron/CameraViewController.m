@@ -515,7 +515,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 -(void) getStickers{
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"offsets"
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"stickersDetails"
                                                      ofType:@"txt"];
     
     NSString *content = [NSString stringWithContentsOfFile:path
