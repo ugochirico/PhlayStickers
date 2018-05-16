@@ -284,7 +284,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             if (face.hasMouthPosition && face.hasNoseBasePosition){
                 
-                //STICKER DI TIPO "BAFFI"
+                //STICKER DI TIPO "BOCCA"
                 if(self->_stickerToPlace.type == mouth){
                     
                     
@@ -309,7 +309,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 if(self->_stickerToPlace.type == eye){
                     
                     
-                    
                     CGPoint midEyespoint = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY + self->_stickerToPlace.offsetY);
                     
                     midEyespoint = [DrawingUtility scaledPoint:midEyespoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
@@ -329,6 +328,24 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                                 offset:self->_videoBox.origin];
                     
                     [self placeSticker: forehead onFace:face];
+                    
+                }
+                
+                
+            }
+            
+            if(face.hasLeftCheekPosition && face.hasRightCheekPosition){
+     
+                if(self->_stickerToPlace.type == cheekbones){
+                    
+                    CGPoint leftCheek = CGPointMake(face.leftCheekPosition.x + self->_stickerToPlace.offsetX, face.leftCheekPosition.y + self->_stickerToPlace.offsetY);
+                    CGPoint rightCheek = CGPointMake(face.rightCheekPosition.x + self->_stickerToPlace.offsetX, face.rightCheekPosition.y + self->_stickerToPlace.offsetY);
+                    
+                    leftCheek = [DrawingUtility scaledPoint:leftCheek xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+                    rightCheek = [DrawingUtility scaledPoint:rightCheek xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+                    
+                    [self placeSticker:leftCheek onFace:face];
+                    [self placeSticker:rightCheek onFace:face];
                     
                 }
                 
@@ -448,21 +465,23 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
         case undefined:
             break;
+            
         case ear:
-            
             break;
-        case nose:
             
+        case nose:
+            break;
+            
+        case cheekbones:
+            scaleMultiplier = 20.0;
             break;
     }
+    
     CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * scaleMultiplier*(face.bounds.size.height / 100);
-    //                    CGFloat newHeight = (stickerImage.size.height / stickerImage.size.width) * face.bounds.size.width;
     
     stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth:newWidth];
     
-    
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
-    
     
     stickerView.contentMode = UIViewContentModeScaleAspectFit;
     stickerView.layer.position = position;
