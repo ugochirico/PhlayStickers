@@ -142,6 +142,49 @@
 			path = "Non usati";
 			sourceTree = "<group>";
 		};
+		894E793020B6A7C300BAF272 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				891F9F672080F7C30024265E /* tesiLaureaEmoticron-Bridging-Header.h */,
+				891F9F682080F7C40024265E /* DrawingUtility.h */,
+				891F9F692080F7C50024265E /* DrawingUtility.m */,
+				891F9F6F2080FC620024265E /* StickerCell.swift */,
+				89D646BA20878922008BBAC5 /* Sticker.m */,
+				89D646BC2087894D008BBAC5 /* Sticker.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		894E793120B6A7F000BAF272 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				89860FD62074F29900491448 /* Main.storyboard */,
+				89860FDB2074F29900491448 /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		894E793220B6A83E00BAF272 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				891F9F6C2080F8930024265E /* CameraViewController.h */,
+				891F9F6B2080F8930024265E /* CameraViewController.m */,
+				891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		894E793320B6A85900BAF272 /* Extra */ = {
+			isa = PBXGroup;
+			children = (
+				89D646BD2087C644008BBAC5 /* Assets.xcassets */,
+				89860FD22074F29900491448 /* AppDelegate.swift */,
+				89860FDE2074F29900491448 /* Info.plist */,
+				897D4BA420AC207F00E5872F /* stickersDetails.txt */,
+			);
+			path = Extra;
+			sourceTree = "<group>";
+		};
 		89860FC62074F29900491448 = {
 			isa = PBXGroup;
 			children = (
@@ -167,22 +210,11 @@
 		89860FD12074F29900491448 /* tesiLaureaEmoticron */ = {
 			isa = PBXGroup;
 			children = (
-				89860FD22074F29900491448 /* AppDelegate.swift */,
+				894E793020B6A7C300BAF272 /* Model */,
+				894E793120B6A7F000BAF272 /* View */,
+				894E793220B6A83E00BAF272 /* Controller */,
+				894E793320B6A85900BAF272 /* Extra */,
 				891F9F6E2080F92F0024265E /* Non usati */,
-				89860FD62074F29900491448 /* Main.storyboard */,
-				891F9F682080F7C40024265E /* DrawingUtility.h */,
-				891F9F6C2080F8930024265E /* CameraViewController.h */,
-				891F9F6B2080F8930024265E /* CameraViewController.m */,
-				891F9F692080F7C50024265E /* DrawingUtility.m */,
-				89D646BD2087C644008BBAC5 /* Assets.xcassets */,
-				89860FDB2074F29900491448 /* LaunchScreen.storyboard */,
-				89860FDE2074F29900491448 /* Info.plist */,
-				891F9F672080F7C30024265E /* tesiLaureaEmoticron-Bridging-Header.h */,
-				891F9F6F2080FC620024265E /* StickerCell.swift */,
-				891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */,
-				89D646BA20878922008BBAC5 /* Sticker.m */,
-				89D646BC2087894D008BBAC5 /* Sticker.h */,
-				897D4BA420AC207F00E5872F /* stickersDetails.txt */,
 			);
 			path = tesiLaureaEmoticron;
 			sourceTree = "<group>";
@@ -692,14 +724,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
-				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
+				INFOPLIST_FILE = tesiLaureaEmoticron/Extra/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "tesiLaureaEmoticron/tesiLaureaEmoticron-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "tesiLaureaEmoticron/Model/tesiLaureaEmoticron-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -714,14 +746,14 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = B5D957X72Q;
-				INFOPLIST_FILE = tesiLaureaEmoticron/Info.plist;
+				INFOPLIST_FILE = tesiLaureaEmoticron/Extra/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.aleluigimar.tesiLaureaEmoticron;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "tesiLaureaEmoticron/tesiLaureaEmoticron-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "tesiLaureaEmoticron/Model/tesiLaureaEmoticron-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
