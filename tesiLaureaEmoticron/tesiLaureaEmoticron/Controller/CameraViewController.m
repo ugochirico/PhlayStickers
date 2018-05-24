@@ -329,7 +329,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if(face.hasLeftEyePosition && face.hasRightEyePosition){
         
-        CGFloat midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
+        CGFloat midEyesPointX;
+        CGFloat x1 = face.leftEyePosition.x, x2 = face.rightEyePosition.x, cosAngleY = cos(radians(face.headEulerAngleY));
+        
+        if(face.hasHeadEulerAngleY){
+            
+            if(face.headEulerAngleY < 0) //verso sinistra
+                midEyesPointX = x1 + (x2-x1)*(cosAngleY)/2;//(x2 - x1)* (cosAngleY) / 2;
+            else if(face.headEulerAngleY > 0) //verso destra
+                midEyesPointX = x1 + (x2-x1)*(1 + (1-cosAngleY)) / 2;
+        }else
+            midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x)/2;
+    
         CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
         
         if(stickerToPlace.type == eye){
@@ -515,7 +526,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     if(face.hasHeadEulerAngleY){
         
         
-        CGFloat perspective = -200.0; //This relates to the m34 perspective matrix.
+        CGFloat perspective = -250.0; //This relates to the m34 perspective matrix.
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, radians(face.headEulerAngleY), 0, 1, 0);
