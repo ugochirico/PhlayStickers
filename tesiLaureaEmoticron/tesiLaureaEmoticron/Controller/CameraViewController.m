@@ -50,7 +50,8 @@
     [self setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
     
     _stickers = [NSMutableArray new];
-   
+    _stickersToPlace = [NSMutableArray new];
+    
     [self getStickers];
     
     
@@ -208,7 +209,6 @@
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
        fromConnection:(AVCaptureConnection *)connection {
-    
     _globalSampleBuffer = sampleBuffer;
     UIImage *image = [GMVUtility sampleBufferTo32RGBA:_globalSampleBuffer];
     AVCaptureDevicePosition devicePosition = self.cameraSwitch.isOn ? AVCaptureDevicePositionFront :
@@ -226,6 +226,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     // Detect features using GMVDetector.
     _oldFaces = _faces;
     _faces = [self.faceDetector featuresInImage:image options:options];
+    
     NSLog(@"Detected %lu face(s).", (unsigned long)[_faces count]);
     
     // The video frames captured by the camera are a different size than the video preview.
@@ -269,110 +270,143 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
             
-            
-            if(face.hasLeftEyePosition && face.hasRightEyePosition){
-                CGPoint leftEye = face.leftEyePosition;
-                CGPoint rightEye = face.rightEyePosition;
+            for(Sticker *sticker in self->_stickersToPlace){
                 
-                self->_eyesDistance = sqrt(pow(rightEye.x - leftEye.x,2) + pow(rightEye.y - leftEye.y,2));
-                NSLog(@"******DISTANZA OCCHI = %f*******", self->_eyesDistance);
-            }
-            
-            
-            
-            
-            if (face.hasMouthPosition && face.hasNoseBasePosition){
+                NSMutableArray *positions = [self getPositionForStickerToPlace:sticker onFace:face];
                 
-                //STICKER DI TIPO "BOCCA"
-                if(self->_stickerToPlace.type == mouth){
-                    
-                    
-                    CGPoint mouthPosition = CGPointMake(face.mouthPosition.x + self->_stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + self->_stickerToPlace.offsetY);
-                    
-                    CGPoint point = [DrawingUtility scaledPoint:mouthPosition
-                                                        xScale:self->_xScale
-                                                        yScale:self->_yScale
-                                                        offset:self->_videoBox.origin];
-                    
-                    [self placeSticker:point onFace:face];
-                    
+                for(NSValue *pointValue in positions){
+                    CGPoint point = pointValue.CGPointValue;
+                    [self placeSticker:sticker inPosition:point onFace:face];
                 }
-                
             }
-            
-            if(face.hasLeftEyePosition && face.hasRightEyePosition){
-                
-                CGFloat midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
-                CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
-                
-                if(self->_stickerToPlace.type == eye){
-                    
-                    
-                    CGPoint midEyespoint = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY + self->_stickerToPlace.offsetY);
-                    
-                    midEyespoint = [DrawingUtility scaledPoint:midEyespoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-                    
-                    
-                    [self placeSticker:midEyespoint onFace:face];
-                    
-                    
-                }else if(self->_stickerToPlace.type == head){
-                    
-                    
-                    CGPoint forehead = CGPointMake(midEyesPointX + self->_stickerToPlace.offsetX, midEyesPointY - self->_eyesDistance - self->_stickerToPlace.offsetY);
-                    
-                    forehead = [DrawingUtility scaledPoint:forehead
-                                xScale:self->_xScale
-                                yScale:self->_yScale
-                                offset:self->_videoBox.origin];
-                    
-                    [self placeSticker: forehead onFace:face];
-                    
-                }
-                
-                
-            }
-            
-            
-            if(face.hasNoseBasePosition){
-                
-                if(self->_stickerToPlace.type == nose){
-                    
-                    CGPoint nosePosition = CGPointMake(face.noseBasePosition.x + self->_stickerToPlace.offsetX, face.noseBasePosition.y + self->_stickerToPlace.offsetY);
-                
-                    nosePosition = [DrawingUtility scaledPoint:nosePosition
-                                     xScale:self->_xScale
-                                     yScale:self->_yScale
-                                     offset:self->_videoBox.origin];
-                
-                    [self placeSticker:nosePosition onFace:face];
-                }
-                
-            }
-            
-            if(face.hasLeftCheekPosition && face.hasRightCheekPosition){
-     
-                if(self->_stickerToPlace.type == cheek){
-                    
-                    CGPoint leftCheek = CGPointMake(face.leftCheekPosition.x + self->_stickerToPlace.offsetX, face.leftCheekPosition.y + self->_stickerToPlace.offsetY);
-                    CGPoint rightCheek = CGPointMake(face.rightCheekPosition.x + self->_stickerToPlace.offsetX, face.rightCheekPosition.y + self->_stickerToPlace.offsetY);
-                    
-                    leftCheek = [DrawingUtility scaledPoint:leftCheek xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-                    rightCheek = [DrawingUtility scaledPoint:rightCheek xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-                    
-                    [self placeSticker:leftCheek onFace:face];
-                    [self placeSticker:rightCheek onFace:face];
-                    
-                }
-                
-                
-            }
-            
-            
             
         }
     });
 }
+
+
+
+
+- (NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature*) face{
+    
+    NSMutableArray *positions = [NSMutableArray <NSValue *> new];
+    CGPoint newPosition;
+    NSValue *newPositionValue;
+    
+    
+    if(face.hasLeftEyePosition && face.hasRightEyePosition){
+        CGPoint leftEye = face.leftEyePosition;
+        CGPoint rightEye = face.rightEyePosition;
+        
+        self->_eyesDistance = sqrt(pow(rightEye.x - leftEye.x,2) + pow(rightEye.y - leftEye.y,2));
+        NSLog(@"******DISTANZA OCCHI = %f*******", self->_eyesDistance);
+    }
+    
+    
+    
+    
+    if (face.hasMouthPosition && face.hasNoseBasePosition){
+        
+        //STICKER DI TIPO "BOCCA"
+        if(stickerToPlace.type == mouth){
+            
+            
+            newPosition = CGPointMake(face.mouthPosition.x + stickerToPlace.offsetX, (face.mouthPosition.y + face.noseBasePosition.y)/2 + stickerToPlace.offsetY);
+            
+            newPosition = [DrawingUtility scaledPoint:newPosition
+                                               xScale:self->_xScale
+                                               yScale:self->_yScale
+                                               offset:self->_videoBox.origin];
+            
+            
+            newPositionValue = [NSValue valueWithCGPoint:newPosition];
+            [positions addObject:newPositionValue];
+            
+            
+        }
+        
+    }
+    
+    if(face.hasLeftEyePosition && face.hasRightEyePosition){
+        
+        CGFloat midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x) / 2;
+        CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
+        
+        if(stickerToPlace.type == eye){
+            
+            
+            newPosition = CGPointMake(midEyesPointX + stickerToPlace.offsetX, midEyesPointY + stickerToPlace.offsetY);
+            
+            newPosition = [DrawingUtility scaledPoint:newPosition xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            
+            newPositionValue = [NSValue valueWithCGPoint:newPosition];
+            [positions addObject:newPositionValue];
+            
+            
+        }else if(stickerToPlace.type == head){
+            
+            
+            newPosition = CGPointMake(midEyesPointX + stickerToPlace.offsetX, midEyesPointY - self->_eyesDistance - stickerToPlace.offsetY);
+            
+            newPosition = [DrawingUtility scaledPoint:newPosition
+                                               xScale:self->_xScale
+                                               yScale:self->_yScale
+                                               offset:self->_videoBox.origin];
+            
+            newPositionValue = [NSValue valueWithCGPoint:newPosition];
+            [positions addObject:newPositionValue];
+            
+        }
+        
+        
+    }
+    
+    
+    if(face.hasNoseBasePosition){
+        
+        if(stickerToPlace.type == nose){
+            
+            newPosition = CGPointMake(face.noseBasePosition.x + stickerToPlace.offsetX, face.noseBasePosition.y + stickerToPlace.offsetY);
+            
+            newPosition = [DrawingUtility scaledPoint:newPosition
+                                               xScale:self->_xScale
+                                               yScale:self->_yScale
+                                               offset:self->_videoBox.origin];
+            
+            newPositionValue = [NSValue valueWithCGPoint:newPosition];
+            [positions addObject:newPositionValue];
+        }
+        
+    }
+    
+    if(face.hasLeftCheekPosition && face.hasRightCheekPosition){
+        
+        if(stickerToPlace.type == cheek){
+            
+            CGPoint leftCheek = CGPointMake(face.leftCheekPosition.x + stickerToPlace.offsetX, face.leftCheekPosition.y + stickerToPlace.offsetY);
+            CGPoint rightCheek = CGPointMake(face.rightCheekPosition.x + stickerToPlace.offsetX, face.rightCheekPosition.y + stickerToPlace.offsetY);
+            
+            leftCheek = [DrawingUtility scaledPoint:leftCheek xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            newPosition = leftCheek;
+            newPositionValue = [NSValue valueWithCGPoint:newPosition];
+            [positions addObject:newPositionValue];
+            
+            rightCheek = [DrawingUtility scaledPoint:rightCheek xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            newPosition = rightCheek;
+            newPositionValue = [NSValue valueWithCGPoint:newPosition];
+            [positions addObject:newPositionValue];
+            
+        }
+        
+        
+    }
+    
+    
+    
+    return positions;
+}
+
+
 
 #pragma mark - Camera setup
 
@@ -462,12 +496,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
--(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face{
+-(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face{
     
-    UIImage *stickerImage = [UIImage imageNamed: self->_stickerToPlace.name];
-
+    UIImage *stickerImage = [UIImage imageNamed: stickerToPlace.name];
     
-    CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * self->_stickerToPlace.scaleFactor *(face.bounds.size.height / 100);
+    
+    CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * stickerToPlace.scaleFactor *(face.bounds.size.height / 100);
     
     stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth:newWidth];
     

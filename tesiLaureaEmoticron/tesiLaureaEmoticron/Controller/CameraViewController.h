@@ -29,7 +29,7 @@
 @property CGFloat eyesDistance;
 
 @property NSMutableArray<Sticker *> *stickers;
-@property Sticker *stickerToPlace;
+@property NSMutableArray<Sticker *> *stickersToPlace;
 
 
 @property NSMutableArray <NSString *> *stickersDetails;
@@ -55,8 +55,9 @@
 //Detector
 @property(nonatomic, strong) GMVDetector *faceDetector;
 
--(void) placeSticker: (CGPoint)position onFace: (GMVFaceFeature*) face;
+-(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face;
 -(void) getStickers;
+-(NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature *)face;
 
 @end
 

@@ -34,11 +34,11 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+    
+        stickersToPlace = NSMutableArray()
         if !faces.isEmpty{
-            stickerToPlace = Sticker(name: "somesticker.png", withType: "undefined")
             let arrayOfStickers = stickers as! [Sticker]
-            stickerToPlace = arrayOfStickers[indexPath.row]
+            stickersToPlace.add(arrayOfStickers[indexPath.row])
             //NSLog("STICKER NAME: %s\n",stickerToPlace.name);
         }
         
