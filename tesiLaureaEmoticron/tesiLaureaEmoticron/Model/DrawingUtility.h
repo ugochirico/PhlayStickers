@@ -49,5 +49,13 @@
 
 +(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view;
 
++(UIImage*) drawImage:(UIImage*) fgImage
+              inImage:(UIImage*) bgImage;
+
++(UIImage *)renderViewAsImage: (UIView*) viewToRender;
+
++(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)thisView;
+
+
 
 @end

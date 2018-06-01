@@ -27,7 +27,7 @@
 @property NSArray<GMVFaceFeature *> *faces;
 @property NSArray<GMVFaceFeature *> *oldFaces;
 @property CGFloat eyesDistance;
-
+@property NSMutableDictionary *stickersWithPositions;
 @property NSMutableArray<Sticker *> *stickers;
 @property NSMutableArray<Sticker *> *stickersToPlace;
 
@@ -38,11 +38,15 @@
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
 @property(nonatomic, weak) IBOutlet UIView *overlayView;
 @property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
+@property (weak, nonatomic) IBOutlet UIImageView *tmpImage;
+
 
 // Video objects.
 @property(nonatomic, strong) AVCaptureSession *session;
 @property(nonatomic, strong) AVCaptureDevice *captureDevice;
 @property(nonatomic, strong) AVCaptureVideoDataOutput *videoDataOutput;
+@property(nonatomic, strong) AVCaptureStillImageOutput *stillImageOutput;
+@property(nonatomic, strong) AVCapturePhotoSettings *avSettings;
 @property(nonatomic, strong) dispatch_queue_t videoDataOutputQueue;
 @property(nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property(nonatomic, assign) UIDeviceOrientation lastKnownDeviceOrientation;
@@ -52,12 +56,14 @@
 @property(nonatomic, assign) CGFloat xScale;
 @property(nonatomic, assign) CGFloat yScale;
 
+
 //Detector
 @property(nonatomic, strong) GMVDetector *faceDetector;
 
--(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face;
+-(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face inView: (UIView*)destinationView;
 -(void) getStickers;
--(NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature *)face;
+-(NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature *)face inRect: (CGRect)destinationRect;
+//- (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
 @end
 

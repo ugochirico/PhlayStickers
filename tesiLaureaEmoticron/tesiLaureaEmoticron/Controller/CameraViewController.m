@@ -18,9 +18,12 @@
 @import UIKit;
 @import AVFoundation;
 @import GoogleMobileVision;
+@import CoreMedia;
+@import VideoToolbox;
 
 #import "CameraViewController.h"
 #import "DrawingUtility.h"
+#import "PreviewViewController.h"
 #import "Sticker.h"
 #import <ImageIO/CGImageProperties.h>
 #include <math.h>
@@ -28,7 +31,7 @@
 #define radians(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
 #define degrees(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
 
-@interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate, AVCaptureFileOutputRecordingDelegate>
+@interface CameraViewController ()<AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate,AVCaptureFileOutputRecordingDelegate, UIImagePickerControllerDelegate>
 // UI elemen(nonatomic) (nonatomic) ts.
 
 @end
@@ -54,7 +57,6 @@
     
     [self getStickers];
     
-    
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -66,6 +68,14 @@
     
     // Setup camera preview.
     [self setupCameraPreview];
+    
+    self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
+    self.stillImageOutput.outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
+    
+    if([_session canAddOutput:_stillImageOutput]){
+        [_session addOutput:_stillImageOutput];
+    }
+    
     
     // Initialize the face detector.
     NSDictionary *options = @{
@@ -140,66 +150,89 @@
 - (IBAction)takePhoto:(id)sender {
     
     
-    //    AVCaptureStillImageOutput *stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
-    //    NSDictionary *stillSettings = [[NSDictionary alloc] initWithObjectsAndKeys:AVVideoCodecTypeJPEG, AVVideoCodecKey, nil];
-    //    [stillImageOutput setOutputSettings:stillSettings];
-    //    [self.session addOutput: stillImageOutput];
-    //
-    //
-    //
-    //    AVCaptureConnection *videoConnection = nil;
-    //
-    //
-    //    for (AVCaptureConnection *connection in stillImageOutput.connections)
-    //    {
-    //        for (AVCaptureInputPort *port in [connection inputPorts])
-    //        {
-    //            if ([[port mediaType] isEqual:AVMediaTypeVideo] )
-    //            {
-    //                videoConnection = connection;
-    //                break;
-    //            }
-    //        }
-    //        if (videoConnection)
-    //        {
-    //            break;
-    //        }
-    //    }
-    //
-    //    NSLog(@"about to request a capture from: %@", stillImageOutput);
-    //    if(videoConnection.isEnabled){
-    //        [stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error)
-    //         {
-    //             CFDictionaryRef exifAttachments = CMGetAttachment( imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
-    //             if (exifAttachments)
-    //             {
-    //                 // Do something with the attachments.
-    //                 NSLog(@"attachements: %@", exifAttachments);
-    //             } else {
-    //                 NSLog(@"no attachments");
-    //             }
-    //
-    //
-    //             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-    //             UIImage *image = [[UIImage alloc] initWithData:imageData];
     
-    UIImage *frameFromPreview = [GMVUtility sampleBufferTo32RGBA:_globalSampleBuffer];;
-    UIImageView *wholeScreen = [[UIImageView alloc] initWithImage:frameFromPreview];
-    [wholeScreen addSubview:_overlayView];
-    // define the size and grab a UIImage from it
-    UIGraphicsBeginImageContextWithOptions(wholeScreen.bounds.size, wholeScreen.opaque, 0.0);
-    [wholeScreen.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *screengrab = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
+    AVCaptureConnection *connection = [_stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
-    UIImageWriteToSavedPhotosAlbum(screengrab, nil, nil, nil);
-    
-    
-    
-    
-    
+    if(connection.isEnabled){
+        [_stillImageOutput captureStillImageAsynchronouslyFromConnection: connection completionHandler: ^(CMSampleBufferRef imageSampleBuffer, NSError *error) {
+            
+            NSDictionary *metadata = nil;
+            
+            // check if we got the image buffer
+            if (imageSampleBuffer != NULL) {
+                CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
+                if(exifAttachments) {
+                    metadata = (__bridge NSDictionary*)exifAttachments;
+                }
+                
+                NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
+                // self->_takenPicture.image = [[UIImage alloc] initWithData:imageData];
+                self->_tmpImage.image = [[UIImage alloc] initWithData:imageData];
+                //[self->_tmpImage addSubview:self->_overlayView];
+               
+//                    for (UIView *featureView in self.overlayView.subviews) {
+//                        [featureView removeFromSuperview];
+//                    }
+//
+//                    for (GMVFaceFeature *face in self.faces) {
+//
+//                        for(Sticker *sticker in self->_stickersToPlace){
+//
+//                            NSMutableArray *positions = [self getPositionForStickerToPlace:sticker onFace:face];
+//
+//                            for(NSValue *pointValue in positions){
+//                                CGPoint point = pointValue.CGPointValue;
+//                                [self placeSticker:sticker inPosition:point onFace:face inView: self->_overlayView];
+//                            }
+//                        }
+//                    }
+                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView];
+                self->_tmpImage.image = [DrawingUtility drawImage:renderedOverlay inImage:self->_tmpImage.image];
+
+                
+                UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
+                
+                [self loadPreviewViewController];
+                
+                
+                //                [self performSegueWithIdentifier:@"previewSegue" sender:nil];
+                
+            }
+        }];
+    }
     
 }
+
+
+-(void)loadPreviewViewController{
+    
+    UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    
+    PreviewViewController * vc = [storyboard instantiateViewControllerWithIdentifier:@"PreviewViewController"];
+    //    UIImage * image = _takenPicture.image;
+    
+    vc.imageToView.image = _tmpImage.image;
+    
+    [self.navigationController presentViewController:vc animated:YES completion:(^{[vc.imageToView setImage:self->_tmpImage.image];})];
+}
+
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+//
+//    if([segue.identifier isEqualToString:@"previewSegue"]){
+//
+//        PreviewViewController *destination = [segue destinationViewController];
+//        UIImage * image = _tmpImage.image;
+//        //
+//        destination.imageToView.image = _tmpImage.image;
+//        [destination.imageToView setImage: _tmpImage.image];
+//
+//    }
+//
+//
+//}
+
+
 
 
 
@@ -276,7 +309,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 
                 for(NSValue *pointValue in positions){
                     CGPoint point = pointValue.CGPointValue;
-                    [self placeSticker:sticker inPosition:point onFace:face];
+                    [self placeSticker:sticker inPosition:point onFace:face inView: _overlayView];
                 }
             }
             
@@ -340,7 +373,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 midEyesPointX = x1 + (x2-x1)*(1 + (1-cosAngleY)) / 2;
         }else
             midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x)/2;
-    
+        
         CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
         
         if(stickerToPlace.type == eye){
@@ -419,6 +452,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
+
+
 #pragma mark - Camera setup
 
 - (void)cleanupVideoProcessing {
@@ -456,6 +491,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
     [self.previewLayer setBackgroundColor:[[UIColor whiteColor] CGColor]];
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
+    if (self.previewLayer.connection.supportsVideoStabilization) {
+        self.previewLayer.connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
+    }
     CALayer *rootLayer = [self.placeHolder layer];
     [rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:[rootLayer bounds]];
@@ -507,7 +545,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 
 
--(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face{
+-(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face inView: (UIView*)destinationView{
     
     UIImage *stickerImage = [UIImage imageNamed: stickerToPlace.name];
     
@@ -543,7 +581,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     
-    [self->_overlayView addSubview:stickerView];
+    [destinationView addSubview:stickerView];
     
 }
 

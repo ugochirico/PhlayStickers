@@ -129,4 +129,47 @@
     view.layer.anchorPoint = anchorPoint;
 }
 
++(UIImage*) drawImage:(UIImage*) fgImage
+              inImage:(UIImage*) bgImage
+{
+    UIGraphicsBeginImageContextWithOptions(bgImage.size, FALSE, 0.0);
+    [bgImage drawInRect:CGRectMake( 0, 0, bgImage.size.width, bgImage.size.height)];
+    [fgImage drawInRect:CGRectMake( 0, 0, fgImage.size.width, fgImage.size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
++ (UIImage *)renderViewAsImage: (UIView*) viewToRender
+{
+    // setup context
+    UIGraphicsBeginImageContextWithOptions(viewToRender.bounds.size, NO, 0.0f); // use same scale factor as device
+    CGContextRef c = UIGraphicsGetCurrentContext();
+    
+    // render view
+    [viewToRender.layer renderInContext:c];
+    
+    // get reslting image
+    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return result;
+}
+
++(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)myview
+{
+    //Capture image context ref
+    UIGraphicsBeginImageContext(size);
+    [myview.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //Draw images onto the context
+    [source drawInRect:CGRectMake(0, 0, source.size.width, source.size.height)];
+    [mask drawInRect:CGRectMake(0, 0, mask.size.width, mask.size.height)];
+    
+    return viewImage;
+    
+}
+
 @end
