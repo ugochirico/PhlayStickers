@@ -159,21 +159,22 @@
             NSDictionary *metadata = nil;
             
             // check if we got the image buffer
-            if (imageSampleBuffer != NULL) {
+             if(imageSampleBuffer != NULL) {
                 CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
                 if(exifAttachments) {
                     metadata = (__bridge NSDictionary*)exifAttachments;
                 }
                 
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-                self->_tmpImage.image = [[UIImage alloc] initWithData:imageData];
+                self->_tmpImage.image = [[UIImage alloc] initWithData:imageData].imageFlippedForRightToLeftLayoutDirection;
                 
-                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView];
+                 
+                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView].imageFlippedForRightToLeftLayoutDirection.imageWithHorizontallyFlippedOrientation;
                 
                 
-                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay].imageWithHorizontallyFlippedOrientation;
+                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay];
                 
-                UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
+                 UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
                 
                 [self loadPreviewViewController];
                 
@@ -551,6 +552,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, radians(face.headEulerAngleY), 0, 1, 0);
+    
         
         stickerView.layer.transform = rotationAndPerspectiveTransform;
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
@@ -558,7 +560,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     if(face.hasHeadEulerAngleZ){
-        stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, - radians(face.headEulerAngleZ), 0, 0, 1);
+        stickerView.image = [DrawingUtility rotatedImage:stickerView.image byAngle: -radians(face.headEulerAngleZ)];
+        
+        //CATransform3DRotate(stickerView.layer.transform, - radians(face.headEulerAngleZ), 0, 0, 1);
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
     }
     

@@ -56,6 +56,6 @@
 
 +(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)thisView;
 + (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage;
-
++ (UIImage *) rotatedImage: (UIImage *) image byAngle: (CGFloat) rotation;
 
 @end
