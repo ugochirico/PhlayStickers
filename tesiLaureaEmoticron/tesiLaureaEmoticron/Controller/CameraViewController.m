@@ -63,6 +63,8 @@
     self.cameraSwitch.on = YES;
     [self updateCameraSelection];
     
+    
+    
     // Setup video processing pipeline.
     [self setupVideoProcessing];
     
@@ -149,8 +151,6 @@
 
 - (IBAction)takePhoto:(id)sender {
     
-    
-    
     AVCaptureConnection *connection = [_stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
     
     if(connection.isEnabled){
@@ -166,29 +166,12 @@
                 }
                 
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-                // self->_takenPicture.image = [[UIImage alloc] initWithData:imageData];
                 self->_tmpImage.image = [[UIImage alloc] initWithData:imageData];
-                //[self->_tmpImage addSubview:self->_overlayView];
-               
-//                    for (UIView *featureView in self.overlayView.subviews) {
-//                        [featureView removeFromSuperview];
-//                    }
-//
-//                    for (GMVFaceFeature *face in self.faces) {
-//
-//                        for(Sticker *sticker in self->_stickersToPlace){
-//
-//                            NSMutableArray *positions = [self getPositionForStickerToPlace:sticker onFace:face];
-//
-//                            for(NSValue *pointValue in positions){
-//                                CGPoint point = pointValue.CGPointValue;
-//                                [self placeSticker:sticker inPosition:point onFace:face inView: self->_overlayView];
-//                            }
-//                        }
-//                    }
+                
                 UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView];
-                self->_tmpImage.image = [DrawingUtility drawImage:renderedOverlay inImage:self->_tmpImage.image];
-
+                
+                
+                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay].imageWithHorizontallyFlippedOrientation;
                 
                 UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
                 

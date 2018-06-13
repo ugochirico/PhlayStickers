@@ -55,7 +55,7 @@
 +(UIImage *)renderViewAsImage: (UIView*) viewToRender;
 
 +(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)thisView;
-
++ (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage;
 
 
 @end

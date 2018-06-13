@@ -36,7 +36,7 @@
 
 
 @property(nonatomic, weak) IBOutlet UIView *placeHolder;
-@property(nonatomic, weak) IBOutlet UIView *overlayView;
+@property(nonatomic, weak) IBOutlet UIImageView *overlayView;
 @property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
 @property (weak, nonatomic) IBOutlet UIImageView *tmpImage;
 
