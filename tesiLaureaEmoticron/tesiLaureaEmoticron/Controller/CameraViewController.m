@@ -169,10 +169,10 @@
                 self->_tmpImage.image = [[UIImage alloc] initWithData:imageData].imageFlippedForRightToLeftLayoutDirection;
                 
                  
-                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView].imageFlippedForRightToLeftLayoutDirection.imageWithHorizontallyFlippedOrientation;
+                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView].imageWithHorizontallyFlippedOrientation;
                 
                 
-                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay];
+                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay].imageWithHorizontallyFlippedOrientation;
                 
                  UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
                 
