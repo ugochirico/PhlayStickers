@@ -15,12 +15,6 @@
  limitations under the License.
  */
 
-@import UIKit;
-@import AVFoundation;
-@import GoogleMobileVision;
-@import CoreMedia;
-@import VideoToolbox;
-
 #import "CameraViewController.h"
 #import "DrawingUtility.h"
 #import "PreviewViewController.h"
@@ -540,31 +534,36 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
     
-    stickerView.contentMode = UIViewContentModeScaleAspectFit;
     stickerView.layer.position = position;
     
-    
+    if(face.hasHeadEulerAngleZ){
+        CGFloat angle = -radians(face.headEulerAngleZ);
+        CGAffineTransform t = CGAffineTransformMakeRotation(angle);
+        
+        stickerView.contentMode = UIViewContentModeScaleAspectFill;
+        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
+        NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
+    }
     
     if(face.hasHeadEulerAngleY){
-        
-        
+                
+        CGFloat angle = radians(face.headEulerAngleY);
         CGFloat perspective = -250.0; //This relates to the m34 perspective matrix.
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
-        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, radians(face.headEulerAngleY), 0, 1, 0);
-    
+        rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, angle, 0, 1, 0);
+        
+        stickerView.contentMode = UIViewContentModeScaleAspectFit;
         
         stickerView.layer.transform = rotationAndPerspectiveTransform;
+       
+//        stickerView.image = [DrawingUtility transformImage:stickerView.image with3DTransform:rotationAndPerspectiveTransform];
+//        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:CATransform3DGetAffineTransform(rotationAndPerspectiveTransform)];
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
         
     }
     
-    if(face.hasHeadEulerAngleZ){
-        stickerView.image = [DrawingUtility rotatedImage:stickerView.image byAngle: -radians(face.headEulerAngleZ)];
-        
-        //CATransform3DRotate(stickerView.layer.transform, - radians(face.headEulerAngleZ), 0, 0, 1);
-        NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
-    }
+    
     
     
     

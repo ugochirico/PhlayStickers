@@ -16,6 +16,8 @@
 
 @import Foundation;
 @import UIKit;
+@import CoreImage;
+
 
 @interface DrawingUtility : NSObject
 
@@ -55,7 +57,11 @@
 +(UIImage *)renderViewAsImage: (UIView*) viewToRender;
 
 +(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)thisView;
+
 + (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage;
-+ (UIImage *) rotatedImage: (UIImage *) image byAngle: (CGFloat) rotation;
+
++ (UIImage *) rotateAroundZAxis: (UIImage *) image byAngle: (CGFloat) rotation withTransform: (CGAffineTransform) t;
+
++ (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t;
 
 @end

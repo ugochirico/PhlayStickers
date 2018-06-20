@@ -16,6 +16,7 @@
 
 #import "Foundation/Foundation.h"
 #import "DrawingUtility.h"
+#import "CoreImage/CoreImage.h"
 
 @implementation DrawingUtility
 
@@ -192,10 +193,9 @@
     return image;
 }
 
-+ (UIImage *) rotatedImage: (UIImage *) image byAngle: (CGFloat) rotation // rotation in radians
++ (UIImage *) rotateAroundZAxis: (UIImage *) image byAngle: (CGFloat) rotation withTransform: (CGAffineTransform) t // rotation in radians
 {
     // Calculate Destination Size
-    CGAffineTransform t = CGAffineTransformMakeRotation(rotation);
     CGRect sizeRect = (CGRect) {.size = image.size};
     CGRect destRect = CGRectApplyAffineTransform(sizeRect, t);
     CGSize destinationSize = destRect.size;
@@ -211,6 +211,44 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
+}
+
+
++ (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t // rotation in radians
+{
+    // Calculate Destination Size
+//    CGRect sizeRect = (CGRect) {.size = image.size};
+//    CGRect destRect = CGRectApplyAffineTransform(sizeRect, CATransform3DGetAffineTransform(t));
+//    CGSize destinationSize = destRect.size;
+//
+//    // Draw image
+//    UIGraphicsBeginImageContext(destinationSize);
+//    CGContextRef context = UIGraphicsGetCurrentContext();
+//    CGContextTranslateCTM(context, destinationSize.width / 2.0f, destinationSize.height / 2.0f);
+//
+//    [image drawInRect:CGRectMake(-image.size.width / 2.0f, -image.size.height / 2.0f, image.size.width, image.size.height)];
+//
+//    // Save image
+//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+    CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform"];
+    [filter setDefaults];
+    [filter setValue:image.CIImage forKey:kCIInputImageKey];
+    CGAffineTransform newTransform = CATransform3DGetAffineTransform(t);
+    [filter setValue:[NSValue valueWithBytes:&newTransform
+                                      objCType:@encode(CGAffineTransform)]
+                forKey:@"inputTransform"];
+    UIImage *outputImage = [self imageFromCIImage:[filter outputImage]];
+
+    return outputImage;
+}
+
++ (UIImage *)imageFromCIImage:(CIImage *)ciImage {
+    CIContext *ciContext = [CIContext contextWithOptions:nil];
+    CGImageRef cgImage = [ciContext createCGImage:ciImage fromRect:[ciImage extent]];
+    UIImage *image = [UIImage imageWithCGImage:cgImage];
+    CGImageRelease(cgImage);
+    return image;
 }
 
 
