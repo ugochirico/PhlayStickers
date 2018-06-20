@@ -73,7 +73,7 @@
     return resultPoint;
 }
 
-+(UIImage*)scaleImageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width
++(UIImage*)scaleImage: (UIImage*) sourceImage toWidth: (float) i_width
 {
     float oldWidth = sourceImage.size.width;
     float scaleFactor = i_width / oldWidth;
@@ -88,27 +88,7 @@
     return newImage;
 }
 
-+ (UIImage *)scaleImageToSize: (UIImage*) image withNewSize: (CGSize)newSize {
-    
-    CGRect scaledImageRect = CGRectZero;
-    
-    CGFloat aspectWidth = newSize.width / newSize.width;
-    CGFloat aspectHeight = newSize.height / newSize.height;
-    CGFloat aspectRatio = MIN ( aspectWidth, aspectHeight );
-    
-    scaledImageRect.size.width = newSize.width * aspectRatio;
-    scaledImageRect.size.height = newSize.height * aspectRatio;
-    scaledImageRect.origin.x = (newSize.width - scaledImageRect.size.width) / 2.0f;
-    scaledImageRect.origin.y = (newSize.height - scaledImageRect.size.height) / 2.0f;
-    
-    UIGraphicsBeginImageContextWithOptions( newSize, NO, 0 );
-    [image drawInRect: scaledImageRect];
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return scaledImage;
-    
-}
+
 
 +(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view
 {
@@ -130,17 +110,6 @@
     view.layer.anchorPoint = anchorPoint;
 }
 
-+(UIImage*) drawImage:(UIImage*) fgImage
-              inImage:(UIImage*) bgImage
-{
-    UIGraphicsBeginImageContextWithOptions(bgImage.size, FALSE, 0.0);
-    [bgImage drawInRect:CGRectMake( 0, 0, bgImage.size.width, bgImage.size.height)];
-    [fgImage drawInRect:CGRectMake( 0, 0, fgImage.size.width, fgImage.size.height)];
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return newImage;
-}
 
 + (UIImage *)renderViewAsImage: (UIView*) viewToRender
 {
@@ -157,21 +126,6 @@
     return result;
 }
 
-+(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)myview
-{
-    //Capture image context ref
-    UIGraphicsBeginImageContext(size);
-    [myview.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    //Draw images onto the context
-    [source drawInRect:CGRectMake(0, 0, source.size.width, source.size.height)];
-    [mask drawInRect:CGRectMake(0, 0, mask.size.width, mask.size.height)];
-    
-    return viewImage;
-    
-}
 
 
 + (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
@@ -251,8 +205,13 @@
     return image;
 }
 
-
-
++ (UIImage *)renderImage: (UIView *)view{
+    UIGraphicsBeginImageContext(view.frame.size);
+    [view.layer renderInContext: UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
 
 
 

@@ -168,7 +168,8 @@
                 
                 self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay].imageWithHorizontallyFlippedOrientation;
                 
-                 UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
+                 
+                UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
                 
                 [self loadPreviewViewController];
                 
@@ -530,20 +531,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CGFloat newWidth = (stickerImage.size.width / stickerImage.size.height) * stickerToPlace.scaleFactor *(face.bounds.size.height / 100);
     
-    stickerImage = [DrawingUtility scaleImageWithImage:stickerImage scaledToWidth:newWidth];
+    stickerImage = [DrawingUtility scaleImage:stickerImage toWidth:newWidth];
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
     
     stickerView.layer.position = position;
     
-    if(face.hasHeadEulerAngleZ){
-        CGFloat angle = -radians(face.headEulerAngleZ);
-        CGAffineTransform t = CGAffineTransformMakeRotation(angle);
-        
-        stickerView.contentMode = UIViewContentModeScaleAspectFill;
-        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
-        NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
-    }
+    
     
     if(face.hasHeadEulerAngleY){
                 
@@ -561,6 +555,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:CATransform3DGetAffineTransform(rotationAndPerspectiveTransform)];
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
         
+    }
+    
+    if(face.hasHeadEulerAngleZ){
+        CGFloat angle = -radians(face.headEulerAngleZ);
+        CGAffineTransform t = CGAffineTransformMakeRotation(angle);
+        
+        stickerView.contentMode = UIViewContentModeScaleAspectFill;
+        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
+        NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
     }
     
     

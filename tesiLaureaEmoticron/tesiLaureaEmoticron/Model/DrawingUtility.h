@@ -45,23 +45,18 @@
                 yScale:(CGFloat)yscale
                 offset:(CGPoint)offset;
 
-+(UIImage*)scaleImageWithImage: (UIImage*) sourceImage scaledToWidth: (float) i_width;
-
-+ (UIImage *)scaleImageToSize: (UIImage*) image withNewSize: (CGSize)newSize;
++(UIImage*)scaleImage: (UIImage*) sourceImage toWidth: (float) i_width;
 
 +(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view;
 
-+(UIImage*) drawImage:(UIImage*) fgImage
-              inImage:(UIImage*) bgImage;
-
 +(UIImage *)renderViewAsImage: (UIView*) viewToRender;
-
-+(UIImage*)mergeImage:(UIImage*)mask overImage:(UIImage*)source inSize:(CGSize)size inView: (UIView *)thisView;
 
 + (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage;
 
 + (UIImage *) rotateAroundZAxis: (UIImage *) image byAngle: (CGFloat) rotation withTransform: (CGAffineTransform) t;
 
 + (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t;
+
++ (UIImage *)renderImage: (UIView *)view;
 
 @end
