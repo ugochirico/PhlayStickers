@@ -153,22 +153,33 @@
             NSDictionary *metadata = nil;
             
             // check if we got the image buffer
-             if(imageSampleBuffer != NULL) {
+            if(imageSampleBuffer != NULL) {
                 CFDictionaryRef exifAttachments = CMGetAttachment(imageSampleBuffer, kCGImagePropertyExifDictionary, NULL);
                 if(exifAttachments) {
                     metadata = (__bridge NSDictionary*)exifAttachments;
                 }
                 
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
-                self->_tmpImage.image = [[UIImage alloc] initWithData:imageData].imageFlippedForRightToLeftLayoutDirection;
+                self->_tmpImage.image = [[UIImage alloc] initWithData:imageData];
+                if(!self->_cameraSwitch.isOn)
+                    self->_tmpImage.image = self->_tmpImage.image.imageFlippedForRightToLeftLayoutDirection;
                 
-                 
-                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView].imageWithHorizontallyFlippedOrientation;
                 
+                
+                //                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView].imageWithHorizontallyFlippedOrientation;
+                //                if(!self->_cameraSwitch.isOn)
+                //                    renderedOverlay = renderedOverlay.imageWithHorizontallyFlippedOrientation;
+                //
+                UIGraphicsBeginImageContextWithOptions(self->_overlayView.bounds.size, false, 0);
+                [self->_overlayView drawViewHierarchyInRect:self->_overlayView.bounds afterScreenUpdates:YES];
+                UIImage *renderedOverlay = UIGraphicsGetImageFromCurrentImageContext().imageWithHorizontallyFlippedOrientation;
+                UIGraphicsEndImageContext();
                 
                 self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay].imageWithHorizontallyFlippedOrientation;
+                if(!self->_cameraSwitch.isOn)
+                    self->_tmpImage.image = self->_tmpImage.image;
                 
-                 
+                
                 UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
                 
                 [self loadPreviewViewController];
@@ -540,19 +551,25 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     if(face.hasHeadEulerAngleY){
-                
+        
         CGFloat angle = radians(face.headEulerAngleY);
         CGFloat perspective = -250.0; //This relates to the m34 perspective matrix.
         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
         rotationAndPerspectiveTransform.m34 = 1.0 / perspective;
         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, angle, 0, 1, 0);
         
+        
         stickerView.contentMode = UIViewContentModeScaleAspectFit;
         
+        //        CGAffineTransform rotationAroundY = CGAffineTransformMake(cos(angle), -sin(angle), sin(angle), cos(angle), 0, 0);
+        
+        
         stickerView.layer.transform = rotationAndPerspectiveTransform;
-       
-//        stickerView.image = [DrawingUtility transformImage:stickerView.image with3DTransform:rotationAndPerspectiveTransform];
-//        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:CATransform3DGetAffineTransform(rotationAndPerspectiveTransform)];
+        
+        
+        
+        //        stickerView.image = [DrawingUtility transformImage:stickerView.image with3DTransform:rotationAndPerspectiveTransform];
+        //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:CATransform3DGetAffineTransform(rotationAndPerspectiveTransform)];
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
         
     }
@@ -562,6 +579,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         CGAffineTransform t = CGAffineTransformMakeRotation(angle);
         
         stickerView.contentMode = UIViewContentModeScaleAspectFill;
+//        stickerView.transform = t;
+        
         stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
     }
@@ -605,5 +624,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         _stickers[i].scaleFactor = [stickerStrings[i][4] floatValue];
     }
 }
+
+
+
 
 @end

@@ -168,42 +168,49 @@
 }
 
 
-+ (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t // rotation in radians
++ (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t
 {
-    // Calculate Destination Size
-//    CGRect sizeRect = (CGRect) {.size = image.size};
-//    CGRect destRect = CGRectApplyAffineTransform(sizeRect, CATransform3DGetAffineTransform(t));
-//    CGSize destinationSize = destRect.size;
+    
+    CIImage *tmpImage = [self uiImageToCIImage:image];
+    
+    
+//    CIFilter *filter = [CIFilter filterWithName:@"CIPerspectiveTransform" keysAndValues:@"inputImage", tmpImage, nil];
+//    [filter setDefaults];
+//    [filter setValue:[CIVector vectorWithX:180 Y:600] forKey:@"inputTopLeft"];
+//    [filter setValue:[CIVector vectorWithX:102 Y:20] forKey:@"inputBottomLeft"];
 //
-//    // Draw image
-//    UIGraphicsBeginImageContext(destinationSize);
-//    CGContextRef context = UIGraphicsGetCurrentContext();
-//    CGContextTranslateCTM(context, destinationSize.width / 2.0f, destinationSize.height / 2.0f);
+//    CIImage *output = [filter valueForKey:kCIOutputImageKey];
 //
-//    [image drawInRect:CGRectMake(-image.size.width / 2.0f, -image.size.height / 2.0f, image.size.width, image.size.height)];
-//
-//    // Save image
-//    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
+//    if (!output)
+//    {
+//        NSLog(@"Core Image processing error");
+//        return nil;
+//    }
+    
     CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform"];
-    [filter setDefaults];
-    [filter setValue:image.CIImage forKey:kCIInputImageKey];
+
+    [filter setValue:tmpImage forKey:kCIInputImageKey];
     CGAffineTransform newTransform = CATransform3DGetAffineTransform(t);
     [filter setValue:[NSValue valueWithBytes:&newTransform
                                       objCType:@encode(CGAffineTransform)]
-                forKey:@"inputTransform"];
-    UIImage *outputImage = [self imageFromCIImage:[filter outputImage]];
+                forKey: kCIInputTransformKey];
+    UIImage *outputImage = [UIImage imageWithCIImage: [filter outputImage]];
 
     return outputImage;
 }
 
-+ (UIImage *)imageFromCIImage:(CIImage *)ciImage {
-    CIContext *ciContext = [CIContext contextWithOptions:nil];
-    CGImageRef cgImage = [ciContext createCGImage:ciImage fromRect:[ciImage extent]];
-    UIImage *image = [UIImage imageWithCGImage:cgImage];
-    CGImageRelease(cgImage);
-    return image;
+
++ (CIImage *)uiImageToCIImage: (UIImage *)uiImage {
+
+    
+    CIImage *ciImage = [CIImage imageWithData:UIImagePNGRepresentation(uiImage)];
+    if(!ciImage)
+        return nil;
+
+    return ciImage;
+
 }
+
 
 + (UIImage *)renderImage: (UIView *)view{
     UIGraphicsBeginImageContext(view.frame.size);

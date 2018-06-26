@@ -59,4 +59,7 @@
 
 + (UIImage *)renderImage: (UIView *)view;
 
++ (CIImage *)uiImageToCIImage: (UIImage *)uiImage;
+
+
 @end
