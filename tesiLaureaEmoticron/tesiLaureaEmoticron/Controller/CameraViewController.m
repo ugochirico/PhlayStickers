@@ -161,7 +161,7 @@
                 
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                 self->_tmpImage.image = [[UIImage alloc] initWithData:imageData];
-                if(!self->_cameraSwitch.isOn)
+                if(self->_cameraSwitch.isOn)
                     self->_tmpImage.image = self->_tmpImage.image.imageFlippedForRightToLeftLayoutDirection;
                 
                 
@@ -172,12 +172,14 @@
                 //
                 UIGraphicsBeginImageContextWithOptions(self->_overlayView.bounds.size, false, 0);
                 [self->_overlayView drawViewHierarchyInRect:self->_overlayView.bounds afterScreenUpdates:YES];
-                UIImage *renderedOverlay = UIGraphicsGetImageFromCurrentImageContext().imageWithHorizontallyFlippedOrientation;
+                UIImage *renderedOverlay = UIGraphicsGetImageFromCurrentImageContext();
+                if(self->_cameraSwitch.isOn)
+                    renderedOverlay = renderedOverlay.imageWithHorizontallyFlippedOrientation;
                 UIGraphicsEndImageContext();
                 
-                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay].imageWithHorizontallyFlippedOrientation;
-                if(!self->_cameraSwitch.isOn)
-                    self->_tmpImage.image = self->_tmpImage.image;
+                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay];
+                if(self->_cameraSwitch.isOn)
+                    self->_tmpImage.image = self->_tmpImage.image.imageWithHorizontallyFlippedOrientation;
                 
                 
                 UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
