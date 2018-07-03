@@ -53,10 +53,6 @@
 
 + (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage;
 
-+ (UIImage *) rotateAroundZAxis: (UIImage *) image byAngle: (CGFloat) rotation withTransform: (CGAffineTransform) t;
-
-+ (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t;
-
 + (UIImage *)renderImage: (UIView *)view;
 
 + (CIImage *)uiImageToCIImage: (UIImage *)uiImage;

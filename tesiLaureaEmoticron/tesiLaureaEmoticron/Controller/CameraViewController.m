@@ -568,8 +568,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         stickerView.layer.transform = rotationAndPerspectiveTransform;
         
-        
-        
         //        stickerView.image = [DrawingUtility transformImage:stickerView.image with3DTransform:rotationAndPerspectiveTransform];
         //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:CATransform3DGetAffineTransform(rotationAndPerspectiveTransform)];
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
@@ -578,12 +576,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if(face.hasHeadEulerAngleZ){
         CGFloat angle = -radians(face.headEulerAngleZ);
-        CGAffineTransform t = CGAffineTransformMakeRotation(angle);
+        CATransform3D t = CATransform3DRotate(stickerView.layer.transform, angle, 0, 0, 1);
         
         stickerView.contentMode = UIViewContentModeScaleAspectFill;
-//        stickerView.transform = t;
+        stickerView.layer.transform = t;
         
-        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
+        //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
     }
     

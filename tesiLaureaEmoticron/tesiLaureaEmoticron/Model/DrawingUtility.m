@@ -147,57 +147,6 @@
     return image;
 }
 
-+ (UIImage *) rotateAroundZAxis: (UIImage *) image byAngle: (CGFloat) rotation withTransform: (CGAffineTransform) t // rotation in radians
-{
-    // Calculate Destination Size
-    CGRect sizeRect = (CGRect) {.size = image.size};
-    CGRect destRect = CGRectApplyAffineTransform(sizeRect, t);
-    CGSize destinationSize = destRect.size;
-    
-    // Draw image
-    UIGraphicsBeginImageContext(destinationSize);
-    CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, destinationSize.width / 2.0f, destinationSize.height / 2.0f);
-    CGContextRotateCTM(context, rotation);
-    [image drawInRect:CGRectMake(-image.size.width / 2.0f, -image.size.height / 2.0f, image.size.width, image.size.height)];
-    
-    // Save image
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
-
-
-+ (UIImage *) transformImage: (UIImage *) image with3DTransform: (CATransform3D) t
-{
-    
-    CIImage *tmpImage = [self uiImageToCIImage:image];
-    
-    
-//    CIFilter *filter = [CIFilter filterWithName:@"CIPerspectiveTransform" keysAndValues:@"inputImage", tmpImage, nil];
-//    [filter setDefaults];
-//    [filter setValue:[CIVector vectorWithX:180 Y:600] forKey:@"inputTopLeft"];
-//    [filter setValue:[CIVector vectorWithX:102 Y:20] forKey:@"inputBottomLeft"];
-//
-//    CIImage *output = [filter valueForKey:kCIOutputImageKey];
-//
-//    if (!output)
-//    {
-//        NSLog(@"Core Image processing error");
-//        return nil;
-//    }
-    
-    CIFilter *filter = [CIFilter filterWithName:@"CIAffineTransform"];
-
-    [filter setValue:tmpImage forKey:kCIInputImageKey];
-    CGAffineTransform newTransform = CATransform3DGetAffineTransform(t);
-    [filter setValue:[NSValue valueWithBytes:&newTransform
-                                      objCType:@encode(CGAffineTransform)]
-                forKey: kCIInputTransformKey];
-    UIImage *outputImage = [UIImage imageWithCIImage: [filter outputImage]];
-
-    return outputImage;
-}
 
 
 + (CIImage *)uiImageToCIImage: (UIImage *)uiImage {
