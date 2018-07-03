@@ -382,7 +382,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }else if(stickerToPlace.type == head){
             
             
-            newPosition = CGPointMake(midEyesPointX + stickerToPlace.offsetX, midEyesPointY - self->_eyesDistance - stickerToPlace.offsetY);
+            newPosition = CGPointMake(CGRectGetMidX(face.bounds) + (stickerToPlace.offsetX * sin(radians(face.headEulerAngleZ))), CGRectGetMinY(face.bounds) - (stickerToPlace.offsetY * cos(radians(face.headEulerAngleZ))));
             
             newPosition = [DrawingUtility scaledPoint:newPosition
                                                xScale:self->_xScale
@@ -550,7 +550,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     stickerView.layer.position = position;
     
-    
+    CGPoint pivot = CGPointMake(face.bottomMouthPosition.x, face.bottomMouthPosition.y + fabs(face.bottomMouthPosition.y - face.noseBasePosition.y));
+    pivot = [DrawingUtility scaledPoint: pivot
+                         xScale:_xScale
+                         yScale:_yScale
+                         offset:_videoBox.origin];
+//    [stickerView.layer setAnchorPoint:pivot];
     
     if(face.hasHeadEulerAngleY){
         
@@ -576,10 +581,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if(face.hasHeadEulerAngleZ){
         CGFloat angle = -radians(face.headEulerAngleZ);
-        CATransform3D t = CATransform3DRotate(stickerView.layer.transform, angle, 0, 0, 1);
+        stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, angle, 0, 0, 1);
         
         stickerView.contentMode = UIViewContentModeScaleAspectFill;
-        stickerView.layer.transform = t;
+//        stickerView.layer.transform = t;
         
         //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
