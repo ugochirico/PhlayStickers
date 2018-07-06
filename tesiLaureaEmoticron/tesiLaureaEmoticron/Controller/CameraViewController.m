@@ -549,21 +549,22 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
     CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:_xScale yScale:_yScale offset:_videoBox.origin];
-    CGFloat distanceofStickerFromPivot = position.y - CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect)).y;
-    stickerView.layer.position = CGPointMake(0, distanceofStickerFromPivot);
+    CGFloat distanceofStickerFromPivot = CGRectGetMinY(stickerView.frame) - CGRectGetMaxY(faceRect);
 
-    CGPoint pivot = CGPointMake(CGRectGetMidX(face.bounds),CGRectGetMaxY(face.bounds));
+    CGPoint pivot = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect));
     pivot = [DrawingUtility scaledPoint: pivot
                          xScale:_xScale
                          yScale:_yScale
                          offset:_videoBox.origin];
 //    [stickerView.layer setAnchorPoint:pivot];
     
+    stickerView.layer.position = CGPointMake(0, distanceofStickerFromPivot);
+
     if(face.hasHeadEulerAngleY){
         
         CGFloat angle = radians(face.headEulerAngleY);
         CGFloat perspective = -250.0; //This relates to the m34 perspective matrix.
-        CATransform3D t = CATransform3DIdentity;
+        CATransform3D t = stickerView.layer.transform;
         t.m34 = 1.0 / perspective;
         t = CATransform3DRotate(t, angle, 0, 1, 0);
         
@@ -591,13 +592,15 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 //        CGFloat offsetFromMovingAnchorPointY = stickerSize.height * (newAnchorPoint.y - oldAnchorPoint.y);
 //
 //        stickerView.layer.anchorPoint = newAnchorPoint;
-        CATransform3D t1 = CATransform3DMakeRotation(angle, 0, 0, 1);
-        CATransform3D t2 = CATransform3DMakeTranslation(pivot.x, pivot.y,0);
-        CATransform3D t4 = CATransform3DMakeTranslation(-pivot.x, -pivot.y, 0);
-        CATransform3D t3 = CATransform3DConcat(t1, t2);
-        stickerView.layer.transform = CATransform3DConcat(t3, t4);
-        //        stickerView.layer.anchorPoint = oldAnchorPoint;
+//        CATransform3D t1 = CATransform3DMakeRotation(angle, 0, 0, 1);
+//        CATransform3D t2 = CATransform3DMakeTranslation(position.x, position.y,0);
+//        CATransform3D t4 = CATransform3DMakeTranslation(-pivot.x, -pivot.y, 0);
+//        CATransform3D t3 = CATransform3DConcat(t1, t2);
+//        stickerView.layer.transform = CATransform3DConcat(t3, t4);
         
+//        stickerView.layer.anchorPoint = oldAnchorPoint;
+        
+        stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, angle, 0, 0, 1);
         stickerView.contentMode = UIViewContentModeScaleAspectFill;
 //        stickerView.layer.transform = t;
         
@@ -606,7 +609,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     
-    stickerView.layer.anchorPoint = CGPointMake(0.5,0.5);
+//    stickerView.layer.anchorPoint = CGPointMake(0.5,0.5);
     stickerView.layer.position = position;
     [destinationView addSubview:stickerView];
     
