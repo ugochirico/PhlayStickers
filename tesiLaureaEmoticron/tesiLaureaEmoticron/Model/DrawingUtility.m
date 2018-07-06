@@ -90,7 +90,7 @@
 
 
 
-+(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view
++ (CGPoint)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view
 {
     CGPoint newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y);
     CGPoint oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y);
@@ -108,6 +108,8 @@
     
     view.layer.position = position;
     view.layer.anchorPoint = anchorPoint;
+    
+    return anchorPoint;
 }
 
 

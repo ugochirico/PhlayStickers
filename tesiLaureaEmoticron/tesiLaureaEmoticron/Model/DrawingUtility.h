@@ -47,7 +47,7 @@
 
 +(UIImage*)scaleImage: (UIImage*) sourceImage toWidth: (float) i_width;
 
-+(void)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view;
++(CGPoint)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view;
 
 +(UIImage *)renderViewAsImage: (UIView*) viewToRender;
 
