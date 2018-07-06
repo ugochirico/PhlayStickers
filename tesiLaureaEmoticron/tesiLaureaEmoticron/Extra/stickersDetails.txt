@@ -5,3 +5,5 @@ wig;0;10;head;75
 cheek;0;0;cheek;20
 nose;0;0;nose;22
 shades;0;7;eye;25
+shadesWithHole;0;0;eye;35
+hatWithGlasses;0;-70;hat;80

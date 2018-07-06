@@ -294,7 +294,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
-            
+//            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+//            [DrawingUtility addRectangle:faceRect toView:self->_overlayView withColor:UIColor.greenColor];
             for(Sticker *sticker in self->_stickersToPlace){
                 
                 NSMutableArray *positions = [self getPositionForStickerToPlace:sticker onFace:face];
