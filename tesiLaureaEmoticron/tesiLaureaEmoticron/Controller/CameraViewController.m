@@ -548,8 +548,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     stickerImage = [DrawingUtility scaleImage:stickerImage toWidth:newWidth];
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
-    
-    stickerView.layer.position = CGPointZero;
+    CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:_xScale yScale:_yScale offset:_videoBox.origin];
+    CGFloat distanceofStickerFromPivot = position.y - CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect)).y;
+    stickerView.layer.position = CGPointMake(0, distanceofStickerFromPivot);
 
     CGPoint pivot = CGPointMake(CGRectGetMidX(face.bounds),CGRectGetMaxY(face.bounds));
     pivot = [DrawingUtility scaledPoint: pivot
@@ -590,9 +591,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 //        CGFloat offsetFromMovingAnchorPointY = stickerSize.height * (newAnchorPoint.y - oldAnchorPoint.y);
 //
 //        stickerView.layer.anchorPoint = newAnchorPoint;
-        CATransform3D t = CATransform3DTranslate(stickerView.layer.transform, pivot.x/(stickerSize.width + displaySize.width/2), pivot.y/(stickerSize.height + displaySize.height/2),0);
-        t = CATransform3DRotate(t, angle, 0, 0, 1);
-        stickerView.layer.transform = CATransform3DTranslate(t, -pivot.x/(stickerSize.width + displaySize.width/2), -pivot.y/(stickerSize.height + displaySize.height/2),0);
+        CATransform3D t1 = CATransform3DMakeRotation(angle, 0, 0, 1);
+        CATransform3D t2 = CATransform3DMakeTranslation(pivot.x, pivot.y,0);
+        CATransform3D t4 = CATransform3DMakeTranslation(-pivot.x, -pivot.y, 0);
+        CATransform3D t3 = CATransform3DConcat(t1, t2);
+        stickerView.layer.transform = CATransform3DConcat(t3, t4);
         //        stickerView.layer.anchorPoint = oldAnchorPoint;
         
         stickerView.contentMode = UIViewContentModeScaleAspectFill;
@@ -603,7 +606,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     
-    
+    stickerView.layer.anchorPoint = CGPointMake(0.5,0.5);
     stickerView.layer.position = position;
     [destinationView addSubview:stickerView];
     
