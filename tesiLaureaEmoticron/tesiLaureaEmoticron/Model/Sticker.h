@@ -26,14 +26,16 @@ typedef enum{
 
 @interface Sticker : NSObject 
 
+@property int ID;
 @property NSString *name;
 @property StickerType type;
 @property CGFloat offsetX;
 @property CGFloat offsetY;
 @property CGFloat scaleFactor;
+@property BOOL isAnimated;
 
 
-- (id)initWithName: (NSString *)name withType: (NSString *) type;
+- (id)initWithName: (NSString *)name withType: (NSString *) type withId: (int) ID;
 
 
 @end

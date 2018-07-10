@@ -14,8 +14,9 @@
 
 
 
-- (id)initWithName: (NSString *)name withType:(NSString*)type{
+- (id)initWithName: (NSString *)name withType:(NSString*)type withId: (int)ID{
     
+    self.ID = ID;
     self.name = name;
     self.offsetX = 0.0;
     self.offsetY = 0.0;

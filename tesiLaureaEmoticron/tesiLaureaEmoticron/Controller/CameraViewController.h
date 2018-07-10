@@ -37,7 +37,9 @@
 @property CGFloat eyesDistance;
 @property NSMutableDictionary *stickersWithPositions;
 @property NSMutableArray<Sticker *> *stickers;
+@property NSMutableArray<UIImage *> *pictureFrames;
 @property NSMutableArray<Sticker *> *stickersToPlace;
+@property UIImage *pictureFrameToPlace;
 
 
 @property NSMutableArray <NSString *> *stickersDetails;

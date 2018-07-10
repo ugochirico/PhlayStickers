@@ -48,6 +48,8 @@
     
     _stickers = [NSMutableArray new];
     _stickersToPlace = [NSMutableArray new];
+    _pictureFrames = [NSMutableArray new];
+    [_pictureFrames addObject:[UIImage imageNamed:@"cornice1"]];
     
     [self getStickers];
     
@@ -290,6 +292,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [featureView removeFromSuperview];
         }
         
+        self->_frameOverlay.image = self->_pictureFrameToPlace;
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
             //            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
@@ -450,6 +453,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
     }
     
+    if(stickerToPlace.type == undefined){
+        newPosition = CGPointMake([[UIScreen mainScreen]bounds].size.width/2,[[UIScreen mainScreen]bounds].size.height/2);
+        [positions addObject: [NSValue valueWithCGPoint:newPosition]];
+    }
     
     
     return positions;
@@ -560,6 +567,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     stickerImage = [DrawingUtility scaleImage:stickerImage toWidth:newWidth];
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
+    
     CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:_xScale yScale:_yScale offset:_videoBox.origin];
     
     CGPoint pivot = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect));
@@ -654,10 +662,11 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     for(int i=0;i<stickerStrings.count;i++){
-        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
+        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3] withId: i];
         _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
         _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
         _stickers[i].scaleFactor = [stickerStrings[i][4] floatValue];
+        _stickers[i].isAnimated = [stickerStrings[i][5] boolValue];
     }
 }
 
