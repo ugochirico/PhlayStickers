@@ -166,10 +166,6 @@
                 
                 
                 
-                //                UIImage *renderedOverlay = [DrawingUtility renderViewAsImage:self->_overlayView].imageWithHorizontallyFlippedOrientation;
-                //                if(!self->_cameraSwitch.isOn)
-                //                    renderedOverlay = renderedOverlay.imageWithHorizontallyFlippedOrientation;
-                //
                 UIGraphicsBeginImageContextWithOptions(self->_overlayView.bounds.size, false, 0);
                 [self->_overlayView drawViewHierarchyInRect:self->_overlayView.bounds afterScreenUpdates:YES];
                 UIImage *renderedOverlay = UIGraphicsGetImageFromCurrentImageContext();
@@ -294,8 +290,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
-//            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-//            [DrawingUtility addRectangle:faceRect toView:self->_overlayView withColor:UIColor.greenColor];
+            //            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            //            [DrawingUtility addRectangle:faceRect toView:self->_overlayView withColor:UIColor.greenColor];
+            CGPoint headPoint = CGPointMake(CGRectGetMidX(face.bounds), CGRectGetMinY(face.bounds));
+            CGPoint midEyesPoint = CGPointMake((face.leftEyePosition.x + face.rightEyePosition.x)/2, (face.leftEyePosition.y + face.rightEyePosition.y)/2);
+            
+            headPoint = [DrawingUtility scaledPoint:headPoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            midEyesPoint = [DrawingUtility scaledPoint:midEyesPoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            [DrawingUtility addCircleAtPoint:headPoint toView:self->_overlayView withColor:UIColor.blueColor withRadius:10];
+            [DrawingUtility addCircleAtPoint:midEyesPoint toView:self->_overlayView withColor:UIColor.redColor withRadius:10];
+            
+            
             for(Sticker *sticker in self->_stickersToPlace){
                 
                 NSMutableArray *positions = [self getPositionForStickerToPlace:sticker onFace:face];
@@ -374,7 +379,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             newPosition = CGPointMake(midEyesPointX + stickerToPlace.offsetX, midEyesPointY + stickerToPlace.offsetY);
             
-            newPosition = [DrawingUtility scaledPoint:newPosition xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+            newPosition = [DrawingUtility scaledPoint:newPosition
+                                               xScale:self->_xScale
+                                               yScale:self->_yScale
+                                               offset:self->_videoBox.origin];
             
             newPositionValue = [NSValue valueWithCGPoint:newPosition];
             [positions addObject:newPositionValue];
@@ -384,6 +392,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             
             
             newPosition = CGPointMake(CGRectGetMidX(face.bounds) + (stickerToPlace.offsetX * sin(radians(face.headEulerAngleZ))), CGRectGetMinY(face.bounds) - (stickerToPlace.offsetY * cos(radians(face.headEulerAngleZ))));
+
+            
             
             newPosition = [DrawingUtility scaledPoint:newPosition
                                                xScale:self->_xScale
@@ -549,17 +559,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
     CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:_xScale yScale:_yScale offset:_videoBox.origin];
-    CGFloat distanceofStickerFromPivot = CGRectGetMinY(stickerView.frame) - CGRectGetMaxY(faceRect);
-
-    CGPoint pivot = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect));
-    pivot = [DrawingUtility scaledPoint: pivot
-                         xScale:_xScale
-                         yScale:_yScale
-                         offset:_videoBox.origin];
-//    [stickerView.layer setAnchorPoint:pivot];
     
-    stickerView.layer.position = CGPointMake(0, distanceofStickerFromPivot);
-
+    CGPoint pivot = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect));
+    //    pivot = [DrawingUtility scaledPoint: pivot
+    //                         xScale:_xScale
+    //                         yScale:_yScale
+    //                         offset:_videoBox.origin];
+    CGFloat distanceofStickerFromPivot = stickerView.layer.position.y - pivot.y;
+    //    [stickerView.layer setAnchorPoint:pivot];
+    
+    stickerView.layer.position = CGPointZero;
+    
     if(face.hasHeadEulerAngleY){
         
         CGFloat angle = radians(face.headEulerAngleY);
@@ -582,34 +592,36 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     if(face.hasHeadEulerAngleZ){
+        
         CGFloat angle = -radians(face.headEulerAngleZ);
         
         CGSize displaySize = [[UIScreen mainScreen]bounds].size;
         CGSize stickerSize = stickerView.bounds.size;
-//        CGPoint oldAnchorPoint = stickerView.layer.anchorPoint;
-//        CGPoint newAnchorPoint = CGPointMake(stickerSize.width / displaySize.width, stickerSize.height / displaySize.height);
-//        CGFloat offsetFromMovingAnchorPointX = stickerSize.width * (newAnchorPoint.x - oldAnchorPoint.x);
-//        CGFloat offsetFromMovingAnchorPointY = stickerSize.height * (newAnchorPoint.y - oldAnchorPoint.y);
-//
-//        stickerView.layer.anchorPoint = newAnchorPoint;
-//        CATransform3D t1 = CATransform3DMakeRotation(angle, 0, 0, 1);
-//        CATransform3D t2 = CATransform3DMakeTranslation(position.x, position.y,0);
-//        CATransform3D t4 = CATransform3DMakeTranslation(-pivot.x, -pivot.y, 0);
-//        CATransform3D t3 = CATransform3DConcat(t1, t2);
-//        stickerView.layer.transform = CATransform3DConcat(t3, t4);
         
-//        stickerView.layer.anchorPoint = oldAnchorPoint;
-        
+        //        CATransform3D t1 = CATransform3DTranslate(stickerView.layer.transform, pivot.x * stickerSize.width / displaySize.width/2, pivot.y * stickerSize.height / stickerSize.height/2, 0);
         stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, angle, 0, 0, 1);
-        stickerView.contentMode = UIViewContentModeScaleAspectFill;
-//        stickerView.layer.transform = t;
+        //        stickerView.layer.transform = CATransform3DTranslate(t2, -pivot.x * stickerSize.width / displaySize.width/2, -pivot.y * stickerSize.height / displaySize.height/2, 0);
         
-        //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:t];
+        
+        stickerView.contentMode = UIViewContentModeScaleAspectFill;
+        
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
+        //        if(stickerToPlace.type == head){
+        //
+        //            CGPoint midEyesPoint = CGPointMake((face.leftEyePosition.x + face.rightEyePosition.x)/2, (face.leftEyePosition.y + face.rightEyePosition.y)/2);
+        //            midEyesPoint = [DrawingUtility scaledPoint:midEyesPoint
+        //                                                xScale:_xScale
+        //                                                yScale:_yScale
+        //                                                offset:_videoBox.origin];
+        //            CGPoint headPoint = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMinY(faceRect));
+        //            CGFloat distance = sqrt(pow(headPoint.x - midEyesPoint.x,2)+pow(headPoint.y - midEyesPoint.y,2));
+        //            stickerView.layer.position = CGPointMake(distance*cos(angle),distance*sin(angle));
+        //            stickerView.layer.transform = CATransform3DTranslate(stickerView.layer.transform, position.x, position.y, 0);
+        //        }else{
+        //            stickerView.layer.position = position;
+        //        }
     }
     
-    
-//    stickerView.layer.anchorPoint = CGPointMake(0.5,0.5);
     stickerView.layer.position = position;
     [destinationView addSubview:stickerView];
     
