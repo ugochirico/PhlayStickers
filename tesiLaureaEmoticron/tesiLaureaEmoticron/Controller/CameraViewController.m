@@ -174,6 +174,8 @@
                 UIGraphicsEndImageContext();
                 
                 self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:renderedOverlay];
+                self->_frameOverlay.image = [DrawingUtility scaleImage:self->_frameOverlay.image toWidth:self->_tmpImage.frame.size.width];
+                self->_tmpImage.image = [DrawingUtility imageByCombiningImage:self->_tmpImage.image withImage:self->_frameOverlay.image];
                 if(self->_cameraSwitch.isOn)
                     self->_tmpImage.image = self->_tmpImage.image.imageWithHorizontallyFlippedOrientation;
                 
@@ -292,13 +294,13 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         for (GMVFaceFeature *face in self.faces) {
             //            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
             //            [DrawingUtility addRectangle:faceRect toView:self->_overlayView withColor:UIColor.greenColor];
-            CGPoint headPoint = CGPointMake(CGRectGetMidX(face.bounds), CGRectGetMinY(face.bounds));
-            CGPoint midEyesPoint = CGPointMake((face.leftEyePosition.x + face.rightEyePosition.x)/2, (face.leftEyePosition.y + face.rightEyePosition.y)/2);
-            
-            headPoint = [DrawingUtility scaledPoint:headPoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-            midEyesPoint = [DrawingUtility scaledPoint:midEyesPoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-            [DrawingUtility addCircleAtPoint:headPoint toView:self->_overlayView withColor:UIColor.blueColor withRadius:10];
-            [DrawingUtility addCircleAtPoint:midEyesPoint toView:self->_overlayView withColor:UIColor.redColor withRadius:10];
+//            CGPoint headPoint = CGPointMake(CGRectGetMidX(face.bounds), CGRectGetMinY(face.bounds));
+//            CGPoint midEyesPoint = CGPointMake((face.leftEyePosition.x + face.rightEyePosition.x)/2, (face.leftEyePosition.y + face.rightEyePosition.y)/2);
+//
+//            headPoint = [DrawingUtility scaledPoint:headPoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+//            midEyesPoint = [DrawingUtility scaledPoint:midEyesPoint xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+//            [DrawingUtility addCircleAtPoint:headPoint toView:self->_overlayView withColor:UIColor.blueColor withRadius:10];
+//            [DrawingUtility addCircleAtPoint:midEyesPoint toView:self->_overlayView withColor:UIColor.redColor withRadius:10];
             
             
             for(Sticker *sticker in self->_stickersToPlace){
