@@ -1,0 +1,9 @@
+{
+        "name": "hatWithGlasses",
+        "type": "head",
+        "offsetx":  "0",
+        "offsety":  "-70",
+        "scalefactor":  "80",
+        "isAnimated": "NO",
+        "frames": [ ]
+}

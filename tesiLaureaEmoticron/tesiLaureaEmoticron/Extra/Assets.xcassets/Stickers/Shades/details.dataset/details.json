@@ -1,0 +1,9 @@
+{
+            "name": "shades",
+            "type": "eye",
+            "offsetx":  "0",
+            "offsety":  "7",
+            "scalefactor":  "25",
+            "isAnimated": "NO",
+            "frames": [ ]
+}

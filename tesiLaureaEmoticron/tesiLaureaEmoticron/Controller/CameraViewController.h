@@ -67,6 +67,7 @@
 @property(nonatomic, assign) CGRect videoBox;
 @property(nonatomic, assign) CGFloat xScale;
 @property(nonatomic, assign) CGFloat yScale;
+@property(nonatomic, assign) int animationIndex;
 
 
 //Detector

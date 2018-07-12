@@ -1,0 +1,9 @@
+{
+            "name": "wig",
+            "type": "head",
+            "offsetx":  "0",
+            "offsety":  "10",
+            "scalefactor":  "75",
+            "isAnimated": "NO",
+            "frames": [ ]
+}

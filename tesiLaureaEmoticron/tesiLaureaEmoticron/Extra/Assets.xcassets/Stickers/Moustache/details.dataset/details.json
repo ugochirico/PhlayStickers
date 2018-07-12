@@ -1,0 +1,10 @@
+{
+
+        "name": "moustache",
+        "type": "mouth",
+        "offsetx":  "0",
+        "offsety":  "10",
+        "scalefactor":  "60",
+        "isAnimated": "NO",
+        "frames": [ ]
+}

@@ -50,9 +50,10 @@
     _stickersToPlace = [NSMutableArray new];
     _pictureFrames = [NSMutableArray new];
     [_pictureFrames addObject:[UIImage imageNamed:@"cornice1"]];
+    _animationIndex = 0;
     
-    [self getStickers];
-    
+//    [self getStickers];
+    [self fetchStickersUsingJSON];
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -568,6 +569,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
     
+        
+    
+    
     CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:_xScale yScale:_yScale offset:_videoBox.origin];
     
     CGPoint pivot = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect));
@@ -633,6 +637,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     stickerView.layer.position = position;
+    if(stickerToPlace.isAnimated){
+        NSMutableArray <UIImage *> *animationImages;
+//        for(NSString *frameName in stickerToPlace.frames)
+//            [animationImages addObject:[UIImage imageNamed:frameName]];
+        _frameOverlay.image = [UIImage imageNamed: stickerToPlace.frames[_animationIndex%stickerToPlace.frames.count]];
+        _animationIndex++;
+//        _frameOverlay.animationImages = animationImages;
+//        _frameOverlay.animationDuration = 0.5;
+//        [_frameOverlay startAnimating];
+    }else
     [destinationView addSubview:stickerView];
     
 }
@@ -662,12 +676,82 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     
     for(int i=0;i<stickerStrings.count;i++){
-        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3] withId: i];
+        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
         _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
         _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
         _stickers[i].scaleFactor = [stickerStrings[i][4] floatValue];
         _stickers[i].isAnimated = [stickerStrings[i][5] boolValue];
     }
+}
+
+
+-(void)fetchStickersUsingJSON{
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"stickerDetails" ofType:@"json"] ;
+    NSData *data = [NSData dataWithContentsOfFile:path];
+    NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    NSDictionary *stickersDict = [dict objectForKey:@"stickers"];
+    int i = 0;
+    for(NSDictionary *sticker in stickersDict){
+        int ID = i;
+        i++;
+        NSString *name = [sticker objectForKey:@"name"];
+        NSString *type = [sticker objectForKey:@"type"];
+        float offsetx = [[sticker objectForKey:@"offsetx"]floatValue];
+        float offsety = [[sticker objectForKey:@"offsety"]floatValue];
+        float scaleFactor = [[sticker objectForKey:@"scalefactor"]floatValue];
+        BOOL isAnimated = [[sticker objectForKey:@"isAnimated"]boolValue];
+        NSInteger nFrames = [[sticker objectForKey:@"nframes"]integerValue];
+        
+        Sticker *newSticker = [[Sticker alloc]initWithName:name withType:type];
+        newSticker.ID = ID;
+        newSticker.offsetX = offsetx;
+        newSticker.offsetY = offsety;
+        newSticker.scaleFactor = scaleFactor;
+        if((newSticker.isAnimated = isAnimated)){
+            newSticker.frames =[[NSMutableArray alloc]init];
+            for(int i=0;i<nFrames;i++){
+                NSString *newFrame;
+                if(i==0)
+                    newFrame = name;
+                else
+                    newFrame = [NSString stringWithFormat:@"%@%d",name,i];
+                [newSticker.frames addObject:newFrame];
+            }
+        }
+        
+        [self->_stickers addObject:newSticker];
+    }
+    
+    //    NSURL *assetsURL = [[NSBundle mainBundle]URLForResource:@"Assets" withExtension:@"xcassets"];
+    //    NSBundle *assetsBundle = [NSBundle bundleWithURL:assetsURL];
+    //    NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: assetsURL.absoluteString error:NULL];
+    //
+    //    int i = 0;
+    //
+    //    for(NSString *dir in dirs){
+    //        NSLog(@"%@",assetsURL.absoluteString);
+    //        NSString *path = [assetsBundle pathForResource:@"details" ofType:@"json" inDirectory:dir];
+    //        if(!path) continue;
+    //        NSData *data = [NSData dataWithContentsOfFile:path];
+    //        NSDictionary *stickerDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
+    //
+    //        NSString *name = [stickerDict objectForKey:@"name"];
+    //        NSString *type = [stickerDict objectForKey:@"type"];
+    //        float offsetx = [[stickerDict objectForKey:@"offsetx"]floatValue];
+    //        float offsety = [[stickerDict objectForKey:@"offsety"]floatValue];
+    //        float scaleFactor = [[stickerDict objectForKey:@"scalefactor"]floatValue];
+    //        BOOL isAnimated = [[stickerDict objectForKey:@"isAnimated"]boolValue];
+    //
+    //        Sticker *newSticker = [[Sticker alloc]initWithName:name withType:type];
+    //        newSticker.ID = i; i++;
+    //        newSticker.offsetX = offsetx;
+    //        newSticker.offsetY = offsety;
+    //        newSticker.scaleFactor = scaleFactor;
+    //        newSticker.isAnimated = isAnimated;
+    //
+    //        [self->_stickers addObject:newSticker];
+    
 }
 
 

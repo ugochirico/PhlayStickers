@@ -1,0 +1,12 @@
+{
+
+        "name": "hat",
+        "type": "head",
+        "offsetx":  "0",
+        "offsety":  "10",
+        "scalefactor":  "70",
+        "isAnimated": "NO",
+        "frames": [ ]
+}
+
+

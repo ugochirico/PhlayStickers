@@ -33,9 +33,10 @@ typedef enum{
 @property CGFloat offsetY;
 @property CGFloat scaleFactor;
 @property BOOL isAnimated;
+@property NSMutableArray <NSString *> *frames;
 
 
-- (id)initWithName: (NSString *)name withType: (NSString *) type withId: (int) ID;
+- (id)initWithName: (NSString *)name withType: (NSString *) type;
 
 
 @end

@@ -1,0 +1,9 @@
+{
+        "name": "carnival",
+        "type": "eye",
+        "offsetx":  "0",
+        "offsety":  "-40",
+        "scalefactor":  "60",
+        "isAnimated": "NO",
+        "frames": [ ]
+}
