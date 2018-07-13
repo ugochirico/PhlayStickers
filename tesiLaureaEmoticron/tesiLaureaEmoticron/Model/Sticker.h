@@ -19,6 +19,7 @@ typedef enum{
     mouth,
     nose,
     cheek,
+    pictureFrame,
     undefined
 }StickerType;
 
@@ -37,7 +38,6 @@ typedef enum{
 
 
 - (id)initWithName: (NSString *)name withType: (NSString *) type;
-
 
 @end
 

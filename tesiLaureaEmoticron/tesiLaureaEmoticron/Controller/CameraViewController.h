@@ -37,9 +37,9 @@
 @property CGFloat eyesDistance;
 @property NSMutableDictionary *stickersWithPositions;
 @property NSMutableArray<Sticker *> *stickers;
-@property NSMutableArray<UIImage *> *pictureFrames;
+@property NSMutableArray<Sticker *> *pictureFrames;
 @property NSMutableArray<Sticker *> *stickersToPlace;
-@property UIImage *pictureFrameToPlace;
+@property Sticker *pictureFrameToPlace;
 
 
 @property NSMutableArray <NSString *> *stickersDetails;
@@ -76,6 +76,7 @@
 -(void) placeSticker: (Sticker*) stickerToPlace inPosition: (CGPoint)position onFace: (GMVFaceFeature*) face inView: (UIView*)destinationView;
 -(void) getStickers;
 -(NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature *)face inRect: (CGRect)destinationRect;
+-(void)animateStickerView: (UIImageView *)stickerView withStickerToPlace: (Sticker *)stickerToPlace;
 //- (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 
 @end

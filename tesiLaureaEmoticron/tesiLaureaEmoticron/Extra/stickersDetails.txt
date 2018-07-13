@@ -1,9 +1,0 @@
-moustache;0;10;mouth;60;NO;
-carnival;0;-40;eye;60;NO;
-hat;0;10;head;70;NO;
-wig;0;10;head;75;NO;
-cheek;0;0;cheek;20;NO;
-nose;0;0;nose;22;NO;
-shades;0;7;eye;25;NO;
-shadesWithHole;0;0;eye;35;NO;
-hatWithGlasses;0;-70;hat;80;NO;

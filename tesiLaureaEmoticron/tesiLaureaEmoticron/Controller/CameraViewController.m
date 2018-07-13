@@ -49,7 +49,6 @@
     _stickers = [NSMutableArray new];
     _stickersToPlace = [NSMutableArray new];
     _pictureFrames = [NSMutableArray new];
-    [_pictureFrames addObject:[UIImage imageNamed:@"cornice1"]];
     _animationIndex = 0;
     
 //    [self getStickers];
@@ -167,8 +166,8 @@
                 if(self->_cameraSwitch.isOn)
                     self->_tmpImage.image = self->_tmpImage.image.imageFlippedForRightToLeftLayoutDirection;
                 
-                
-                
+                _frameOverlay.image = _frameOverlay.image.imageWithHorizontallyFlippedOrientation;
+
                 UIGraphicsBeginImageContextWithOptions(self->_overlayView.bounds.size, false, 0);
                 [self->_overlayView drawViewHierarchyInRect:self->_overlayView.bounds afterScreenUpdates:YES];
                 UIImage *renderedOverlay = UIGraphicsGetImageFromCurrentImageContext();
@@ -184,7 +183,8 @@
                 
                 
                 UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
-                
+                _frameOverlay.image = _frameOverlay.image.imageWithHorizontallyFlippedOrientation;
+
                 [self loadPreviewViewController];
                 
                 
@@ -293,7 +293,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
             [featureView removeFromSuperview];
         }
         
-        self->_frameOverlay.image = self->_pictureFrameToPlace;
+        self->_frameOverlay.image = [UIImage imageNamed: self->_pictureFrameToPlace.name];
+        if(self->_pictureFrameToPlace.isAnimated)
+            [self animateStickerView:self->_frameOverlay withStickerToPlace:self->_pictureFrameToPlace];
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
             //            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
@@ -637,52 +639,12 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     }
     
     stickerView.layer.position = position;
-    if(stickerToPlace.isAnimated){
-        NSMutableArray <UIImage *> *animationImages;
-//        for(NSString *frameName in stickerToPlace.frames)
-//            [animationImages addObject:[UIImage imageNamed:frameName]];
-        _frameOverlay.image = [UIImage imageNamed: stickerToPlace.frames[_animationIndex%stickerToPlace.frames.count]];
-        _animationIndex++;
-//        _frameOverlay.animationImages = animationImages;
-//        _frameOverlay.animationDuration = 0.5;
-//        [_frameOverlay startAnimating];
-    }else
+    if(stickerToPlace.isAnimated)
+        [self animateStickerView:stickerView withStickerToPlace:stickerToPlace];
     [destinationView addSubview:stickerView];
     
 }
 
-
-
-
--(void) getStickers{
-    
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"stickersDetails"
-                                                     ofType:@"txt"];
-    
-    NSString *content = [NSString stringWithContentsOfFile:path
-                                                  encoding:NSUTF8StringEncoding
-                                                     error:NULL];
-    
-    _stickersDetails = (NSMutableArray <NSString *> *)[content componentsSeparatedByString:@"\n"];
-    
-    [_stickersDetails removeLastObject];
-    
-    
-    NSMutableArray *stickerStrings = [[NSMutableArray alloc] initWithCapacity:_stickersDetails.count];
-    
-    
-    for(int i=0; i<_stickersDetails.count;i++)
-        [stickerStrings insertObject:[_stickersDetails[i] componentsSeparatedByString:@";"] atIndex: i];
-    
-    
-    for(int i=0;i<stickerStrings.count;i++){
-        _stickers[i] = [[Sticker alloc] initWithName: stickerStrings[i][0] withType: stickerStrings[i][3]];
-        _stickers[i].offsetX = [stickerStrings[i][1] floatValue];
-        _stickers[i].offsetY = [stickerStrings[i][2] floatValue];
-        _stickers[i].scaleFactor = [stickerStrings[i][4] floatValue];
-        _stickers[i].isAnimated = [stickerStrings[i][5] boolValue];
-    }
-}
 
 
 -(void)fetchStickersUsingJSON{
@@ -719,8 +681,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 [newSticker.frames addObject:newFrame];
             }
         }
-        
-        [self->_stickers addObject:newSticker];
+        if(newSticker.type == pictureFrame)
+            [self->_pictureFrames addObject:newSticker];
+        else
+            [self->_stickers addObject:newSticker];
     }
     
     //    NSURL *assetsURL = [[NSBundle mainBundle]URLForResource:@"Assets" withExtension:@"xcassets"];
@@ -754,6 +718,10 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
 }
 
+-(void)animateStickerView: (UIImageView *)stickerView withStickerToPlace: (Sticker *)stickerToPlace{
+    stickerView.image = [UIImage imageNamed: stickerToPlace.frames[_animationIndex%stickerToPlace.frames.count]];
+    _animationIndex++;
+}
 
 
 

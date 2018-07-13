@@ -33,6 +33,8 @@
         self.type = nose;
     else if([type  isEqual: @"cheek"])
         self.type = cheek;
+    else if([type  isEqual: @"pictureFrame"])
+        self.type = pictureFrame;
     else if([type  isEqual: @"undefined"])
         self.type = undefined;
 
