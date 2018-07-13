@@ -51,6 +51,7 @@
     _pictureFrames = [NSMutableArray new];
     _animationIndex = 0;
     
+    
 //    [self getStickers];
     [self fetchStickersUsingJSON];
     [self loadFilters];
@@ -293,6 +294,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         for (UIView *featureView in self.overlayView.subviews) {
             [featureView removeFromSuperview];
         }
+        self->_placeHolder.image = [DrawingUtility renderViewAsImage:self->_placeHolder];
+        CIContext *context = [CIContext contextWithOptions: @{kCIContextWorkingColorSpace : @"kCGColorSpaceGenericRGB"}];
+        [self->_filters[0] setValue:[DrawingUtility uiImageToCIImage: self->_placeHolder.image] forKey:kCIInputImageKey];
+
+        CIImage *outputImage = [self->_filters[0] outputImage];
+
+        CGImageRef cgimg = [context createCGImage:outputImage fromRect:[outputImage extent]];
+        UIImage *newImg = [UIImage imageWithCGImage:cgimg];
+
+        [self->_placeHolder setImage:newImg];
+
+        CGImageRelease(cgimg);
         
         self->_frameOverlay.image = [UIImage imageNamed: self->_pictureFrameToPlace.name];
         if(self->_pictureFrameToPlace.isAnimated)
@@ -316,7 +329,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
                 
                 for(NSValue *pointValue in positions){
                     CGPoint point = pointValue.CGPointValue;
-                    [self placeSticker:sticker inPosition:point onFace:face inView: _overlayView];
+                    [self placeSticker:sticker inPosition:point onFace:face inView: self->_overlayView];
                 }
             }
             
@@ -514,7 +527,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:[rootLayer bounds]];
     [rootLayer addSublayer:self.previewLayer];
-//    [_filters[0] setValue:_placeHolder forKey:]
 }
 
 
@@ -731,6 +743,8 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     CIImage *lutImage = [CIImage imageWithContentsOfURL: [[NSBundle mainBundle] URLForResource:@"late_sunset" withExtension:@"png"]];
     CIFilter *newFilter = [CIFilter filterWithName:@"YUCIColorLookup" withInputParameters: @{@"inputColorLookupTable" : lutImage}];
+    
+    [newFilter setValue: @0.8 forKey:kCIInputIntensityKey];
     [_filters addObject:newFilter];
 //                               withInputParameters:@"inputColorLookupTable"
 //                                                   [CIImage imageWithContentsOfURL: [[UIBundle mainBundle] URLForResource:@"late_sunset" withExtension:@"png"]]]];

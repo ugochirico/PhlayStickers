@@ -24,6 +24,7 @@
 @import GoogleMobileVision;
 @import CoreMedia;
 @import VideoToolbox;
+@import Vivid;
 
 
 @class Sticker;
@@ -46,7 +47,7 @@
 @property NSMutableArray <NSString *> *stickersDetails;
 
 
-@property(nonatomic, weak) IBOutlet UIView *placeHolder;
+@property(nonatomic, weak) IBOutlet UIImageView *placeHolder;
 @property(nonatomic, weak) IBOutlet UIImageView *overlayView;
 @property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
 @property (weak, nonatomic) IBOutlet UIImageView *tmpImage;
