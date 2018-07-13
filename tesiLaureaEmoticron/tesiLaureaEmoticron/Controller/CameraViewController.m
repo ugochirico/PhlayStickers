@@ -294,18 +294,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         for (UIView *featureView in self.overlayView.subviews) {
             [featureView removeFromSuperview];
         }
-        self->_placeHolder.image = [DrawingUtility renderViewAsImage:self->_placeHolder];
-        CIContext *context = [CIContext contextWithOptions: @{kCIContextWorkingColorSpace : @"kCGColorSpaceGenericRGB"}];
-        [self->_filters[0] setValue:[DrawingUtility uiImageToCIImage: self->_placeHolder.image] forKey:kCIInputImageKey];
-
-        CIImage *outputImage = [self->_filters[0] outputImage];
-
-        CGImageRef cgimg = [context createCGImage:outputImage fromRect:[outputImage extent]];
-        UIImage *newImg = [UIImage imageWithCGImage:cgimg];
-
-        [self->_placeHolder setImage:newImg];
-
-        CGImageRelease(cgimg);
+//        self->_placeHolder.image = [DrawingUtility renderViewAsImage:self->_placeHolder];
+//        CIContext *context = [CIContext contextWithOptions: @{kCIContextWorkingColorSpace : @"kCGColorSpaceGenericRGB"}];
+//        [self->_filters[0] setValue:[DrawingUtility uiImageToCIImage: self->_placeHolder.image] forKey:kCIInputImageKey];
+//
+//        CIImage *outputImage = [self->_filters[0] outputImage];
+//
+//        CGImageRef cgimg = [context createCGImage:outputImage fromRect:[outputImage extent]];
+//        UIImage *newImg = [UIImage imageWithCGImage:cgimg];
+//
+//        [self->_placeHolder setImage:newImg];
+//
+//        CGImageRelease(cgimg);
         
         self->_frameOverlay.image = [UIImage imageNamed: self->_pictureFrameToPlace.name];
         if(self->_pictureFrameToPlace.isAnimated)
