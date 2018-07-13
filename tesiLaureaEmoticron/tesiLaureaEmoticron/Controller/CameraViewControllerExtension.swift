@@ -40,8 +40,9 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
         if !faces.isEmpty{
             let arrayOfStickers = stickers as! [Sticker]
             stickersToPlace.add(arrayOfStickers[indexPath.row])
-            pictureFrameToPlace = pictureFrames[indexPath.row] as! Sticker
-            
+            if indexPath.row < pictureFrames.count{
+                pictureFrameToPlace = pictureFrames[indexPath.row] as! Sticker
+            }
             //NSLog("STICKER NAME: %s\n",stickerToPlace.name);
         }
         

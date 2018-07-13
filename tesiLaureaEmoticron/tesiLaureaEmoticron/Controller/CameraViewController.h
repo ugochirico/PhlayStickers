@@ -40,6 +40,7 @@
 @property NSMutableArray<Sticker *> *pictureFrames;
 @property NSMutableArray<Sticker *> *stickersToPlace;
 @property Sticker *pictureFrameToPlace;
+@property NSMutableArray <CIFilter *> *filters;
 
 
 @property NSMutableArray <NSString *> *stickersDetails;
@@ -77,7 +78,7 @@
 -(void) getStickers;
 -(NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature *)face inRect: (CGRect)destinationRect;
 -(void)animateStickerView: (UIImageView *)stickerView withStickerToPlace: (Sticker *)stickerToPlace;
-//- (UIImage *)imageFromSampleBuffer:(CMSampleBufferRef)sampleBuffer;
+-(void)loadFilters;
 
 @end
 

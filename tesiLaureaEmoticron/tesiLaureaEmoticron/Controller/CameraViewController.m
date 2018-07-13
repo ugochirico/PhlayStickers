@@ -53,6 +53,7 @@
     
 //    [self getStickers];
     [self fetchStickersUsingJSON];
+    [self loadFilters];
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -513,7 +514,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     [rootLayer setMasksToBounds:YES];
     [self.previewLayer setFrame:[rootLayer bounds]];
     [rootLayer addSublayer:self.previewLayer];
+//    [_filters[0] setValue:_placeHolder forKey:]
 }
+
 
 - (void)updateCameraSelection {
     [self.session beginConfiguration];
@@ -723,6 +726,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     _animationIndex++;
 }
 
+
+-(void)loadFilters{
+    
+    CIImage *lutImage = [CIImage imageWithContentsOfURL: [[NSBundle mainBundle] URLForResource:@"late_sunset" withExtension:@"png"]];
+    CIFilter *newFilter = [CIFilter filterWithName:@"YUCIColorLookup" withInputParameters: @{@"inputColorLookupTable" : lutImage}];
+    [_filters addObject:newFilter];
+//                               withInputParameters:@"inputColorLookupTable"
+//                                                   [CIImage imageWithContentsOfURL: [[UIBundle mainBundle] URLForResource:@"late_sunset" withExtension:@"png"]]]];
+//
+}
 
 
 @end

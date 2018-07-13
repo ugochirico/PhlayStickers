@@ -15,6 +15,7 @@
 		891F9F6D2080F8930024265E /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F6B2080F8930024265E /* CameraViewController.m */; };
 		891F9F702080FC620024265E /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F6F2080FC620024265E /* StickerCell.swift */; };
 		891F9F742080FDFC0024265E /* CameraViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */; };
+		892B116A20F8A36A005C8F2B /* late_sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 892B116920F8A36A005C8F2B /* late_sunset.png */; };
 		892C2B9D2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */; };
 		89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */; };
 		897E5FA520F7842900A2D5C7 /* stickerDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 897E5FA420F7842900A2D5C7 /* stickerDetails.json */; };
@@ -60,6 +61,7 @@
 		891F9F6C2080F8930024265E /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		891F9F6F2080FC620024265E /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
 		891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerExtension.swift; sourceTree = "<group>"; };
+		892B116920F8A36A005C8F2B /* late_sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = late_sunset.png; sourceTree = "<group>"; };
 		892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerSwiftExtension.swift; sourceTree = "<group>"; };
 		89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 		897E5FA420F7842900A2D5C7 /* stickerDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stickerDetails.json; path = ../../../../../Desktop/JSONS/stickerDetails.json; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				89860FD22074F29900491448 /* AppDelegate.swift */,
 				897E5FA420F7842900A2D5C7 /* stickerDetails.json */,
 				897E5FA620F78B4700A2D5C7 /* Assets.xcassets */,
+				892B116920F8A36A005C8F2B /* late_sunset.png */,
 				89860FDE2074F29900491448 /* Info.plist */,
 			);
 			path = Extra;
@@ -253,8 +256,8 @@
 				89860FCB2074F29900491448 /* Sources */,
 				89860FCC2074F29900491448 /* Frameworks */,
 				89860FCD2074F29900491448 /* Resources */,
-				30E456CDC4A3100203F9C9ED /* [CP] Embed Pods Frameworks */,
 				36D198512424D0CDD0AE535D /* [CP] Copy Pods Resources */,
+				BFCEDDD7229A1A0B5809D022 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -273,8 +276,6 @@
 				89860FDF2074F29A00491448 /* Sources */,
 				89860FE02074F29A00491448 /* Frameworks */,
 				89860FE12074F29A00491448 /* Resources */,
-				C118458949AC9F17097C959C /* [CP] Embed Pods Frameworks */,
-				F8CA365E3783B0BF7BFB8E9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -294,8 +295,6 @@
 				89860FEA2074F29A00491448 /* Sources */,
 				89860FEB2074F29A00491448 /* Frameworks */,
 				89860FEC2074F29A00491448 /* Resources */,
-				8F0B86EC60C40E114C61B9CF /* [CP] Embed Pods Frameworks */,
-				BBE7B75AC8D91B9BA4DED68D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -360,6 +359,7 @@
 				89860FD82074F29900491448 /* Main.storyboard in Resources */,
 				897E5FA520F7842900A2D5C7 /* stickerDetails.json in Resources */,
 				897E5FA720F78B4700A2D5C7 /* Assets.xcassets in Resources */,
+				892B116A20F8A36A005C8F2B /* late_sunset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,21 +396,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		30E456CDC4A3100203F9C9ED /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		36D198512424D0CDD0AE535D /* [CP] Copy Pods Resources */ = {
@@ -459,49 +444,22 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8F0B86EC60C40E114C61B9CF /* [CP] Embed Pods Frameworks */ = {
+		BFCEDDD7229A1A0B5809D022 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Vivid/Vivid.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Vivid.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BBE7B75AC8D91B9BA4DED68D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronUITests/Pods-tesiLaureaEmoticronUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C118458949AC9F17097C959C /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D61B0C4CD176CD9FDA11E099 /* [CP] Check Pods Manifest.lock */ = {
@@ -520,21 +478,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F8CA365E3783B0BF7BFB8E9D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-tesiLaureaEmoticronTests/Pods-tesiLaureaEmoticronTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
