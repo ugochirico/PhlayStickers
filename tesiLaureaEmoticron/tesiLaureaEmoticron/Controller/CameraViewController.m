@@ -52,8 +52,9 @@
     _pictureFrames = [NSMutableArray new];
     _animationIndex = 0;
     
+    [_photoButton setHidden:NO];
+    [_stickersCollectionView setHidden:YES];
     
-//    [self getStickers];
     [self fetchStickersUsingJSON];
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
@@ -719,7 +720,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     _animationIndex++;
 }
 
-
+- (IBAction)swipeAction:(UISwipeGestureRecognizer *)sender {
+    
+    if(sender.direction == UISwipeGestureRecognizerDirectionUp){
+        [_stickersCollectionView setHidden:NO];
+        [_photoButton setHidden:YES];
+    }else if(sender.direction == UISwipeGestureRecognizerDirectionDown){
+        [_stickersCollectionView setHidden:YES];
+        [_photoButton setHidden:NO];
+    }
+    
+}
 
 
 

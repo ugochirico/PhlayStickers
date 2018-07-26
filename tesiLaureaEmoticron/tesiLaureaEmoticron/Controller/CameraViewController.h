@@ -52,6 +52,8 @@
 @property(nonatomic, weak) IBOutlet UISwitch *cameraSwitch;
 @property (weak, nonatomic) IBOutlet UIImageView *tmpImage;
 @property (weak, nonatomic) IBOutlet UIImageView *frameOverlay;
+@property (weak, nonatomic) IBOutlet UIButton *photoButton;
+
 
 
 
@@ -70,6 +72,8 @@
 @property(nonatomic, assign) CGFloat xScale;
 @property(nonatomic, assign) CGFloat yScale;
 @property(nonatomic, assign) int animationIndex;
+@property (weak, nonatomic) IBOutlet UICollectionView *stickersCollectionView;
+
 
 
 //Detector

@@ -26,6 +26,7 @@
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="21d-RI-s9N" userLabel="placeholder" customClass="UIImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <gestureRecognizers/>
                             </view>
                             <view contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="phC-qo-BrZ" userLabel="overlay" customClass="UIImageView">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -39,15 +40,18 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB4-eJ-64g">
-                                <rect key="frame" x="157" y="450" width="61" height="50"/>
+                                <rect key="frame" x="157" y="550" width="61" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="takePhoto:" destination="uBd-xC-erX" eventType="touchUpInside" id="GRx-Ch-5X1"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vpj-E2-6j1">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <gestureRecognizers/>
                             </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hCu-WY-V54">
                                 <rect key="frame" x="16" y="501" width="343" height="162"/>
@@ -93,6 +97,7 @@
                             </switch>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="Ycl-iT-hkl" firstAttribute="top" secondItem="R1J-lO-uSO" secondAttribute="top" id="4AD-N9-rWB"/>
                             <constraint firstAttribute="bottom" secondItem="21d-RI-s9N" secondAttribute="bottom" id="Anw-BM-ykM"/>
@@ -117,17 +122,33 @@
                             <constraint firstItem="10Y-J4-KKA" firstAttribute="top" secondItem="vpj-E2-6j1" secondAttribute="bottom" id="ykr-KU-uuu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VX-ue-fmO"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="a3Q-Y6-NzI" appends="YES" id="UDM-XO-SSF"/>
+                            <outletCollection property="gestureRecognizers" destination="h42-zN-8xM" appends="YES" id="cNT-aq-6TN"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="K97-y6-s3d"/>
                     <connections>
                         <outlet property="cameraSwitch" destination="pJI-Zt-aQD" id="cv1-bB-WeS"/>
                         <outlet property="frameOverlay" destination="vpj-E2-6j1" id="LnB-ze-tO0"/>
                         <outlet property="overlayView" destination="phC-qo-BrZ" id="sQs-UX-N03"/>
+                        <outlet property="photoButton" destination="WB4-eJ-64g" id="cvc-Ft-Ma3"/>
                         <outlet property="placeHolder" destination="21d-RI-s9N" id="eIs-kw-5MC"/>
+                        <outlet property="stickersCollectionView" destination="hCu-WY-V54" id="0Nf-S2-hya"/>
                         <outlet property="tmpImage" destination="Ycl-iT-hkl" id="1JU-tm-O3t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7C-cs-FWe" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="a3Q-Y6-NzI" userLabel="Swipe down">
+                    <connections>
+                        <action selector="swipeAction:" destination="uBd-xC-erX" id="BxN-fQ-Tfs"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="up" id="h42-zN-8xM" userLabel="Swipe up">
+                    <connections>
+                        <action selector="swipeAction:" destination="uBd-xC-erX" id="hB7-Db-kVa"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="704.79999999999995" y="111.99400299850076"/>
         </scene>
@@ -146,7 +167,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLP-lZ-tx2">
                                 <rect key="frame" x="16" y="20" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="backAction:" destination="uEk-Mr-PPO" eventType="touchUpInside" id="3x8-S4-xvT"/>
                                 </connections>
@@ -154,7 +177,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcQ-Kc-yIy">
                                 <rect key="frame" x="325" y="20" width="34" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Save"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="saveAction:" destination="uEk-Mr-PPO" eventType="touchUpInside" id="XiE-zK-7Vw"/>
                                 </connections>
