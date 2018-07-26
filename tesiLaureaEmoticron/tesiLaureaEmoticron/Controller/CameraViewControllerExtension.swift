@@ -25,6 +25,7 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "stickerCell", for: indexPath) as! StickerCell
+        cell.layer.cornerRadius = cell.frame.size.width / 2
         let arrayOfStickers = stickers as! [Sticker]
         let sticker = UIImage(named: arrayOfStickers[indexPath.row].name)
         cell.stickerImageView.image = sticker
@@ -35,6 +36,7 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     
+        
         stickersToPlace = NSMutableArray()
         pictureFrameToPlace = Sticker()
         if !faces.isEmpty{
@@ -48,6 +50,7 @@ extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSo
         
         
     }
+
     
     
 

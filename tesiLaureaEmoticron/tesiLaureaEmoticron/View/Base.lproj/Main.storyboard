@@ -39,44 +39,35 @@
                                     <constraint firstAttribute="width" secondItem="Ycl-iT-hkl" secondAttribute="height" multiplier="375:667" id="5Il-QQ-3ed"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB4-eJ-64g">
-                                <rect key="frame" x="157" y="550" width="61" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </state>
-                                <connections>
-                                    <action selector="takePhoto:" destination="uBd-xC-erX" eventType="touchUpInside" id="GRx-Ch-5X1"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vpj-E2-6j1">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <gestureRecognizers/>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hCu-WY-V54">
-                                <rect key="frame" x="16" y="501" width="343" height="162"/>
-                                <color key="backgroundColor" white="1" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hCu-WY-V54">
+                                <rect key="frame" x="16" y="589" width="343" height="70"/>
+                                <color key="backgroundColor" red="0.99633420661570549" green="1" blue="0.99194029901120018" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Q0c-xe-hBo">
-                                    <size key="itemSize" width="118" height="118"/>
+                                    <size key="itemSize" width="70" height="70"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="stickerCell" id="oZF-4o-Ovr" customClass="StickerCell" customModule="tesiLaureaEmoticron" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="22" width="118" height="118"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" reuseIdentifier="stickerCell" id="oZF-4o-Ovr" customClass="StickerCell" customModule="tesiLaureaEmoticron" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="118" height="118"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wzq-4B-Njq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="118" height="118"/>
+                                                    <rect key="frame" x="10" y="10" width="50" height="50"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.29976342429577463" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <size key="customSize" width="70" height="70"/>
                                         <connections>
                                             <outlet property="stickerImageView" destination="wzq-4B-Njq" id="4Sl-Uq-ge9"/>
                                         </connections>
@@ -95,6 +86,16 @@
                                     <action selector="cameraDeviceChanged:" destination="uBd-xC-erX" eventType="valueChanged" id="aAO-yt-sUl"/>
                                 </connections>
                             </switch>
+                            <button opaque="NO" alpha="0.29999999999999999" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WB4-eJ-64g">
+                                <rect key="frame" x="137" y="480" width="101" height="101"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="PhotoButtonWhite">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="takePhoto:" destination="uBd-xC-erX" eventType="touchUpInside" id="GRx-Ch-5X1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -103,7 +104,7 @@
                             <constraint firstAttribute="bottom" secondItem="21d-RI-s9N" secondAttribute="bottom" id="Anw-BM-ykM"/>
                             <constraint firstItem="21d-RI-s9N" firstAttribute="top" secondItem="R1J-lO-uSO" secondAttribute="top" id="D9x-2g-zYp"/>
                             <constraint firstItem="Ycl-iT-hkl" firstAttribute="trailing" secondItem="9VX-ue-fmO" secondAttribute="trailing" id="Ep5-xi-bZg"/>
-                            <constraint firstItem="hCu-WY-V54" firstAttribute="top" secondItem="9VX-ue-fmO" secondAttribute="top" constant="481" id="Glv-uE-aIT"/>
+                            <constraint firstItem="hCu-WY-V54" firstAttribute="top" secondItem="9VX-ue-fmO" secondAttribute="top" constant="569" id="Glv-uE-aIT"/>
                             <constraint firstAttribute="trailing" secondItem="21d-RI-s9N" secondAttribute="trailing" id="IQC-lp-Acl"/>
                             <constraint firstItem="10Y-J4-KKA" firstAttribute="top" secondItem="Ycl-iT-hkl" secondAttribute="bottom" id="LkY-eD-1wO"/>
                             <constraint firstItem="vpj-E2-6j1" firstAttribute="top" secondItem="VQN-q0-yMg" secondAttribute="bottom" id="N7h-io-XbF"/>
@@ -114,7 +115,7 @@
                             <constraint firstItem="phC-qo-BrZ" firstAttribute="leading" secondItem="R1J-lO-uSO" secondAttribute="leading" id="aUJ-o7-dOL"/>
                             <constraint firstItem="vpj-E2-6j1" firstAttribute="width" secondItem="R1J-lO-uSO" secondAttribute="height" multiplier="375:667" id="b0m-lQ-wD5"/>
                             <constraint firstItem="vpj-E2-6j1" firstAttribute="leading" secondItem="9VX-ue-fmO" secondAttribute="leading" id="b4B-8Q-fkF"/>
-                            <constraint firstItem="9VX-ue-fmO" firstAttribute="bottom" secondItem="hCu-WY-V54" secondAttribute="bottom" constant="4" id="bSr-Va-tYt"/>
+                            <constraint firstItem="9VX-ue-fmO" firstAttribute="bottom" secondItem="hCu-WY-V54" secondAttribute="bottom" constant="8" id="bSr-Va-tYt"/>
                             <constraint firstAttribute="bottom" secondItem="phC-qo-BrZ" secondAttribute="bottom" id="fMv-Fd-o4N"/>
                             <constraint firstItem="Ycl-iT-hkl" firstAttribute="leading" secondItem="9VX-ue-fmO" secondAttribute="leading" id="j5F-tl-2m7"/>
                             <constraint firstItem="vpj-E2-6j1" firstAttribute="trailing" secondItem="9VX-ue-fmO" secondAttribute="trailing" id="oUp-M4-yZL"/>
@@ -122,10 +123,6 @@
                             <constraint firstItem="10Y-J4-KKA" firstAttribute="top" secondItem="vpj-E2-6j1" secondAttribute="bottom" id="ykr-KU-uuu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9VX-ue-fmO"/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="a3Q-Y6-NzI" appends="YES" id="UDM-XO-SSF"/>
-                            <outletCollection property="gestureRecognizers" destination="h42-zN-8xM" appends="YES" id="cNT-aq-6TN"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="K97-y6-s3d"/>
                     <connections>
@@ -139,16 +136,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y7C-cs-FWe" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="down" id="a3Q-Y6-NzI" userLabel="Swipe down">
-                    <connections>
-                        <action selector="swipeAction:" destination="uBd-xC-erX" id="BxN-fQ-Tfs"/>
-                    </connections>
-                </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="up" id="h42-zN-8xM" userLabel="Swipe up">
-                    <connections>
-                        <action selector="swipeAction:" destination="uBd-xC-erX" id="hB7-Db-kVa"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="704.79999999999995" y="111.99400299850076"/>
         </scene>
@@ -215,4 +202,7 @@
             <point key="canvasLocation" x="-234.40000000000001" y="111.99400299850076"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="PhotoButtonWhite" width="252" height="252"/>
+    </resources>
 </document>

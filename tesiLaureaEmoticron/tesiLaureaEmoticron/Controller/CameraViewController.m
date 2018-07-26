@@ -45,15 +45,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
-    
+
     _faces = [[NSArray<GMVFaceFeature *> alloc]init];
     _stickers = [NSMutableArray new];
     _stickersToPlace = [NSMutableArray new];
     _pictureFrames = [NSMutableArray new];
     _animationIndex = 0;
-    
-    [_photoButton setHidden:NO];
-    [_stickersCollectionView setHidden:YES];
     
     [self fetchStickersUsingJSON];
     // Set up default camera settings.
@@ -720,17 +717,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     _animationIndex++;
 }
 
-- (IBAction)swipeAction:(UISwipeGestureRecognizer *)sender {
-    
-    if(sender.direction == UISwipeGestureRecognizerDirectionUp){
-        [_stickersCollectionView setHidden:NO];
-        [_photoButton setHidden:YES];
-    }else if(sender.direction == UISwipeGestureRecognizerDirectionDown){
-        [_stickersCollectionView setHidden:YES];
-        [_photoButton setHidden:NO];
-    }
-    
-}
 
 
 
