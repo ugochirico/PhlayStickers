@@ -90,46 +90,6 @@
 
 
 
-+ (CGPoint)setAnchorPoint:(CGPoint)anchorPoint forView:(UIView *)view
-{
-    CGPoint newPoint = CGPointMake(view.bounds.size.width * anchorPoint.x, view.bounds.size.height * anchorPoint.y);
-    CGPoint oldPoint = CGPointMake(view.bounds.size.width * view.layer.anchorPoint.x, view.bounds.size.height * view.layer.anchorPoint.y);
-    
-    newPoint = CGPointApplyAffineTransform(newPoint, view.transform);
-    oldPoint = CGPointApplyAffineTransform(oldPoint, view.transform);
-    
-    CGPoint position = view.layer.position;
-    
-    position.x -= oldPoint.x;
-    position.x += newPoint.x;
-    
-    position.y -= oldPoint.y;
-    position.y += newPoint.y;
-    
-    view.layer.position = position;
-    view.layer.anchorPoint = anchorPoint;
-    
-    return anchorPoint;
-}
-
-
-+ (UIImage *)renderViewAsImage: (UIView*) viewToRender
-{
-    // setup context
-    UIGraphicsBeginImageContextWithOptions(viewToRender.bounds.size, NO, 0.0f); // use same scale factor as device
-    CGContextRef c = UIGraphicsGetCurrentContext();
-    
-    // render view
-    [viewToRender.layer renderInContext:c];
-    
-    // get reslting image
-    UIImage *result = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return result;
-}
-
-
-
 + (UIImage*)imageByCombiningImage:(UIImage*)firstImage withImage:(UIImage*)secondImage {
     UIImage *image = nil;
 
@@ -152,9 +112,6 @@
 }
 
 
-
-
-
 + (CIImage *)uiImageToCIImage: (UIImage *)uiImage {
 
     
@@ -166,14 +123,6 @@
 
 }
 
-
-+ (UIImage *)renderImage: (UIView *)view{
-    UIGraphicsBeginImageContext(view.frame.size);
-    [view.layer renderInContext: UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
-}
 
 
 

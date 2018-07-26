@@ -54,7 +54,6 @@
     
 //    [self getStickers];
     [self fetchStickersUsingJSON];
-    [self loadFilters];
     // Set up default camera settings.
     self.session = [[AVCaptureSession alloc] init];
     self.session.sessionPreset = AVCaptureSessionPresetMedium;
@@ -294,18 +293,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         for (UIView *featureView in self.overlayView.subviews) {
             [featureView removeFromSuperview];
         }
-//        self->_placeHolder.image = [DrawingUtility renderViewAsImage:self->_placeHolder];
-//        CIContext *context = [CIContext contextWithOptions: @{kCIContextWorkingColorSpace : @"kCGColorSpaceGenericRGB"}];
-//        [self->_filters[0] setValue:[DrawingUtility uiImageToCIImage: self->_placeHolder.image] forKey:kCIInputImageKey];
-//
-//        CIImage *outputImage = [self->_filters[0] outputImage];
-//
-//        CGImageRef cgimg = [context createCGImage:outputImage fromRect:[outputImage extent]];
-//        UIImage *newImg = [UIImage imageWithCGImage:cgimg];
-//
-//        [self->_placeHolder setImage:newImg];
-//
-//        CGImageRelease(cgimg);
         
         self->_frameOverlay.image = [UIImage imageNamed: self->_pictureFrameToPlace.name];
         if(self->_pictureFrameToPlace.isAnimated)
@@ -597,7 +584,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     //                         yScale:_yScale
     //                         offset:_videoBox.origin];
     CGFloat distanceofStickerFromPivot = stickerView.layer.position.y - pivot.y;
-    //    [stickerView.layer setAnchorPoint:pivot];
     
     stickerView.layer.position = CGPointZero;
     
@@ -739,17 +725,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 }
 
 
--(void)loadFilters{
-    
-    CIImage *lutImage = [CIImage imageWithContentsOfURL: [[NSBundle mainBundle] URLForResource:@"late_sunset" withExtension:@"png"]];
-    CIFilter *newFilter = [CIFilter filterWithName:@"YUCIColorLookup" withInputParameters: @{@"inputColorLookupTable" : lutImage}];
-    
-    [newFilter setValue: @0.8 forKey:kCIInputIntensityKey];
-    [_filters addObject:newFilter];
-//                               withInputParameters:@"inputColorLookupTable"
-//                                                   [CIImage imageWithContentsOfURL: [[UIBundle mainBundle] URLForResource:@"late_sunset" withExtension:@"png"]]]];
-//
-}
+
 
 
 @end

@@ -79,7 +79,6 @@
 -(void) getStickers;
 -(NSMutableArray *)getPositionForStickerToPlace: (Sticker *) stickerToPlace onFace: (GMVFaceFeature *)face inRect: (CGRect)destinationRect;
 -(void)animateStickerView: (UIImageView *)stickerView withStickerToPlace: (Sticker *)stickerToPlace;
--(void)loadFilters;
 
 @end
 
