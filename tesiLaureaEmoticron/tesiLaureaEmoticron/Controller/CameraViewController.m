@@ -160,7 +160,7 @@
                 if(exifAttachments) {
                     metadata = (__bridge NSDictionary*)exifAttachments;
                 }
-                
+
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageSampleBuffer];
                 self->_tmpImage.image = [[UIImage alloc] initWithData:imageData];
                 if(self->_cameraSwitch.isOn)
@@ -185,10 +185,8 @@
                 self->_frameOverlay.image = self->_frameOverlay.image.imageWithHorizontallyFlippedOrientation;
 
                 [self loadPreviewViewController];
-                
-                
-                //                [self performSegueWithIdentifier:@"previewSegue" sender:nil];
-                
+
+                            
             }
         }];
     }
@@ -367,19 +365,18 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     if(face.hasLeftEyePosition && face.hasRightEyePosition){
         
-        CGFloat midEyesPointX;
-        CGFloat x1 = face.leftEyePosition.x, x2 = face.rightEyePosition.x, cosAngleY = cos(radians(face.headEulerAngleY));
+        CGFloat x1 = face.leftEyePosition.x, x2 = face.rightEyePosition.x;
+        CGFloat y1 = face.leftEyePosition.y, y2 = face.rightEyePosition.y;
+        CGFloat cosAngleY = cos(radians(face.headEulerAngleY));
+        CGFloat midEyesPointX = CGRectGetMidX(face.bounds);
+        CGFloat midEyesPointY = (y1 + y2) / 2;
+;
         
-        if(face.hasHeadEulerAngleY){
-            
-            if(face.headEulerAngleY < 0) //verso sinistra
-                midEyesPointX = x1 + (x2-x1)*(cosAngleY)/2;//(x2 - x1)* (cosAngleY) / 2;
-            else if(face.headEulerAngleY > 0) //verso destra
-                midEyesPointX = x1 + (x2-x1)*(1 + (1-cosAngleY)) / 2;
-        }else
-            midEyesPointX = (face.leftEyePosition.x + face.rightEyePosition.x)/2;
-        
-        CGFloat midEyesPointY = (face.leftEyePosition.y + face.rightEyePosition.y) / 2;
+        if(face.headEulerAngleY < 0) //verso sinistra
+            midEyesPointX = x1 + (x2-x1)*(cosAngleY)/2;//(x2 - x1)* (cosAngleY) / 2;
+        else if(face.headEulerAngleY > 0) //verso destra
+            midEyesPointX = x1 + (x2-x1)*(1 + (1-cosAngleY)) / 2;
+    
         
         if(stickerToPlace.type == eye){
             
@@ -503,7 +500,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)setupCameraPreview {
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-    [self.previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
+    [self.previewLayer setBackgroundColor:[[UIColor whiteColor] CGColor]];
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
     if (self.previewLayer.connection.supportsVideoStabilization) {
         self.previewLayer.connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
