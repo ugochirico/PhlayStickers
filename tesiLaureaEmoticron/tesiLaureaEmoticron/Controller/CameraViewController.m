@@ -168,7 +168,7 @@
                 if(self->_cameraSwitch.isOn)
                     self->_tmpImage.image = self->_tmpImage.image.imageFlippedForRightToLeftLayoutDirection;
                 
-                _frameOverlay.image = _frameOverlay.image.imageWithHorizontallyFlippedOrientation;
+                self->_frameOverlay.image = self->_frameOverlay.image.imageWithHorizontallyFlippedOrientation;
 
                 UIGraphicsBeginImageContextWithOptions(self->_overlayView.bounds.size, false, 0);
                 [self->_overlayView drawViewHierarchyInRect:self->_overlayView.bounds afterScreenUpdates:YES];
@@ -184,7 +184,7 @@
                     self->_tmpImage.image = self->_tmpImage.image.imageWithHorizontallyFlippedOrientation;
                 
                 
-                _frameOverlay.image = _frameOverlay.image.imageWithHorizontallyFlippedOrientation;
+                self->_frameOverlay.image = self->_frameOverlay.image.imageWithHorizontallyFlippedOrientation;
 
                 [self loadPreviewViewController];
                 
@@ -612,12 +612,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         CGFloat angle = -radians(face.headEulerAngleZ);
         
-        CGSize displaySize = [[UIScreen mainScreen]bounds].size;
-        CGSize stickerSize = stickerView.bounds.size;
-        
-        //        CATransform3D t1 = CATransform3DTranslate(stickerView.layer.transform, pivot.x * stickerSize.width / displaySize.width/2, pivot.y * stickerSize.height / stickerSize.height/2, 0);
         stickerView.layer.transform = CATransform3DRotate(stickerView.layer.transform, angle, 0, 0, 1);
-        //        stickerView.layer.transform = CATransform3DTranslate(t2, -pivot.x * stickerSize.width / displaySize.width/2, -pivot.y * stickerSize.height / displaySize.height/2, 0);
         
         
         stickerView.contentMode = UIViewContentModeScaleAspectFill;

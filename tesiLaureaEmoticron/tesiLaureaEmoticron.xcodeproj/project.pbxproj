@@ -10,14 +10,11 @@
 		6D2BE0F58220917DD7FCC85B /* Pods_tesiLaureaEmoticron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E10D0AC382A4191BF74591A9 /* Pods_tesiLaureaEmoticron.framework */; };
 		7A8B7CD30657F5FC6D294FF5 /* Pods_tesiLaureaEmoticronTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B53D794346889F736A1F35 /* Pods_tesiLaureaEmoticronTests.framework */; };
 		891C64B920C17C4600188374 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891C64B820C17C4600188374 /* PreviewViewController.m */; };
-		891F9F5A2080DACC0024265E /* CameraViewControllerSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F592080DACB0024265E /* CameraViewControllerSwift.swift */; };
 		891F9F6A2080F7C50024265E /* DrawingUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F692080F7C50024265E /* DrawingUtility.m */; };
 		891F9F6D2080F8930024265E /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F6B2080F8930024265E /* CameraViewController.m */; };
 		891F9F702080FC620024265E /* StickerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F6F2080FC620024265E /* StickerCell.swift */; };
 		891F9F742080FDFC0024265E /* CameraViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */; };
 		892B116A20F8A36A005C8F2B /* late_sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 892B116920F8A36A005C8F2B /* late_sunset.png */; };
-		892C2B9D2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */; };
-		89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */; };
 		897E5FA520F7842900A2D5C7 /* stickerDetails.json in Resources */ = {isa = PBXBuildFile; fileRef = 897E5FA420F7842900A2D5C7 /* stickerDetails.json */; };
 		897E5FA720F78B4700A2D5C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 897E5FA620F78B4700A2D5C7 /* Assets.xcassets */; };
 		89860FD32074F29900491448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89860FD22074F29900491448 /* AppDelegate.swift */; };
@@ -53,7 +50,6 @@
 		65169701865FD79AEF9375C5 /* Pods-tesiLaureaEmoticron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tesiLaureaEmoticron.release.xcconfig"; path = "Pods/Target Support Files/Pods-tesiLaureaEmoticron/Pods-tesiLaureaEmoticron.release.xcconfig"; sourceTree = "<group>"; };
 		891C64B720C17C4600188374 /* PreviewViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		891C64B820C17C4600188374 /* PreviewViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
-		891F9F592080DACB0024265E /* CameraViewControllerSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewControllerSwift.swift; sourceTree = "<group>"; };
 		891F9F672080F7C30024265E /* tesiLaureaEmoticron-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "tesiLaureaEmoticron-Bridging-Header.h"; sourceTree = "<group>"; };
 		891F9F682080F7C40024265E /* DrawingUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingUtility.h; sourceTree = "<group>"; };
 		891F9F692080F7C50024265E /* DrawingUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingUtility.m; sourceTree = "<group>"; };
@@ -62,8 +58,6 @@
 		891F9F6F2080FC620024265E /* StickerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerCell.swift; sourceTree = "<group>"; };
 		891F9F732080FDFC0024265E /* CameraViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerExtension.swift; sourceTree = "<group>"; };
 		892B116920F8A36A005C8F2B /* late_sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = late_sunset.png; sourceTree = "<group>"; };
-		892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewControllerSwiftExtension.swift; sourceTree = "<group>"; };
-		89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameExtractor.swift; sourceTree = "<group>"; };
 		897E5FA420F7842900A2D5C7 /* stickerDetails.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = stickerDetails.json; path = ../../../../../Desktop/JSONS/stickerDetails.json; sourceTree = "<group>"; };
 		897E5FA620F78B4700A2D5C7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89860FCF2074F29900491448 /* tesiLaureaEmoticron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = tesiLaureaEmoticron.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -135,16 +129,6 @@
 				DB52DAABB7517DF2F0D78DFE /* Pods-tesiLaureaEmoticronUITests.release.xcconfig */,
 			);
 			name = Pods;
-			sourceTree = "<group>";
-		};
-		891F9F6E2080F92F0024265E /* Non usati */ = {
-			isa = PBXGroup;
-			children = (
-				892C2B9C2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift */,
-				891F9F592080DACB0024265E /* CameraViewControllerSwift.swift */,
-				89497C0F207DF8F50091CEC8 /* FrameExtractor.swift */,
-			);
-			path = "Non usati";
 			sourceTree = "<group>";
 		};
 		894E793020B6A7C300BAF272 /* Model */ = {
@@ -222,7 +206,6 @@
 				894E793120B6A7F000BAF272 /* View */,
 				894E793220B6A83E00BAF272 /* Controller */,
 				894E793320B6A85900BAF272 /* Extra */,
-				891F9F6E2080F92F0024265E /* Non usati */,
 			);
 			path = tesiLaureaEmoticron;
 			sourceTree = "<group>";
@@ -489,11 +472,8 @@
 			files = (
 				891F9F742080FDFC0024265E /* CameraViewControllerExtension.swift in Sources */,
 				891F9F6A2080F7C50024265E /* DrawingUtility.m in Sources */,
-				89497C10207DF8F50091CEC8 /* FrameExtractor.swift in Sources */,
 				891F9F6D2080F8930024265E /* CameraViewController.m in Sources */,
 				89860FD32074F29900491448 /* AppDelegate.swift in Sources */,
-				892C2B9D2086809F00FEA27E /* CameraViewControllerSwiftExtension.swift in Sources */,
-				891F9F5A2080DACC0024265E /* CameraViewControllerSwift.swift in Sources */,
 				891C64B920C17C4600188374 /* PreviewViewController.m in Sources */,
 				891F9F702080FC620024265E /* StickerCell.swift in Sources */,
 				89D646BB20878922008BBAC5 /* Sticker.m in Sources */,
