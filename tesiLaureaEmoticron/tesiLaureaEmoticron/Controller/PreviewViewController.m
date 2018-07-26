@@ -16,6 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
 }
 
@@ -26,6 +27,12 @@
 - (IBAction)backAction:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)saveAction:(id)sender {
+    UIImageWriteToSavedPhotosAlbum(_imageToView.image, self, nil, nil);
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 /*
 #pragma mark - Navigation

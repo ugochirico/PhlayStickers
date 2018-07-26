@@ -46,6 +46,7 @@
     [super viewDidLoad];
     [self setWhiteBalanceMode:AVCaptureWhiteBalanceModeContinuousAutoWhiteBalance];
     
+    _faces = [[NSArray<GMVFaceFeature *> alloc]init];
     _stickers = [NSMutableArray new];
     _stickersToPlace = [NSMutableArray new];
     _pictureFrames = [NSMutableArray new];
@@ -183,7 +184,6 @@
                     self->_tmpImage.image = self->_tmpImage.image.imageWithHorizontallyFlippedOrientation;
                 
                 
-                UIImageWriteToSavedPhotosAlbum(self->_tmpImage.image, self, nil, nil);
                 _frameOverlay.image = _frameOverlay.image.imageWithHorizontallyFlippedOrientation;
 
                 [self loadPreviewViewController];
@@ -505,7 +505,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
 
 - (void)setupCameraPreview {
     self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];
-    [self.previewLayer setBackgroundColor:[[UIColor whiteColor] CGColor]];
+    [self.previewLayer setBackgroundColor:[[UIColor blackColor] CGColor]];
     [self.previewLayer setVideoGravity:AVLayerVideoGravityResizeAspect];
     if (self.previewLayer.connection.supportsVideoStabilization) {
         self.previewLayer.connection.preferredVideoStabilizationMode = AVCaptureVideoStabilizationModeAuto;
