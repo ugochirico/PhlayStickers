@@ -1,80 +1,106 @@
 {
-
-
+    
+    
     "stickers": [
-        {
-        "name": "moustache",
-        "type": "mouth",
-        "offsetx":  "0",
-        "offsety":  "10",
-        "scalefactor":  "60",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "carnival",
-        "type": "eye",
-        "offsetx":  "0",
-        "offsety":  "-40",
-        "scalefactor":  "60",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "hat",
-        "type": "head",
-        "offsetx":  "0",
-        "offsety":  "10",
-        "scalefactor":  "70",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "hatWithGlasses",
-        "type": "head",
-        "offsetx":  "0",
-        "offsety":  "-70",
-        "scalefactor":  "80",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "cheek",
-        "type": "cheek",
-        "offsetx":  "0",
-        "offsety":  "0",
-        "scalefactor":  "20",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "nose",
-        "type": "nose",
-        "offsetx":  "0",
-        "offsety":  "0",
-        "scalefactor":  "22",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "shades",
-        "type": "eye",
-        "offsetx":  "0",
-        "offsety":  "7",
-        "scalefactor":  "25",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "shadesWithHole",
-        "type": "eye",
-        "offsetx":  "0",
-        "offsety":  "0",
-        "scalefactor":  "35",
-        "isAnimated": "NO"
-        },
-        {
-        "name": "wig",
-        "type": "head",
-        "offsetx":  "0",
-        "offsety":  "10",
-        "scalefactor":  "75",
-        "isAnimated": "NO"
-        }  
-
-
-    ]
+                 {
+                 "name": "moustache",
+                 "type": "mouth",
+                 "offsetx":  "0",
+                 "offsety":  "10",
+                 "scalefactor":  "60",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "carnival",
+                 "type": "eye",
+                 "offsetx":  "0",
+                 "offsety":  "-40",
+                 "scalefactor":  "60",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "hat",
+                 "type": "head",
+                 "offsetx":  "0",
+                 "offsety":  "10",
+                 "scalefactor":  "70",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "hatWithGlasses",
+                 "type": "head",
+                 "offsetx":  "0",
+                 "offsety":  "-70",
+                 "scalefactor":  "80",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "cheek",
+                 "type": "cheek",
+                 "offsetx":  "0",
+                 "offsety":  "0",
+                 "scalefactor":  "20",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "nose",
+                 "type": "nose",
+                 "offsetx":  "0",
+                 "offsety":  "0",
+                 "scalefactor":  "22",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "shades",
+                 "type": "eye",
+                 "offsetx":  "0",
+                 "offsety":  "7",
+                 "scalefactor":  "25",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "shadesWithHole",
+                 "type": "eye",
+                 "offsetx":  "0",
+                 "offsety":  "0",
+                 "scalefactor":  "35",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "wig",
+                 "type": "head",
+                 "offsetx":  "0",
+                 "offsety":  "-40",
+                 "scalefactor":  "75",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 },
+                 {
+                 "name": "hearts_stars",
+                 "type": "pictureFrame",
+                 "offsetx":  "0",
+                 "offsety":  "0",
+                 "scalefactor":  "100",
+                 "isAnimated": "YES",
+                 "nframes":"72"
+                 },
+                 {
+                 "name": "neon",
+                 "type": "pictureFrame",
+                 "offsetx":  "0",
+                 "offsety":  "0",
+                 "scalefactor":  "100",
+                 "isAnimated": "NO",
+                 "nframes":"0"
+                 }
+                 
+                 ]
 }
