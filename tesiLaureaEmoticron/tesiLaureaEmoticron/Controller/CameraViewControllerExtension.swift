@@ -10,12 +10,7 @@ import Foundation
 
 extension CameraViewController: UICollectionViewDelegate, UICollectionViewDataSource{
     
-    
-    public func photoOutput(_ output: AVCapturePhotoOutput, didCapturePhotoFor resolvedSettings: AVCaptureResolvedPhotoSettings) {
-        
-        
-        
-    }
+
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return stickers.count

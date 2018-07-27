@@ -19,8 +19,6 @@
 #import "DrawingUtility.h"
 #import "PreviewViewController.h"
 #import "Sticker.h"
-#import <ImageIO/CGImageProperties.h>
-#include <math.h>
 
 #define radians(angleInDegrees) ((angleInDegrees) * M_PI / 180.0)
 #define degrees(angleInRadians) ((angleInRadians) * 180.0 / M_PI)
@@ -207,24 +205,6 @@
 }
 
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-//
-//    if([segue.identifier isEqualToString:@"previewSegue"]){
-//
-//        PreviewViewController *destination = [segue destinationViewController];
-//        UIImage * image = _tmpImage.image;
-//        //
-//        destination.imageToView.image = _tmpImage.image;
-//        [destination.imageToView setImage: _tmpImage.image];
-//
-//    }
-//
-//
-//}
-
-
-
-
 
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -291,12 +271,17 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         }
         
         self->_frameOverlay.image = [UIImage imageNamed: self->_pictureFrameToPlace.name];
+        
         if(self->_pictureFrameToPlace.isAnimated)
             [self animateStickerView:self->_frameOverlay withStickerToPlace:self->_pictureFrameToPlace];
+        
         // Display detected features in overlay.
         for (GMVFaceFeature *face in self.faces) {
-            //            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
-            //            [DrawingUtility addRectangle:faceRect toView:self->_overlayView withColor:UIColor.greenColor];
+            
+            //*********TEST FACE DETECTOR**********//
+            
+//            CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:self->_xScale yScale:self->_yScale offset:self->_videoBox.origin];
+//            [DrawingUtility addRectangle:faceRect toView:self->_overlayView withColor:UIColor.greenColor];
 //            CGPoint headPoint = CGPointMake(CGRectGetMidX(face.bounds), CGRectGetMinY(face.bounds));
 //            CGPoint midEyesPoint = CGPointMake((face.leftEyePosition.x + face.rightEyePosition.x)/2, (face.leftEyePosition.y + face.rightEyePosition.y)/2);
 //
@@ -568,18 +553,6 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     
     UIImageView *stickerView = [[UIImageView alloc]initWithImage:stickerImage];
     
-        
-    
-    
-    CGRect faceRect = [DrawingUtility scaledRect:face.bounds xScale:_xScale yScale:_yScale offset:_videoBox.origin];
-    
-    CGPoint pivot = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMaxY(faceRect));
-    //    pivot = [DrawingUtility scaledPoint: pivot
-    //                         xScale:_xScale
-    //                         yScale:_yScale
-    //                         offset:_videoBox.origin];
-    CGFloat distanceofStickerFromPivot = stickerView.layer.position.y - pivot.y;
-    
     stickerView.layer.position = CGPointZero;
     
     if(face.hasHeadEulerAngleY){
@@ -592,13 +565,9 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         
         stickerView.contentMode = UIViewContentModeScaleAspectFit;
         
-        //        CGAffineTransform rotationAroundY = CGAffineTransformMake(cos(angle), -sin(angle), sin(angle), cos(angle), 0, 0);
-        
-        
         stickerView.layer.transform = t;
         
-        //        stickerView.image = [DrawingUtility transformImage:stickerView.image with3DTransform:rotationAndPerspectiveTransform];
-        //        stickerView.image = [DrawingUtility rotateAroundZAxis:stickerView.image byAngle: angle withTransform:CATransform3DGetAffineTransform(rotationAndPerspectiveTransform)];
+       
         NSLog(@"******ANGOLO Y = %f******",face.headEulerAngleY);
         
     }
@@ -613,20 +582,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         stickerView.contentMode = UIViewContentModeScaleAspectFill;
         
         NSLog(@"******ANGOLO Z = %f******",face.headEulerAngleZ);
-        //        if(stickerToPlace.type == head){
-        //
-        //            CGPoint midEyesPoint = CGPointMake((face.leftEyePosition.x + face.rightEyePosition.x)/2, (face.leftEyePosition.y + face.rightEyePosition.y)/2);
-        //            midEyesPoint = [DrawingUtility scaledPoint:midEyesPoint
-        //                                                xScale:_xScale
-        //                                                yScale:_yScale
-        //                                                offset:_videoBox.origin];
-        //            CGPoint headPoint = CGPointMake(CGRectGetMidX(faceRect),CGRectGetMinY(faceRect));
-        //            CGFloat distance = sqrt(pow(headPoint.x - midEyesPoint.x,2)+pow(headPoint.y - midEyesPoint.y,2));
-        //            stickerView.layer.position = CGPointMake(distance*cos(angle),distance*sin(angle));
-        //            stickerView.layer.transform = CATransform3DTranslate(stickerView.layer.transform, position.x, position.y, 0);
-        //        }else{
-        //            stickerView.layer.position = position;
-        //        }
+      
     }
     
     stickerView.layer.position = position;
@@ -677,35 +633,7 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
         else
             [self->_stickers addObject:newSticker];
     }
-    
-    //    NSURL *assetsURL = [[NSBundle mainBundle]URLForResource:@"Assets" withExtension:@"xcassets"];
-    //    NSBundle *assetsBundle = [NSBundle bundleWithURL:assetsURL];
-    //    NSArray* dirs = [[NSFileManager defaultManager] contentsOfDirectoryAtPath: assetsURL.absoluteString error:NULL];
-    //
-    //    int i = 0;
-    //
-    //    for(NSString *dir in dirs){
-    //        NSLog(@"%@",assetsURL.absoluteString);
-    //        NSString *path = [assetsBundle pathForResource:@"details" ofType:@"json" inDirectory:dir];
-    //        if(!path) continue;
-    //        NSData *data = [NSData dataWithContentsOfFile:path];
-    //        NSDictionary *stickerDict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    //
-    //        NSString *name = [stickerDict objectForKey:@"name"];
-    //        NSString *type = [stickerDict objectForKey:@"type"];
-    //        float offsetx = [[stickerDict objectForKey:@"offsetx"]floatValue];
-    //        float offsety = [[stickerDict objectForKey:@"offsety"]floatValue];
-    //        float scaleFactor = [[stickerDict objectForKey:@"scalefactor"]floatValue];
-    //        BOOL isAnimated = [[stickerDict objectForKey:@"isAnimated"]boolValue];
-    //
-    //        Sticker *newSticker = [[Sticker alloc]initWithName:name withType:type];
-    //        newSticker.ID = i; i++;
-    //        newSticker.offsetX = offsetx;
-    //        newSticker.offsetY = offsety;
-    //        newSticker.scaleFactor = scaleFactor;
-    //        newSticker.isAnimated = isAnimated;
-    //
-    //        [self->_stickers addObject:newSticker];
+   
     
 }
 

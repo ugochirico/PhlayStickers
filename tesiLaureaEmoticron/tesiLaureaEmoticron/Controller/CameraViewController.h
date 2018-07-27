@@ -15,15 +15,10 @@
  limitations under the License.
  */
 
-@import UIKit;
-@import GoogleMobileVision;
-@import AVFoundation;
 @import CoreImage;
 @import UIKit;
 @import AVFoundation;
 @import GoogleMobileVision;
-@import CoreMedia;
-@import VideoToolbox;
 
 @class Sticker;
 
