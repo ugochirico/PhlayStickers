@@ -24,8 +24,6 @@
 @import GoogleMobileVision;
 @import CoreMedia;
 @import VideoToolbox;
-@import Vivid;
-
 
 @class Sticker;
 
