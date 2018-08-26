@@ -14,9 +14,7 @@
  limitations under the License.
  */
 
-#import "Foundation/Foundation.h"
 #import "DrawingUtility.h"
-#import "CoreImage/CoreImage.h"
 
 @implementation DrawingUtility
 

@@ -15,7 +15,6 @@
  limitations under the License.
  */
 
-@import CoreImage;
 @import UIKit;
 @import AVFoundation;
 @import GoogleMobileVision;

@@ -6,7 +6,7 @@
 //  Copyright © 2018 Alessandro Marotta. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+
 #import "Sticker.h"
 
 @implementation Sticker
